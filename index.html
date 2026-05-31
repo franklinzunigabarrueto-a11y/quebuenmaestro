@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Québuenmaestro! — Directorio de Profesionales de la Construcción</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="#" class="logo">
+        <span class="logo__q">Q</span><span class="logo__rest">bm</span><span class="logo__bang">!</span>
+      </a>
+      <nav class="navbar__nav">
+        <a href="#directorio">Directorio</a>
+        <a href="#especialidades">Especialidades</a>
+        <a href="#integraciones">Integraciones</a>
+        <a href="#">Blog</a>
+      </nav>
+      <div class="navbar__actions">
+        <a href="#registro" class="btn btn--ghost">Ingresar</a>
+        <a href="#registro" class="btn btn--primary">Registra tu empresa</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero__bg-pattern"></div>
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="badge-dot"></span>
+        Base de datos actualizada — Chile
+      </div>
+      <h1 class="hero__title">
+        El directorio de<br />
+        <span class="highlight">profesionales</span><br />
+        de la construcción
+      </h1>
+      <p class="hero__desc">
+        Encuentra ingenieros, arquitectos, constructoras, maestros especializados y más.
+        Filtra por ciudad, especialidad y conéctate directamente.
+      </p>
+
+      <!-- SEARCH BOX -->
+      <div class="hero__search-box">
+        <div class="search-field search-field--text">
+          <svg width="18" height="18" fill="none" stroke="#999" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" id="searchText" placeholder="Nombre, empresa o especialidad..." />
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field search-field--select">
+          <svg width="16" height="16" fill="#E8762A" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <select id="searchCity">
+            <option value="">Todas las ciudades</option>
+            <option>Santiago</option>
+            <option>Talca</option>
+            <option>Concepción</option>
+            <option>Temuco</option>
+            <option>Valparaíso</option>
+            <option>Antofagasta</option>
+            <option>La Serena</option>
+            <option>Puerto Montt</option>
+            <option>Rancagua</option>
+          </select>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field search-field--select">
+          <svg width="16" height="16" fill="none" stroke="#999" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <select id="searchSpecialty">
+            <option value="">Todas las especialidades</option>
+            <option>Ingeniería Civil</option>
+            <option>Arquitectura</option>
+            <option>Constructoras</option>
+            <option>Gasfitería</option>
+            <option>Instalaciones Eléctricas</option>
+            <option>Soldadura</option>
+            <option>Albanilería</option>
+            <option>Pintura</option>
+            <option>Techumbre</option>
+            <option>Instalaciones Sanitarias</option>
+            <option>Paisajismo</option>
+            <option>Climatización</option>
+          </select>
+        </div>
+        <button class="btn btn--search" onclick="applyFilters()">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          Buscar
+        </button>
+      </div>
+
+      <!-- QUICK STATS -->
+      <div class="hero__stats">
+        <div class="stat">
+          <span class="stat__num" data-target="480">0</span>
+          <span class="stat__label">Profesionales</span>
+        </div>
+        <div class="stat__div"></div>
+        <div class="stat">
+          <span class="stat__num" data-target="23">0</span>
+          <span class="stat__label">Ciudades</span>
+        </div>
+        <div class="stat__div"></div>
+        <div class="stat">
+          <span class="stat__num" data-target="12">0</span>
+          <span class="stat__label">Especialidades</span>
+        </div>
+        <div class="stat__div"></div>
+        <div class="stat">
+          <span class="stat__num" data-target="3">0</span>
+          <span class="stat__label">Apps integradas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ESPECIALIDADES ===== -->
+  <section id="especialidades" class="categories">
+    <div class="container">
+      <p class="categories__label">Explora por especialidad</p>
+      <div class="categories__grid" id="categoryChips">
+        <button class="chip chip--active" data-specialty="">Todos</button>
+        <button class="chip" data-specialty="Ingeniería Civil">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Ingeniería Civil
+        </button>
+        <button class="chip" data-specialty="Arquitectura">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M4 20V8l8-6 8 6v12"/></svg>
+          Arquitectura
+        </button>
+        <button class="chip" data-specialty="Constructoras">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+          Constructoras
+        </button>
+        <button class="chip" data-specialty="Gasfitería">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M6 6s-4 4-4 8a10 10 0 0020 0c0-4-4-8-4-8"/></svg>
+          Gasfitería
+        </button>
+        <button class="chip" data-specialty="Instalaciones Eléctricas">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Electricidad
+        </button>
+        <button class="chip" data-specialty="Soldadura">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          Soldadura
+        </button>
+        <button class="chip" data-specialty="Albanilería">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Albanilería
+        </button>
+        <button class="chip" data-specialty="Techumbre">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12L12 3l9 9"/><path d="M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9"/></svg>
+          Techumbre
+        </button>
+        <button class="chip" data-specialty="Instalaciones Sanitarias">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0014 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 01-11.91 4.97"/></svg>
+          Sanitarias
+        </button>
+        <button class="chip" data-specialty="Pintura">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 3H5a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"/><path d="M12 13v8M8 21h8"/></svg>
+          Pintura
+        </button>
+        <button class="chip" data-specialty="Climatización">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg>
+          Climatización
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DIRECTORIO ===== -->
+  <section id="directorio" class="directory">
+    <div class="container">
+      <div class="directory__header">
+        <div>
+          <h2 class="directory__title">Directorio de profesionales</h2>
+          <p class="directory__count" id="resultsCount">Mostrando 12 profesionales</p>
+        </div>
+        <div class="directory__sort">
+          <label for="sortBy">Ordenar por</label>
+          <select id="sortBy" onchange="applyFilters()">
+            <option value="rating">Mayor valoración</option>
+            <option value="name">Nombre A-Z</option>
+            <option value="city">Ciudad</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="pros-grid" id="prosGrid">
+        <!-- Cards rendered by JS -->
+      </div>
+
+      <div class="no-results hidden" id="noResults">
+        <svg width="48" height="48" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <p>No se encontraron profesionales con esos filtros.</p>
+        <button class="btn btn--ghost" onclick="resetFilters()">Limpiar filtros</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTEGRACIONES ===== -->
+  <section id="integraciones" class="integrations">
+    <div class="container">
+      <div class="integrations__inner">
+        <div class="integrations__text">
+          <span class="tag tag--orange">Ecosistema conectado</span>
+          <h2 class="integrations__title">Vincúlate con las apps que ya usas</h2>
+          <p class="integrations__desc">
+            Los perfiles de Québuenmaestro! están diseñados para conectarse con plataformas de gestión,
+            cotización y administración de proyectos. Si un profesional está en nuestro directorio,
+            puedes llamarlo directamente desde tu app.
+          </p>
+          <ul class="integrations__list">
+            <li>
+              <svg width="18" height="18" fill="none" stroke="#E8762A" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              API REST disponible para desarrolladores
+            </li>
+            <li>
+              <svg width="18" height="18" fill="none" stroke="#E8762A" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Perfiles exportables a otros sistemas
+            </li>
+            <li>
+              <svg width="18" height="18" fill="none" stroke="#E8762A" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Filtros por ciudad y especialidad desde cualquier app
+            </li>
+            <li>
+              <svg width="18" height="18" fill="none" stroke="#E8762A" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Verificación de identidad y credenciales
+            </li>
+          </ul>
+          <a href="#" class="btn btn--primary">Ver documentación de integración</a>
+        </div>
+
+        <div class="integrations__apps">
+          <div class="integration-card integration-card--featured">
+            <div class="integration-card__logo">
+              <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#E8762A"/><path d="M8 12h16M8 16h10M8 20h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <p class="integration-card__name">FlowDesk</p>
+              <p class="integration-card__desc">Gestión de proyectos y cotizaciones</p>
+            </div>
+            <span class="integration-badge integration-badge--live">Activo</span>
+          </div>
+          <div class="integration-card">
+            <div class="integration-card__logo integration-card__logo--gray">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#CBD5E1"/><path d="M10 22l6-12 6 12M13 18h6" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <p class="integration-card__name">App Cotizaciones</p>
+              <p class="integration-card__desc">Genera presupuestos automáticos</p>
+            </div>
+            <span class="integration-badge integration-badge--soon">Pronto</span>
+          </div>
+          <div class="integration-card">
+            <div class="integration-card__logo integration-card__logo--gray">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#CBD5E1"/><circle cx="16" cy="16" r="6" stroke="#64748B" stroke-width="2"/><path d="M16 10V8M16 24v-2M22 16h2M8 16H6" stroke="#64748B" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <p class="integration-card__name">Portal Licitaciones</p>
+              <p class="integration-card__desc">Conecta con obras públicas y privadas</p>
+            </div>
+            <span class="integration-badge integration-badge--soon">Pronto</span>
+          </div>
+          <div class="integration-card integration-card--cta">
+            <svg width="24" height="24" fill="none" stroke="#E8762A" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            <p>¿Tienes una app?<br/><strong>Intégrate con nosotros</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REGISTRO PROFESIONAL ===== -->
+  <section id="registro" class="register-cta">
+    <div class="container">
+      <div class="register-cta__inner">
+        <div class="register-cta__text">
+          <h2>¿Eres profesional de la construcción?</h2>
+          <p>Regístra tu perfil o empresa en el directorio. Tus clientes te buscan aquí.</p>
+        </div>
+        <div class="register-cta__steps">
+          <div class="step">
+            <span class="step__num">1</span>
+            <p>Crea tu perfil con especialidades y zona de cobertura</p>
+          </div>
+          <div class="step__arrow">→</div>
+          <div class="step">
+            <span class="step__num">2</span>
+            <p>Verifica tus credenciales y título profesional</p>
+          </div>
+          <div class="step__arrow">→</div>
+          <div class="step">
+            <span class="step__num">3</span>
+            <p>Aparece en búsquedas y recibe contactos directos</p>
+          </div>
+        </div>
+        <a href="#" class="btn btn--primary btn--lg">Registrar mi perfil gratis</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <a href="#" class="logo logo--footer">
+              <span class="logo__q">Q</span><span class="logo__rest">bm</span><span class="logo__bang">!</span>
+            </a>
+            <p>Directorio de profesionales de la construcción en Chile. Conéctate con quienes construyen el país.</p>
+            <div class="footer__social">
+              <a href="#" class="social-btn" aria-label="TikTok">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.35 6.35 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.89a8.27 8.27 0 004.84 1.54V7A4.85 4.85 0 0119.59 6.69z"/></svg>
+              </a>
+              <a href="#" class="social-btn" aria-label="LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+              <a href="#" class="social-btn" aria-label="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="#" class="social-btn" aria-label="Facebook">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="footer__col">
+            <h4>Directorio</h4>
+            <a href="#">Ingenieros y Arquitectos</a>
+            <a href="#">Constructoras</a>
+            <a href="#">Maestros especializados</a>
+            <a href="#">Empresas de servicios</a>
+          </div>
+          <div class="footer__col">
+            <h4>Plataforma</h4>
+            <a href="#">Registrar empresa</a>
+            <a href="#">API e Integraciones</a>
+            <a href="#">FlowDesk</a>
+            <a href="#">Blog</a>
+          </div>
+          <div class="footer__col">
+            <h4>Legal</h4>
+            <a href="#">Quiénes Somos</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Términos y Condiciones</a>
+            <a href="#">Contacto</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>Copyright © 2026 Québuenmaestro! — Todos los derechos reservados</p>
+        <p>contacto@quebuenmaestro.cl &nbsp;·&nbsp; +569 XX XXX XX</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating CTA -->
+  <a href="tel:+569XXXXXXXX" class="floating-btn" aria-label="Contáctanos">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    <span>Hablemos</span>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>

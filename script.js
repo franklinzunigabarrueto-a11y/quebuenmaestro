@@ -80,7 +80,7 @@ let activeSpecialty = "";
 function applyFilters() {
   const text     = document.getElementById("searchText").value.toLowerCase().trim();
   const city     = document.getElementById("searchCity").value;
-  const spec     = document.getElementById("searchSpecialty").value || activeSpecialty;
+  const spec     = activeSpecialty;
   const sortBy   = document.getElementById("sortBy").value;
 
   let results = professionals.filter(p => {
@@ -119,6 +119,7 @@ function resetFilters() {
   activeSpecialty = "";
   document.querySelectorAll(".chip").forEach(c => c.classList.remove("chip--active"));
   document.querySelector(".chip[data-specialty='']").classList.add("chip--active");
+  activeSpecialty = "";
   applyFilters();
 }
 
@@ -131,8 +132,6 @@ document.getElementById("categoryChips").addEventListener("click", e => {
   document.querySelectorAll(".chip").forEach(c => c.classList.remove("chip--active"));
   chip.classList.add("chip--active");
   activeSpecialty = chip.dataset.specialty;
-  // Sync specialty select
-  document.getElementById("searchSpecialty").value = activeSpecialty;
   applyFilters();
   document.getElementById("directorio").scrollIntoView({ behavior: "smooth", block: "start" });
 });

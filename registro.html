@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registra tu perfil — Québuenmaestro!</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body class="registro-page">
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__q">Q</span><span class="logo__rest">bm</span><span class="logo__bang">!</span>
+      </a>
+      <span class="navbar__breadcrumb">Registro de profesional</span>
+      <a href="index.html" class="btn btn--ghost" style="margin-left:auto;">← Volver al directorio</a>
+    </div>
+  </header>
+
+  <main class="reg-layout">
+
+    <!-- SIDEBAR: pasos -->
+    <aside class="reg-sidebar">
+      <div class="reg-sidebar__inner">
+        <h3 class="reg-sidebar__title">Tu perfil en Québuenmaestro!</h3>
+        <p class="reg-sidebar__desc">Completa los 3 pasos para aparecer en el directorio y que tus clientes te encuentren.</p>
+
+        <nav class="reg-steps">
+          <div class="reg-step reg-step--active" data-step="1">
+            <span class="reg-step__num">1</span>
+            <div>
+              <p class="reg-step__label">Quién eres</p>
+              <p class="reg-step__sub">Datos personales y contacto</p>
+            </div>
+          </div>
+          <div class="reg-step" data-step="2">
+            <span class="reg-step__num">2</span>
+            <div>
+              <p class="reg-step__label">Dónde y qué</p>
+              <p class="reg-step__sub">Ciudades y especialidades</p>
+            </div>
+          </div>
+          <div class="reg-step" data-step="3">
+            <span class="reg-step__num">3</span>
+            <div>
+              <p class="reg-step__label">Tu trabajo</p>
+              <p class="reg-step__sub">Descripción y fotos</p>
+            </div>
+          </div>
+        </nav>
+
+        <div class="reg-sidebar__benefits">
+          <p class="reg-sidebar__benefits-title">¿Qué obtienes?</p>
+          <ul>
+            <li><svg width="14" height="14" fill="none" stroke="#E8762A" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Perfil público en el directorio</li>
+            <li><svg width="14" height="14" fill="none" stroke="#E8762A" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Botón de contacto por WhatsApp</li>
+            <li><svg width="14" height="14" fill="none" stroke="#E8762A" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Galería de fotos de tu trabajo</li>
+            <li><svg width="14" height="14" fill="none" stroke="#E8762A" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Filtrable por ciudad y especialidad</li>
+            <li><svg width="14" height="14" fill="none" stroke="#E8762A" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 100% gratis para comenzar</li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
+    <!-- FORM AREA -->
+    <div class="reg-content">
+      <form id="regForm" novalidate>
+
+        <!-- ===== PASO 1 ===== -->
+        <div class="reg-panel active" id="panel-1">
+          <div class="reg-panel__header">
+            <span class="reg-panel__step">Paso 1 de 3</span>
+            <h2 class="reg-panel__title">¿Quién eres?</h2>
+            <p class="reg-panel__desc">Cuéntanos sobre ti o tu empresa para que los clientes te conozcan.</p>
+          </div>
+
+          <!-- Tipo de perfil -->
+          <div class="form-group">
+            <label class="form-label">Tipo de perfil <span class="required">*</span></label>
+            <div class="type-cards">
+              <label class="type-card">
+                <input type="radio" name="tipo" value="individual" checked />
+                <div class="type-card__inner">
+                  <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <strong>Profesional independiente</strong>
+                  <span>Maestro, técnico o profesional que trabaja de forma independiente</span>
+                </div>
+              </label>
+              <label class="type-card">
+                <input type="radio" name="tipo" value="empresa" />
+                <div class="type-card__inner">
+                  <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+                  <strong>Empresa o constructora</strong>
+                  <span>Pyme, empresa de servicios o constructora con equipo de trabajo</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="nombre">Nombre completo / Razón social <span class="required">*</span></label>
+              <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Ej: Jorge Pérez Muñoz" required />
+            </div>
+            <div class="form-group empresa-only hidden">
+              <label class="form-label" for="representante">Nombre del representante</label>
+              <input class="form-input" type="text" id="representante" name="representante" placeholder="Ej: Carlos González" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="rut">RUT <span class="optional">(opcional)</span></label>
+              <input class="form-input" type="text" id="rut" name="rut" placeholder="Ej: 12.345.678-9" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="años">Años de experiencia <span class="required">*</span></label>
+              <input class="form-input" type="number" id="años" name="años" min="1" max="60" placeholder="Ej: 15" required />
+            </div>
+          </div>
+
+          <hr class="form-divider" />
+          <p class="form-section-label">Datos de contacto</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="whatsapp">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp <span class="required">*</span>
+              </label>
+              <div class="input-prefix">
+                <span class="prefix">+56 9</span>
+                <input class="form-input" type="tel" id="whatsapp" name="whatsapp" placeholder="XXXX XXXX" maxlength="9" required />
+              </div>
+              <p class="form-hint">Este número se usará para el botón de contacto directo en tu perfil.</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email <span class="required">*</span></label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="telefono">Teléfono fijo <span class="optional">(opcional)</span></label>
+              <input class="form-input" type="tel" id="telefono" name="telefono" placeholder="Ej: (71) 2 123456" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="web">Sitio web <span class="optional">(opcional)</span></label>
+              <input class="form-input" type="url" id="web" name="web" placeholder="https://miweb.cl" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="instagram">Instagram <span class="optional">(opcional)</span></label>
+              <div class="input-prefix">
+                <span class="prefix">@</span>
+                <input class="form-input" type="text" id="instagram" name="instagram" placeholder="usuario" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="facebook">Facebook <span class="optional">(opcional)</span></label>
+              <input class="form-input" type="text" id="facebook" name="facebook" placeholder="facebook.com/tupagina" />
+            </div>
+          </div>
+
+          <div class="reg-panel__nav">
+            <span></span>
+            <button type="button" class="btn btn--primary" onclick="goToStep(2)">Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- ===== PASO 2 ===== -->
+        <div class="reg-panel" id="panel-2">
+          <div class="reg-panel__header">
+            <span class="reg-panel__step">Paso 2 de 3</span>
+            <h2 class="reg-panel__title">¿Dónde y qué haces?</h2>
+            <p class="reg-panel__desc">Selecciona las ciudades donde trabajas y tus especialidades.</p>
+          </div>
+
+          <!-- CIUDADES -->
+          <div class="form-group">
+            <label class="form-label">Ciudades donde prestas servicio <span class="required">*</span></label>
+            <p class="form-hint">Puedes seleccionar más de una.</p>
+            <div class="checkbox-grid">
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Santiago" /><span>Santiago</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Talca" /><span>Talca</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Concepción" /><span>Concepción</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Temuco" /><span>Temuco</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Valparaíso" /><span>Valparaíso</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="La Serena" /><span>La Serena</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Antofagasta" /><span>Antofagasta</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Puerto Montt" /><span>Puerto Montt</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Rancagua" /><span>Rancagua</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Arica" /><span>Arica</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Iquique" /><span>Iquique</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Chillán" /><span>Chillán</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Osorno" /><span>Osorno</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Punta Arenas" /><span>Punta Arenas</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Coquimbo" /><span>Coquimbo</span></label>
+              <label class="check-item"><input type="checkbox" name="ciudades" value="Curicó" /><span>Curicó</span></label>
+            </div>
+
+            <div class="form-group" style="margin-top:12px;">
+              <label class="form-label" for="otra-ciudad">Otra ciudad</label>
+              <input class="form-input" type="text" id="otra-ciudad" name="otra-ciudad" placeholder="Ingresa otra ciudad..." />
+            </div>
+
+            <label class="check-item check-item--highlight" style="margin-top:12px;">
+              <input type="checkbox" name="viaja" value="si" />
+              <span>Dispuesto/a a viajar a otras ciudades según proyecto</span>
+            </label>
+          </div>
+
+          <hr class="form-divider" />
+
+          <!-- ESPECIALIDAD PRINCIPAL -->
+          <div class="form-group">
+            <label class="form-label" for="especialidad">Especialidad principal <span class="required">*</span></label>
+            <select class="form-input form-select" id="especialidad" name="especialidad" required>
+              <option value="">Selecciona una especialidad...</option>
+              <optgroup label="Ingeniería y Arquitectura">
+                <option>Ingeniería Civil</option>
+                <option>Arquitectura</option>
+                <option>Ingeniería en Construcción</option>
+                <option>Topografía</option>
+              </optgroup>
+              <optgroup label="Construcción">
+                <option>Constructoras</option>
+                <option>Albanilería</option>
+                <option>Hormigón y Moldajes</option>
+                <option>Excavaciones</option>
+              </optgroup>
+              <optgroup label="Instalaciones">
+                <option>Gasfitería</option>
+                <option>Instalaciones Eléctricas</option>
+                <option>Instalaciones Sanitarias</option>
+                <option>Climatización y HVAC</option>
+              </optgroup>
+              <optgroup label="Especialidades">
+                <option>Soldadura</option>
+                <option>Techumbre</option>
+                <option>Pintura</option>
+                <option>Paisajismo</option>
+                <option>Seguridad y Cámaras</option>
+                <option>Ascensores</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- SERVICIOS ESPECÍFICOS -->
+          <div class="form-group">
+            <label class="form-label">Servicios específicos que ofreces <span class="optional">(opcional)</span></label>
+            <p class="form-hint">Selecciona todos los que apliquen.</p>
+            <div class="checkbox-grid checkbox-grid--services">
+              <label class="check-item"><input type="checkbox" name="servicios" value="Proyectos residenciales" /><span>Proyectos residenciales</span></label>
+              <label class="check-item"><input type="checkbox" name="servicios" value="Proyectos comerciales" /><span>Proyectos comerciales</span></label>
+              <label class="check-item"><input type="checkbox" name="servicios" value="Proyectos industriales" /><span>Proyectos industriales</span></label>
+              <label class="check-item"><input type="checkbox" name="servicios" value="Remodelaciones" /><span>Remodelaciones</span></label>
+              <label class="check-item"><input type="checkbox" name="servicios" value="Ampliaciones" /><span>Ampliaciones</span></label>
+              <label class="check-item"><input type="checkbox" name="servicios" value="Mantención" /><span>Mantención</span></label>
+              <label class="check-item"><input type="checkbox" name="servicios" value="Urgencias 24h" /><span>Urgencias 24h</span></label>
+              <label class="check-item"><input type="checkbox" name="servicios" value="Presupuestos gratis" /><span>Presupuestos gratis</span></label>
+              <label class="check-item"><input type="checkbox" name="servicios" value="Inspección técnica" /><span>Inspección técnica</span></label>
+              <label class="check-item"><input type="checkbox" name="servicios" value="Planos y permisos" /><span>Planos y permisos</span></label>
+            </div>
+          </div>
+
+          <!-- CERTIFICACIONES -->
+          <div class="form-group">
+            <label class="form-label" for="certificaciones">Título profesional / Certificaciones <span class="optional">(opcional)</span></label>
+            <input class="form-input" type="text" id="certificaciones" name="certificaciones" placeholder="Ej: Título de Ingeniero Civil — U. de Chile, Cert. SEC" />
+          </div>
+
+          <div class="reg-panel__nav">
+            <button type="button" class="btn btn--ghost" onclick="goToStep(1)">← Anterior</button>
+            <button type="button" class="btn btn--primary" onclick="goToStep(3)">Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- ===== PASO 3 ===== -->
+        <div class="reg-panel" id="panel-3">
+          <div class="reg-panel__header">
+            <span class="reg-panel__step">Paso 3 de 3</span>
+            <h2 class="reg-panel__title">Tu trabajo</h2>
+            <p class="reg-panel__desc">Describe lo que haces y sube fotos de tus proyectos. Las imágenes generan más contactos.</p>
+          </div>
+
+          <!-- DESCRIPCIÓN -->
+          <div class="form-group">
+            <label class="form-label" for="descripcion">Descripción de tus servicios <span class="required">*</span></label>
+            <textarea class="form-input form-textarea" id="descripcion" name="descripcion" rows="5"
+              placeholder="Ej: Soy gasfiter con 12 años de experiencia en instalaciones de agua potable, gas natural y cañerías. Atiendo a domicilio en Talca y alrededores. Trabajo con presupuesto sin costo. Disponible fines de semana..."
+              maxlength="600" required></textarea>
+            <p class="form-hint char-count"><span id="charCount">0</span>/600 caracteres</p>
+          </div>
+
+          <!-- DISPONIBILIDAD -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Horario de atención <span class="optional">(opcional)</span></label>
+              <div class="checkbox-grid">
+                <label class="check-item"><input type="checkbox" name="horario" value="Lunes-Viernes" /><span>Lunes a Viernes</span></label>
+                <label class="check-item"><input type="checkbox" name="horario" value="Sábado" /><span>Sábados</span></label>
+                <label class="check-item"><input type="checkbox" name="horario" value="Domingo" /><span>Domingos</span></label>
+                <label class="check-item"><input type="checkbox" name="horario" value="Urgencias 24h" /><span>Urgencias 24h</span></label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="horario-detalle">Horario específico <span class="optional">(opcional)</span></label>
+              <input class="form-input" type="text" id="horario-detalle" name="horario-detalle" placeholder="Ej: 08:00 – 18:00 hrs" />
+            </div>
+          </div>
+
+          <hr class="form-divider" />
+
+          <!-- FOTOS -->
+          <div class="form-group">
+            <label class="form-label">Fotos de tu trabajo <span class="optional">(hasta 6 fotos)</span></label>
+            <p class="form-hint">Formatos: JPG, PNG, WEBP. Máximo 5MB por foto. Las fotos muestran la calidad de tu trabajo.</p>
+
+            <div class="photo-upload-grid" id="photoGrid">
+              <label class="photo-slot" id="slot-1">
+                <input type="file" accept="image/jpeg,image/png,image/webp" class="photo-input" data-slot="1" />
+                <div class="photo-slot__placeholder">
+                  <svg width="28" height="28" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <span>Agregar foto</span>
+                </div>
+                <img class="photo-preview hidden" alt="preview" />
+                <button type="button" class="photo-remove hidden" data-slot="1">×</button>
+              </label>
+              <label class="photo-slot" id="slot-2">
+                <input type="file" accept="image/jpeg,image/png,image/webp" class="photo-input" data-slot="2" />
+                <div class="photo-slot__placeholder">
+                  <svg width="28" height="28" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <span>Agregar foto</span>
+                </div>
+                <img class="photo-preview hidden" alt="preview" />
+                <button type="button" class="photo-remove hidden" data-slot="2">×</button>
+              </label>
+              <label class="photo-slot" id="slot-3">
+                <input type="file" accept="image/jpeg,image/png,image/webp" class="photo-input" data-slot="3" />
+                <div class="photo-slot__placeholder">
+                  <svg width="28" height="28" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <span>Agregar foto</span>
+                </div>
+                <img class="photo-preview hidden" alt="preview" />
+                <button type="button" class="photo-remove hidden" data-slot="3">×</button>
+              </label>
+              <label class="photo-slot" id="slot-4">
+                <input type="file" accept="image/jpeg,image/png,image/webp" class="photo-input" data-slot="4" />
+                <div class="photo-slot__placeholder">
+                  <svg width="28" height="28" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <span>Agregar foto</span>
+                </div>
+                <img class="photo-preview hidden" alt="preview" />
+                <button type="button" class="photo-remove hidden" data-slot="4">×</button>
+              </label>
+              <label class="photo-slot" id="slot-5">
+                <input type="file" accept="image/jpeg,image/png,image/webp" class="photo-input" data-slot="5" />
+                <div class="photo-slot__placeholder">
+                  <svg width="28" height="28" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <span>Agregar foto</span>
+                </div>
+                <img class="photo-preview hidden" alt="preview" />
+                <button type="button" class="photo-remove hidden" data-slot="5">×</button>
+              </label>
+              <label class="photo-slot" id="slot-6">
+                <input type="file" accept="image/jpeg,image/png,image/webp" class="photo-input" data-slot="6" />
+                <div class="photo-slot__placeholder">
+                  <svg width="28" height="28" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <span>Agregar foto</span>
+                </div>
+                <img class="photo-preview hidden" alt="preview" />
+                <button type="button" class="photo-remove hidden" data-slot="6">×</button>
+              </label>
+            </div>
+          </div>
+
+          <div class="reg-panel__nav">
+            <button type="button" class="btn btn--ghost" onclick="goToStep(2)">← Anterior</button>
+            <button type="submit" class="btn btn--primary btn--lg" id="submitBtn">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Publicar mi perfil gratis
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- ÉXITO -->
+      <div class="reg-success hidden" id="regSuccess">
+        <div class="reg-success__icon">
+          <svg width="48" height="48" fill="none" stroke="#E8762A" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h2>¡Perfil enviado!</h2>
+        <p>Tu perfil está siendo revisado. En 24–48 horas aparecerá en el directorio de Québuenmaestro!</p>
+        <p class="reg-success__preview-note">Mientras tanto, así se verá tu perfil:</p>
+        <a href="perfil.html" class="btn btn--primary btn--lg">Ver mi perfil de ejemplo</a>
+        <a href="index.html" class="btn btn--ghost">Volver al directorio</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="registro.js"></script>
+</body>
+</html>

@@ -2,207 +2,21 @@
 // DATOS: Profesionales de la construcción
 // =============================================
 const professionals = [
-  {
-    id: 1,
-    name: "Rodrigo Fuentes",
-    type: "Ingeniero Civil",
-    specialty: "Ingeniería Civil",
-    city: "Santiago",
-    rating: 5,
-    reviews: 34,
-    verified: true,
-    flowdesk: true,
-    avatar: "https://i.pravatar.cc/100?img=11",
-    description: "Proyectos estructurales y cálculo sísmico",
-  },
-  {
-    id: 2,
-    name: "Construcciones ARC",
-    type: "Empresa constructora",
-    specialty: "Constructoras",
-    city: "Concepción",
-    rating: 5,
-    reviews: 82,
-    verified: true,
-    flowdesk: true,
-    avatar: null,
-    initials: "ARC",
-    description: "Construcción residencial e industrial",
-  },
-  {
-    id: 3,
-    name: "Jorge Pérez",
-    type: "Maestro gasfiter",
-    specialty: "Gasfitería",
-    city: "Talca",
-    rating: 5,
-    reviews: 47,
-    verified: true,
-    flowdesk: true,
-    avatar: "https://i.pravatar.cc/100?img=52",
-    description: "Instalaciones de agua potable y gas",
-  },
-  {
-    id: 4,
-    name: "Ana Vásquez",
-    type: "Arquitecta",
-    specialty: "Arquitectura",
-    city: "Santiago",
-    rating: 5,
-    reviews: 61,
-    verified: true,
-    flowdesk: false,
-    avatar: "https://i.pravatar.cc/100?img=49",
-    description: "Diseño de viviendas y remodelaciones",
-  },
-  {
-    id: 5,
-    name: "Carlos Muñoz",
-    type: "Instalador eléctrico",
-    specialty: "Instalaciones Eléctricas",
-    city: "Valparaíso",
-    rating: 4,
-    reviews: 29,
-    verified: true,
-    flowdesk: false,
-    avatar: "https://i.pravatar.cc/100?img=33",
-    description: "Instalaciones eléctricas residenciales y comerciales",
-  },
-  {
-    id: 6,
-    name: "Ingeniería Sur Ltda.",
-    type: "Empresa de ingeniería",
-    specialty: "Ingeniería Civil",
-    city: "Temuco",
-    rating: 5,
-    reviews: 55,
-    verified: true,
-    flowdesk: true,
-    avatar: null,
-    initials: "IS",
-    description: "Inspección técnica y gestión de obras",
-  },
-  {
-    id: 7,
-    name: "Franco Contreras",
-    type: "Maestro soldador",
-    specialty: "Soldadura",
-    city: "Concepción",
-    rating: 4,
-    reviews: 18,
-    verified: false,
-    flowdesk: false,
-    avatar: "https://i.pravatar.cc/100?img=68",
-    description: "Soldadura MIG, TIG y estructural",
-  },
-  {
-    id: 8,
-    name: "Cristian Valenzuela",
-    type: "Inst. cámaras y seguridad",
-    specialty: "Instalaciones Eléctricas",
-    city: "Santiago",
-    rating: 5,
-    reviews: 41,
-    verified: true,
-    flowdesk: true,
-    avatar: "https://i.pravatar.cc/100?img=57",
-    description: "CCTV, control de acceso y alarmas",
-  },
-  {
-    id: 9,
-    name: "Techo Sur",
-    type: "Empresa de techumbre",
-    specialty: "Techumbre",
-    city: "Puerto Montt",
-    rating: 5,
-    reviews: 23,
-    verified: true,
-    flowdesk: false,
-    avatar: null,
-    initials: "TS",
-    description: "Cubierta metálica, teja y pizarreño",
-  },
-  {
-    id: 10,
-    name: "Luis González",
-    type: "Maestro albanil",
-    specialty: "Albanilería",
-    city: "Talca",
-    rating: 5,
-    reviews: 38,
-    verified: true,
-    flowdesk: true,
-    avatar: "https://i.pravatar.cc/100?img=15",
-    description: "Obras de albanilería y remodelaciones",
-  },
-  {
-    id: 11,
-    name: "Sanitaria Norte",
-    type: "Empresa sanitaria",
-    specialty: "Instalaciones Sanitarias",
-    city: "Antofagasta",
-    rating: 4,
-    reviews: 14,
-    verified: true,
-    flowdesk: false,
-    avatar: null,
-    initials: "SN",
-    description: "Redes de alcantarillado y agua potable",
-  },
-  {
-    id: 12,
-    name: "Marcela Rojas",
-    type: "Arquitecta paisajista",
-    specialty: "Paisajismo",
-    city: "Santiago",
-    rating: 5,
-    reviews: 27,
-    verified: true,
-    flowdesk: false,
-    avatar: "https://i.pravatar.cc/100?img=44",
-    description: "Diseño de jardines y espacios exteriores",
-  },
-  {
-    id: 13,
-    name: "Pinturas Rápidas SPA",
-    type: "Empresa de pintura",
-    specialty: "Pintura",
-    city: "Rancagua",
-    rating: 4,
-    reviews: 33,
-    verified: false,
-    flowdesk: true,
-    avatar: null,
-    initials: "PR",
-    description: "Pintura interior, exterior y anticorrosiva",
-  },
-  {
-    id: 14,
-    name: "Diego Salazar",
-    type: "Técnico en climatización",
-    specialty: "Climatización",
-    city: "La Serena",
-    rating: 5,
-    reviews: 19,
-    verified: true,
-    flowdesk: false,
-    avatar: "https://i.pravatar.cc/100?img=60",
-    description: "Instalación y mantención de sistemas AC",
-  },
-  {
-    id: 15,
-    name: "Constructora Maipo",
-    type: "Constructora",
-    specialty: "Constructoras",
-    city: "Santiago",
-    rating: 5,
-    reviews: 91,
-    verified: true,
-    flowdesk: true,
-    avatar: null,
-    initials: "CM",
-    description: "Proyectos de construcción en altura y viviendas",
-  },
+  { id:1,  name:"Rodrigo Fuentes",      type:"Ingeniero Civil",           specialty:"Ingeniería Civil",          city:"Santiago",    rating:5, reviews:34, verified:true,  avatar:"https://i.pravatar.cc/100?img=11", description:"Proyectos estructurales y cálculo sísmico" },
+  { id:2,  name:"Construcciones ARC",   type:"Empresa constructora",      specialty:"Constructoras",             city:"Concepción",  rating:5, reviews:82, verified:true,  avatar:null, initials:"ARC", description:"Construcción residencial e industrial" },
+  { id:3,  name:"Jorge Pérez",          type:"Maestro gasfiter",          specialty:"Gasfitería",                city:"Talca",       rating:5, reviews:47, verified:true,  avatar:"https://i.pravatar.cc/100?img=52", description:"Instalaciones de agua potable y gas" },
+  { id:4,  name:"Ana Vásquez",          type:"Arquitecta",                specialty:"Arquitectura",              city:"Santiago",    rating:5, reviews:61, verified:true,  avatar:"https://i.pravatar.cc/100?img=49", description:"Diseño de viviendas y remodelaciones" },
+  { id:5,  name:"Carlos Muñoz",         type:"Instalador eléctrico",      specialty:"Instalaciones Eléctricas",  city:"Valparaíso",  rating:4, reviews:29, verified:true,  avatar:"https://i.pravatar.cc/100?img=33", description:"Instalaciones eléctricas residenciales y comerciales" },
+  { id:6,  name:"Ingeniería Sur Ltda.", type:"Empresa de ingeniería",     specialty:"Ingeniería Civil",          city:"Temuco",      rating:5, reviews:55, verified:true,  avatar:null, initials:"IS",  description:"Inspección técnica y gestión de obras" },
+  { id:7,  name:"Franco Contreras",     type:"Maestro soldador",          specialty:"Soldadura",                 city:"Concepción",  rating:4, reviews:18, verified:false, avatar:"https://i.pravatar.cc/100?img=68", description:"Soldadura MIG, TIG y estructural" },
+  { id:8,  name:"Cristian Valenzuela",  type:"Inst. cámaras y seguridad", specialty:"Instalaciones Eléctricas",  city:"Santiago",    rating:5, reviews:41, verified:true,  avatar:"https://i.pravatar.cc/100?img=57", description:"CCTV, control de acceso y alarmas" },
+  { id:9,  name:"Techo Sur",            type:"Empresa de techumbre",      specialty:"Techumbre",                 city:"Puerto Montt",rating:5, reviews:23, verified:true,  avatar:null, initials:"TS",  description:"Cubierta metálica, teja y pizarreño" },
+  { id:10, name:"Luis González",        type:"Maestro albanil",           specialty:"Albanilería",               city:"Talca",       rating:5, reviews:38, verified:true,  avatar:"https://i.pravatar.cc/100?img=15", description:"Obras de albanilería y remodelaciones" },
+  { id:11, name:"Sanitaria Norte",      type:"Empresa sanitaria",         specialty:"Instalaciones Sanitarias",  city:"Antofagasta", rating:4, reviews:14, verified:true,  avatar:null, initials:"SN",  description:"Redes de alcantarillado y agua potable" },
+  { id:12, name:"Marcela Rojas",        type:"Arquitecta paisajista",     specialty:"Paisajismo",                city:"Santiago",    rating:5, reviews:27, verified:true,  avatar:"https://i.pravatar.cc/100?img=44", description:"Diseño de jardines y espacios exteriores" },
+  { id:13, name:"Pinturas Rápidas SPA", type:"Empresa de pintura",        specialty:"Pintura",                   city:"Rancagua",    rating:4, reviews:33, verified:false, avatar:null, initials:"PR",  description:"Pintura interior, exterior y anticorrosiva" },
+  { id:14, name:"Diego Salazar",        type:"Técnico en climatización",  specialty:"Climatización",             city:"La Serena",   rating:5, reviews:19, verified:true,  avatar:"https://i.pravatar.cc/100?img=60", description:"Instalación y mantención de sistemas AC" },
+  { id:15, name:"Constructora Maipo",   type:"Constructora",              specialty:"Constructoras",             city:"Santiago",    rating:5, reviews:91, verified:true,  avatar:null, initials:"CM",  description:"Proyectos de construcción en altura y viviendas" },
 ];
 
 // =============================================
@@ -214,12 +28,7 @@ function renderCard(p) {
     ? `<img src="${p.avatar}" alt="${p.name}" loading="lazy" />`
     : `<div class="pro-card__avatar--initials" style="width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:#E8762A;background:#FDF0E6;">${p.initials}</div>`;
 
-  const flowdeskBadge = p.flowdesk
-    ? `<span class="pro-card__flowdesk">
-        <svg width="12" height="12" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#E8762A"/><path d="M7 10h18M7 16h12M7 22h14" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
-        FlowDesk
-      </span>`
-    : `<span></span>`;
+  const flowdeskBadge = `<span></span>`;
 
   const verifiedBadge = p.verified
     ? `<span class="pro-card__verified">
@@ -256,11 +65,8 @@ function renderCard(p) {
       </div>
 
       <div class="pro-card__footer">
-        ${flowdeskBadge}
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span class="pro-card__stars" title="${p.rating}/5 — ${p.reviews} reseñas">${stars}</span>
-          <a href="#" class="btn--card">Ver perfil</a>
-        </div>
+        <span class="pro-card__stars" title="${p.rating}/5 — ${p.reviews} reseñas">${stars} <small style="color:#999;font-size:.75rem;font-style:normal;">(${p.reviews})</small></span>
+        <a href="perfil.html" class="btn--card">Ver perfil</a>
       </div>
     </div>
   `;

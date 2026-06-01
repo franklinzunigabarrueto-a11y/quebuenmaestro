@@ -57,20 +57,9 @@ button { cursor: pointer; }
 /* =============================================
    LOGO
 ============================================= */
-.logo {
-  display: inline-flex; align-items: center; gap: 2px;
-  font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; line-height: 1;
-}
-.logo__q {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 38px; height: 38px; background: var(--orange); color: var(--white);
-  border-radius: 50%; font-size: 1.3rem; margin-right: 2px;
-}
-.logo__rest { color: var(--dark); font-size: 1.5rem; }
-.logo__bang { color: var(--dark); font-size: 1.7rem; }
-.logo--footer .logo__q { width: 34px; height: 34px; font-size: 1.15rem; }
-.logo--footer .logo__rest { font-size: 1.3rem; }
-.logo--footer .logo__bang { font-size: 1.5rem; }
+.logo-link { display: inline-flex; align-items: center; flex-shrink: 0; }
+.logo-img { height: 36px; width: auto; display: block; }
+.logo-img--footer { height: 30px; }
 
 /* =============================================
    NAVBAR
@@ -434,8 +423,6 @@ button { cursor: pointer; }
 .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
 .footer__brand { display: flex; flex-direction: column; gap: 16px; }
 .footer__brand p { font-size: 0.88rem; line-height: 1.65; max-width: 260px; color: var(--gray); }
-.footer__brand .logo__q { background: var(--orange); }
-.footer__brand .logo__rest, .footer__brand .logo__bang { color: var(--dark); }
 
 .footer__social { display: flex; gap: 10px; }
 .social-btn {

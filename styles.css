@@ -219,7 +219,7 @@ button { cursor: pointer; }
 }
 .btn--hero.painted {
   color: var(--white);
-  box-shadow: 0 4px 18px rgba(232,118,42,.5);
+  box-shadow: none;
   animation: none;
   transform: rotate(0deg);
 }

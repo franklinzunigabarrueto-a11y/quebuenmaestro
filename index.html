@@ -354,12 +354,12 @@
 
         straightenSmoothly(() => {
           t1 = setTimeout(() => {
-          brush.style.cssText = 'opacity:1; left:-80px; transition:none;';
+          brush.style.cssText = 'opacity:1; left:-100px; transition:none;';
           btn.classList.add('painting');
 
           requestAnimationFrame(() => requestAnimationFrame(() => {
             brush.style.transition = 'left 0.65s linear';
-            brush.style.left = (btn.offsetWidth + 30) + 'px';
+            brush.style.left = (btn.offsetWidth + 40) + 'px';
           }));
 
           t2 = setTimeout(() => {

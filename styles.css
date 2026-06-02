@@ -240,13 +240,13 @@ button { cursor: pointer; }
   transition: none;
 }
 .hero-btn-wrapper .brush {
-  position: absolute; top: 50%; left: -80px;
-  transform: translateY(-55%) rotate(90deg);
+  position: absolute; top: 50%; left: -100px;
+  transform: translateY(-60%) rotate(-45deg);
   z-index: 20; pointer-events: none; opacity: 0;
-  filter: drop-shadow(1px 2px 4px rgba(0,0,0,0.3));
+  filter: drop-shadow(1px 3px 5px rgba(0,0,0,0.25));
 }
 .hero-btn-wrapper .brush img {
-  width: 70px; height: auto; display: block;
+  width: 90px; height: auto; display: block;
 }
 
 /* Estados JS */

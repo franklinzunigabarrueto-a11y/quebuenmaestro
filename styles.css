@@ -122,13 +122,13 @@ button { cursor: pointer; }
 ============================================= */
 .hero {
   position: relative; min-height: 360px;
-  background: #DDDBD8;
+  background: #ffffff;
   display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
 .hero__worker {
   position: absolute; top: 0; height: 100%; width: 30%;
   object-fit: cover; object-position: top center;
-  filter: grayscale(15%) brightness(0.88);
+  filter: none;
   pointer-events: none;
 }
 .hero__worker--left  { left: 0;  object-position: top right; }

@@ -47,12 +47,12 @@ body::after {
 body::before {
   top: 0;
   height: 80px;
-  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 60%, transparent 100%);
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.5) 60%, rgba(255,255,255,0.15) 85%, transparent 100%);
 }
 body::after {
   bottom: 0;
   height: 240px;
-  background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.5) 60%, rgba(255,255,255,0.15) 85%, transparent 100%);
 }
 html { scroll-behavior: smooth; }
 body { font-family: 'Glacial Indifference', sans-serif; color: var(--dark); background: var(--white); line-height: 1.6; overflow-x: hidden; }

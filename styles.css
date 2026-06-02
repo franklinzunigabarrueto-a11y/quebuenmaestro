@@ -236,18 +236,8 @@ button { cursor: pointer; }
   position: absolute; inset: 0;
   background: rgba(35, 10, 0, 0.52);
   z-index: 3; pointer-events: none;
-  opacity: 1; transition: none;
-}
-.btn--hero .screw-el {
-  position: absolute;
-  top: calc(50% - 9px); left: 12px;
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  background-image: url('tornillo.png');
-  background-size: cover; background-position: center;
-  opacity: 0; transform: rotate(1080deg);
-  z-index: 6; pointer-events: none;
-  transition: opacity 0.15s ease, transform 0s 0.15s;
+  clip-path: inset(0 0 0 0);
+  transition: none;
 }
 .hero-btn-wrapper .brush {
   position: absolute; top: 50%; left: -80px;
@@ -265,14 +255,30 @@ button { cursor: pointer; }
   transition: transform 1s ease-out, box-shadow .3s ease;
 }
 .btn--hero.painting .vivid-layer {
-  opacity: 0;
-  transition: opacity 0.65s linear;
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 0.65s linear;
 }
-.btn--hero.painted .vivid-layer { opacity: 0; }
+.btn--hero.painted .vivid-layer { clip-path: inset(0 0 0 100%); }
+
 .btn--hero.painting .crack-overlay {
   opacity: 0; transition: opacity 0.3s ease 0.3s;
 }
 .btn--hero.painted .crack-overlay { opacity: 0; }
+
+.btn--hero .screw-el {
+  position: absolute;
+  top: calc(50% - 9px);
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background-image: url('tornillo.png');
+  background-size: cover; background-position: center;
+  opacity: 0; transform: rotate(1080deg);
+  z-index: 6; pointer-events: none;
+  transition: opacity 0.15s ease, transform 0s 0.15s;
+}
+.btn--hero .screw-el--left  { left: 12px; }
+.btn--hero .screw-el--right { right: 12px; }
+
 .btn--hero.screwing .screw-el {
   opacity: 1; transform: rotate(0deg);
   transition: opacity 0.5s ease, transform 2.2s linear;

@@ -75,7 +75,8 @@
           <span class="btn-text">Catálogo de Especialistas</span>
           <span class="crack-overlay"></span>
           <span class="vivid-layer"></span>
-          <span class="screw-el"></span>
+          <span class="screw-el screw-el--left"></span>
+          <span class="screw-el screw-el--right"></span>
         </a>
         <span class="brush" id="heroBrush"><img src="brocha.png" alt="" /></span>
       </div>
@@ -330,19 +331,19 @@
         brush.style.left = '-80px';
         const vivid = btn.querySelector('.vivid-layer');
         vivid.style.transition = 'none';
-        vivid.style.opacity = '1';
-        const screw = btn.querySelector('.screw-el');
-        screw.style.transition = 'none';
-        screw.style.opacity = '0';
-        screw.style.transform = 'rotate(1080deg)';
+        vivid.style.clipPath = 'inset(0 0 0 0)';
+        btn.querySelectorAll('.screw-el').forEach(el => {
+          el.style.transition = 'none';
+          el.style.opacity = '0';
+          el.style.transform = 'rotate(1080deg)';
+        });
       }
 
       function markPainted() {
         isPainted = true;
         btn.classList.add('painted');
-        // Limpiar estilos inline para que el CSS de .painted tome control
         btn.querySelector('.vivid-layer').style.cssText = '';
-        btn.querySelector('.screw-el').style.cssText = '';
+        btn.querySelectorAll('.screw-el').forEach(el => el.style.cssText = '');
       }
 
       btn.addEventListener('mouseenter', () => {

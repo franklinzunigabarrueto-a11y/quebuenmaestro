@@ -205,11 +205,11 @@ button { cursor: pointer; }
 
 .btn--hero {
   position: relative;
-  background: #7a3d14;
-  color: rgba(255,255,255,0.75);
+  background: var(--orange);
+  color: rgba(255,255,255,0.72);
   padding: 15px 48px; font-size: 1rem; font-weight: 600;
   border-radius: var(--radius-pill);
-  box-shadow: 0 4px 14px rgba(80,30,0,0.35);
+  box-shadow: 0 4px 18px rgba(232,118,42,.35);
   display: inline-block;
   transform-origin: top right;
   animation: balanceo 5s ease-in-out infinite;
@@ -218,9 +218,8 @@ button { cursor: pointer; }
   transition: box-shadow .3s ease;
 }
 .btn--hero.painted {
-  background: var(--orange);
   color: var(--white);
-  box-shadow: 0 4px 18px rgba(232,118,42,.45);
+  box-shadow: 0 4px 18px rgba(232,118,42,.5);
   animation: none;
   transform: rotate(0deg);
 }
@@ -235,9 +234,9 @@ button { cursor: pointer; }
 }
 .btn--hero .vivid-layer {
   position: absolute; inset: 0;
-  background: var(--orange);
-  clip-path: inset(0 100% 0 0 round 100px);
+  background: rgba(35, 10, 0, 0.52);
   z-index: 3; pointer-events: none;
+  opacity: 1; transition: none;
 }
 .btn--hero .screw-el {
   position: absolute;
@@ -266,12 +265,14 @@ button { cursor: pointer; }
   transition: transform 1s ease-out, box-shadow .3s ease;
 }
 .btn--hero.painting .vivid-layer {
-  clip-path: inset(0 0% 0 0 round 100px);
-  transition: clip-path 0.65s linear;
+  opacity: 0;
+  transition: opacity 0.65s linear;
 }
+.btn--hero.painted .vivid-layer { opacity: 0; }
 .btn--hero.painting .crack-overlay {
-  opacity: 0; transition: opacity 0.3s ease 0.4s;
+  opacity: 0; transition: opacity 0.3s ease 0.3s;
 }
+.btn--hero.painted .crack-overlay { opacity: 0; }
 .btn--hero.screwing .screw-el {
   opacity: 1; transform: rotate(0deg);
   transition: opacity 0.5s ease, transform 2.2s linear;

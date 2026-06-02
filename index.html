@@ -320,33 +320,39 @@
       const brush = document.getElementById('heroBrush');
       if (!btn || !brush) return;
 
+      const vivid = btn.querySelector('.vivid-layer');
+      const crack = btn.querySelector('.crack-overlay');
+      const screws = btn.querySelectorAll('.screw-el');
+
       let t1, t2, t3;
       let isPainted = false;
 
       function resetBtn() {
         clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
         btn.classList.remove('straightening', 'painting', 'screwing');
-        brush.style.transition = 'none';
-        brush.style.opacity = '0';
-        brush.style.left = '-80px';
-        const vivid = btn.querySelector('.vivid-layer');
-        vivid.style.transition = 'none';
-        vivid.style.clipPath = 'inset(0 0 0 0)';
-        btn.querySelectorAll('.screw-el').forEach(el => {
-          el.style.transition = 'none';
-          el.style.opacity = '0';
-          el.style.transform = 'rotate(1080deg)';
+
+        brush.style.cssText = 'opacity:0; left:-80px; transition:none;';
+        vivid.style.cssText = 'clip-path:inset(0 0 0 0); transition:none;';
+        crack.style.cssText = 'opacity:1; transition:none;';
+        screws.forEach(el => {
+          el.style.cssText = 'opacity:0; transform:rotate(1080deg); transition:none;';
         });
       }
 
       function markPainted() {
         isPainted = true;
+
+        // Fijar estado pintado con estilos inline (máxima prioridad)
         btn.classList.remove('straightening', 'painting', 'screwing');
-        btn.classList.add('painted');
-        btn.querySelector('.vivid-layer').style.cssText = '';
-        btn.querySelector('.crack-overlay').style.cssText = '';
-        btn.querySelectorAll('.screw-el').forEach(el => el.style.cssText = '');
-        brush.style.cssText = '';
+        btn.style.animation = 'none';
+        btn.style.transform = 'rotate(0deg)';
+
+        vivid.style.cssText = 'clip-path:inset(0 0 0 100%); transition:none;';
+        crack.style.cssText = 'opacity:0; transition:none;';
+        screws.forEach(el => {
+          el.style.cssText = 'opacity:1; transform:rotate(0deg); transition:none;';
+        });
+        brush.style.cssText = 'opacity:0;';
       }
 
       btn.addEventListener('mouseenter', () => {
@@ -356,9 +362,7 @@
         btn.classList.add('straightening');
 
         t1 = setTimeout(() => {
-          brush.style.transition = 'none';
-          brush.style.left = '-80px';
-          brush.style.opacity = '1';
+          brush.style.cssText = 'opacity:1; left:-80px; transition:none;';
           btn.classList.add('painting');
 
           requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -369,7 +373,6 @@
           t2 = setTimeout(() => {
             brush.style.opacity = '0';
             btn.classList.add('screwing');
-
             t3 = setTimeout(markPainted, 2700);
           }, 700);
         }, 1000);

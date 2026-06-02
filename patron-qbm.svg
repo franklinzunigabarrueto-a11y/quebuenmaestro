@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="1000" height="600">
+  <style>
+    text { font-family: 'Glacial Indifference', sans-serif; font-weight: 400; }
+  </style>
+
+  <!-- Instancias naranjas grandes -->
+  <text x="120" y="155" font-size="78" fill="#E8762A" opacity="0.13">Qbm!</text>
+  <text x="430" y="320" font-size="72" fill="#E8762A" opacity="0.13">Qbm!</text>
+  <text x="730" y="185" font-size="76" fill="#E8762A" opacity="0.12">Qbm!</text>
+  <text x="30"  y="490" font-size="80" fill="#E8762A" opacity="0.12">Qbm!</text>
+  <text x="770" y="510" font-size="68" fill="#E8762A" opacity="0.13">Qbm!</text>
+  <text x="450" y="580" font-size="70" fill="#E8762A" opacity="0.11">Qbm!</text>
+
+  <!-- Instancias naranjas pequeñas -->
+  <text x="25"  y="68"  font-size="28" fill="#E8762A" opacity="0.16">Qbm!</text>
+  <text x="475" y="215" font-size="30" fill="#E8762A" opacity="0.15">Qbm!</text>
+  <text x="830" y="255" font-size="26" fill="#E8762A" opacity="0.15">Qbm!</text>
+  <text x="610" y="468" font-size="29" fill="#E8762A" opacity="0.14">Qbm!</text>
+  <text x="340" y="525" font-size="25" fill="#E8762A" opacity="0.14">Qbm!</text>
+  <text x="930" y="75"  font-size="27" fill="#E8762A" opacity="0.13">Qbm!</text>
+  <text x="200" y="420" font-size="24" fill="#E8762A" opacity="0.13">Qbm!</text>
+  <text x="710" y="390" font-size="27" fill="#E8762A" opacity="0.13">Qbm!</text>
+
+  <!-- Instancias grises grandes -->
+  <text x="810" y="400" font-size="50" fill="#b0b0b0" opacity="0.18">Qbm!</text>
+  <text x="0"   y="305" font-size="44" fill="#b0b0b0" opacity="0.16">Qbm!</text>
+  <text x="570" y="568" font-size="38" fill="#b0b0b0" opacity="0.15">Qbm!</text>
+  <text x="280" y="440" font-size="32" fill="#b0b0b0" opacity="0.16">Qbm!</text>
+  <text x="490" y="82"  font-size="60" fill="#b0b0b0" opacity="0.14">Qbm!</text>
+  <text x="870" y="155" font-size="42" fill="#b0b0b0" opacity="0.14">Qbm!</text>
+
+  <!-- Signos ! solos en gris -->
+  <text x="400" y="195" font-size="32" fill="#b0b0b0" opacity="0.22">!</text>
+  <text x="670" y="118" font-size="40" fill="#b0b0b0" opacity="0.18">!</text>
+  <text x="890" y="460" font-size="34" fill="#b0b0b0" opacity="0.18">!</text>
+  <text x="155" y="278" font-size="28" fill="#b0b0b0" opacity="0.20">!</text>
+</svg>

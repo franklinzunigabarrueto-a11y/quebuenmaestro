@@ -348,8 +348,8 @@ button { cursor: pointer; }
 .directory::before {
   content: '';
   position: absolute; inset: 0;
-  background: url('patron.png') center/40% auto repeat;
-  opacity: 0.3;
+  background: url('patron-qbm.svg') center/cover no-repeat;
+  opacity: 0.55;
   pointer-events: none;
   z-index: 0;
 }

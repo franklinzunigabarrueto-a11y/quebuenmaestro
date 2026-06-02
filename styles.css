@@ -234,7 +234,7 @@ button { cursor: pointer; }
 }
 .btn--hero .vivid-layer {
   position: absolute; inset: 0;
-  background: url('textura-cemento.png') center/cover no-repeat;
+  background: url('textura-madera.png') center/cover no-repeat;
   z-index: 3; pointer-events: none;
   clip-path: inset(0 0 0 0);
   transition: none;

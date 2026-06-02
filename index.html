@@ -328,13 +328,32 @@
         brush.style.cssText = 'opacity:0;';
       }
 
+      function straightenSmoothly(onDone) {
+        // Captura el ángulo exacto del botón en este momento
+        const matrix = new DOMMatrixReadOnly(getComputedStyle(btn).transform);
+        const currentAngle = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI);
+
+        // Detiene la animación y fija el ángulo actual como punto de partida
+        btn.style.animation = 'none';
+        btn.style.transform = `rotate(${currentAngle}deg)`;
+        btn.style.transition = 'none';
+
+        // Fuerza reflow para que el browser registre el cambio
+        void btn.offsetWidth;
+
+        // Ahora transiciona suavemente hasta 0°
+        btn.style.transition = 'transform 1.4s cubic-bezier(0.34, 1.1, 0.64, 1)';
+        btn.style.transform = 'rotate(0deg)';
+
+        setTimeout(onDone, 1400);
+      }
+
       btn.addEventListener('mouseenter', () => {
         if (isPainted) return;
         clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
 
-        btn.classList.add('straightening');
-
-        t1 = setTimeout(() => {
+        straightenSmoothly(() => {
+          t1 = setTimeout(() => {
           brush.style.cssText = 'opacity:1; left:-80px; transition:none;';
           btn.classList.add('painting');
 
@@ -344,11 +363,12 @@
           }));
 
           t2 = setTimeout(() => {
-            brush.style.opacity = '0';
-            btn.classList.add('screwing');
-            t3 = setTimeout(markPainted, 2700);
-          }, 700);
-        }, 1000);
+              brush.style.opacity = '0';
+              btn.classList.add('screwing');
+              t3 = setTimeout(markPainted, 2700);
+            }, 700);
+          }, 0);
+        });
       });
 
       btn.addEventListener('mouseleave', () => {

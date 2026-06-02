@@ -250,10 +250,6 @@ button { cursor: pointer; }
 }
 
 /* Estados JS */
-.btn--hero.straightening {
-  animation: none; transform: rotate(0deg);
-  transition: transform 1s ease-out, box-shadow .3s ease;
-}
 .btn--hero.painting .vivid-layer {
   clip-path: inset(0 0 0 100%);
   transition: clip-path 0.65s linear;

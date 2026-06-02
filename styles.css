@@ -251,7 +251,13 @@ button { cursor: pointer; }
 }
 
 /* Estados JS */
-.btn--hero.painted .vivid-layer { clip-path: inset(0 0 0 100%); }
+.btn--hero .paint-layer {
+  position: absolute; inset: 0;
+  background: var(--orange);
+  z-index: 7; pointer-events: none;
+  clip-path: inset(0 100% 0 0 round 6px);
+  transition: none;
+}
 
 .btn--hero.painting .crack-overlay {
   opacity: 0; transition: opacity 0.3s ease 0.3s;

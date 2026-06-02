@@ -79,6 +79,7 @@
           <span class="vivid-layer"></span>
           <span class="screw-el screw-el--left"></span>
           <span class="screw-el screw-el--right"></span>
+          <span class="paint-layer"></span>
         </a>
         <span class="brush" id="heroBrush"><img src="brocha.png" alt="" /></span>
       </div>
@@ -296,9 +297,10 @@
       const brush = document.getElementById('heroBrush');
       if (!btn || !brush) return;
 
-      const vivid = btn.querySelector('.vivid-layer');
-      const crack = btn.querySelector('.crack-overlay');
-      const screws = btn.querySelectorAll('.screw-el');
+      const vivid      = btn.querySelector('.vivid-layer');
+      const crack      = btn.querySelector('.crack-overlay');
+      const screws     = btn.querySelectorAll('.screw-el');
+      const paintLayer = btn.querySelector('.paint-layer');
 
       let t1, t2, t3, t4;
       let isPainted = false;
@@ -306,87 +308,78 @@
       function resetBtn() {
         clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
         btn.classList.remove('straightening', 'painting', 'screwing');
-
-        // Limpiar inline styles para que el CSS base tome control
         brush.style.cssText = '';
         vivid.style.cssText = '';
         crack.style.cssText = '';
         screws.forEach(el => el.style.cssText = '');
+        paintLayer.style.cssText = '';
       }
 
       function markPainted() {
         isPainted = true;
-
         btn.classList.remove('straightening', 'painting', 'screwing');
-        btn.style.animation = 'none';
-        btn.style.transform = 'rotate(0deg)';
+        btn.style.animation  = 'none';
+        btn.style.transform  = 'rotate(0deg)';
         btn.style.transition = 'transform .2s ease, box-shadow .2s ease';
-
-        vivid.style.cssText = 'clip-path:inset(0 0 0 100% round 6px); transition:none;';
-        crack.style.cssText = 'opacity:0; transition:none;';
-        screws.forEach(el => {
-          el.style.cssText = 'opacity:1; transform:rotate(0deg); transition:none;';
-        });
+        // Fija capa de pintura visible y oculta todo lo demás
+        paintLayer.style.cssText = 'clip-path:inset(0 0% 0 0 round 6px); transition:none;';
+        screws.forEach(el => el.style.cssText = 'opacity:0; transition:none;');
         brush.style.cssText = 'opacity:0;';
+        crack.style.cssText = 'opacity:0; transition:none;';
       }
 
       function straightenSmoothly(onDone) {
-        // Captura el ángulo exacto del botón en este momento
         const matrix = new DOMMatrixReadOnly(getComputedStyle(btn).transform);
         const currentAngle = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI);
-
-        // Detiene la animación y fija el ángulo actual como punto de partida
-        btn.style.animation = 'none';
-        btn.style.transform = `rotate(${currentAngle}deg)`;
+        btn.style.animation  = 'none';
+        btn.style.transform  = `rotate(${currentAngle}deg)`;
         btn.style.transition = 'none';
-
-        // Fuerza reflow para que el browser registre el cambio
         void btn.offsetWidth;
-
-        // Ahora transiciona suavemente hasta 0°
         btn.style.transition = 'transform 1.4s cubic-bezier(0.34, 1.1, 0.64, 1)';
-        btn.style.transform = 'rotate(0deg)';
-
+        btn.style.transform  = 'rotate(0deg)';
         setTimeout(onDone, 1400);
       }
 
       btn.addEventListener('mouseenter', () => {
         if (isPainted) {
-          btn.style.transform = 'translateY(-2px)';
-          btn.style.boxShadow = '0 6px 20px rgba(232,118,42,.45)';
+          btn.style.transform  = 'translateY(-2px)';
+          btn.style.boxShadow  = '0 6px 20px rgba(232,118,42,.45)';
           return;
         }
-        clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
+        clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
 
         straightenSmoothly(() => {
+          // FASE 1 – tornillos aparecen y giran
           t1 = setTimeout(() => {
-            const W = btn.offsetWidth;
-            const totalTravel = W + 140; // desde -100px hasta W+40px
-            const totalDuration = 1.1;
-            const preButtonMs = (100 / totalTravel) * totalDuration * 1000;
-            const acrossDuration = (W / totalTravel) * totalDuration;
+            btn.classList.add('screwing');
 
-            brush.style.cssText = 'opacity:1; left:-100px; transition:none;';
-            // Override la transición del CSS para controlarla desde JS
-            vivid.style.cssText = 'clip-path:inset(0 0 0 0% round 6px); transition:none;';
-            btn.classList.add('painting'); // activa fade del crack-overlay
+            // FASE 2 – brocha pinta encima de los tornillos
+            t2 = setTimeout(() => {
+              const W            = btn.offsetWidth;
+              const totalTravel  = W + 140;
+              const totalDur     = 1.0;
+              const preButtonMs  = (100 / totalTravel) * totalDur * 1000;
+              const acrossDur    = (W   / totalTravel) * totalDur;
 
-          requestAnimationFrame(() => requestAnimationFrame(() => {
-            brush.style.transition = `left ${totalDuration}s linear`;
-            brush.style.left = (W + 40) + 'px';
+              brush.style.cssText = 'opacity:1; left:-100px; transition:none;';
 
-            // El reveal naranja empieza 0.2s antes de que la brocha entre al botón
-            t4 = setTimeout(() => {
-              vivid.style.transition = `clip-path ${acrossDuration}s linear`;
-              vivid.style.clipPath = 'inset(0 0 0 100% round 6px)';
-            }, Math.max(0, preButtonMs - 50));
-          }));
+              requestAnimationFrame(() => requestAnimationFrame(() => {
+                brush.style.transition = `left ${totalDur}s linear`;
+                brush.style.left = (W + 40) + 'px';
 
-          t2 = setTimeout(() => {
-              brush.style.opacity = '0';
-              btn.classList.add('screwing');
-              t3 = setTimeout(markPainted, 2700);
-            }, 1150);
+                // Paint-layer revela de izquierda a derecha siguiendo la brocha
+                t3 = setTimeout(() => {
+                  paintLayer.style.transition = `clip-path ${acrossDur}s linear`;
+                  paintLayer.style.clipPath   = 'inset(0 0% 0 0 round 6px)';
+                }, Math.max(0, preButtonMs - 50));
+              }));
+
+              // Brocha desaparece y se fija el estado final
+              t4 = setTimeout(() => {
+                brush.style.opacity = '0';
+                setTimeout(markPainted, 250);
+              }, 1050);
+            }, 2200); // espera a que los tornillos terminen de girar
           }, 0);
         });
       });

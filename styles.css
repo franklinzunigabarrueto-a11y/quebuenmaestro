@@ -211,7 +211,7 @@ button { cursor: pointer; }
   border-radius: var(--radius-pill);
   box-shadow: none;
   display: inline-block;
-  transform-origin: top right;
+  transform-origin: top left;
   animation: balanceo 5s ease-in-out infinite;
   overflow: hidden;
   user-select: none;

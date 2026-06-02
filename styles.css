@@ -46,12 +46,12 @@ body::after {
 }
 body::before {
   top: 0;
-  height: 80px;
+  height: 60px;
   background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.5) 60%, rgba(255,255,255,0.15) 85%, transparent 100%);
 }
 body::after {
   bottom: 0;
-  height: 240px;
+  height: 160px;
   background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0.5) 60%, rgba(255,255,255,0.15) 85%, transparent 100%);
 }
 html { scroll-behavior: smooth; }

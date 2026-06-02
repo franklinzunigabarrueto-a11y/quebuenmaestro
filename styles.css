@@ -344,7 +344,16 @@ button { cursor: pointer; }
 /* =============================================
    DIRECTORY
 ============================================= */
-.directory { padding: 48px 0 80px; background: var(--gray-bg); }
+.directory { padding: 48px 0 80px; background: var(--gray-bg); position: relative; }
+.directory::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('patron.png') center/cover no-repeat;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+.directory > * { position: relative; z-index: 1; }
 
 .directory__header {
   display: flex; align-items: center; justify-content: space-between;

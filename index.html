@@ -331,12 +331,11 @@
         clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
         btn.classList.remove('straightening', 'painting', 'screwing');
 
-        brush.style.cssText = 'opacity:0; left:-80px; transition:none;';
-        vivid.style.cssText = 'clip-path:inset(0 0 0 0); transition:none;';
-        crack.style.cssText = 'opacity:1; transition:none;';
-        screws.forEach(el => {
-          el.style.cssText = 'opacity:0; transform:rotate(1080deg); transition:none;';
-        });
+        // Limpiar inline styles para que el CSS base tome control
+        brush.style.cssText = '';
+        vivid.style.cssText = '';
+        crack.style.cssText = '';
+        screws.forEach(el => el.style.cssText = '');
       }
 
       function markPainted() {

@@ -302,11 +302,13 @@
       const screws     = btn.querySelectorAll('.screw-el');
       const paintLayer = btn.querySelector('.paint-layer');
 
-      let t1, t2, t3, t4;
+      let t0, t1, t2, t3, t4;
       let isPainted = false;
+      let isAnimating = false;
 
       function resetBtn() {
-        clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+        clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+        isAnimating = false;
         btn.classList.remove('straightening', 'painting', 'screwing');
         brush.style.cssText = '';
         vivid.style.cssText = '';
@@ -316,12 +318,12 @@
       }
 
       function markPainted() {
-        isPainted = true;
+        isPainted    = true;
+        isAnimating  = false;
         btn.classList.remove('straightening', 'painting', 'screwing');
         btn.style.animation  = 'none';
         btn.style.transform  = 'rotate(0deg)';
         btn.style.transition = 'transform .2s ease, box-shadow .2s ease';
-        // Fija capa de pintura visible y oculta todo lo demás
         paintLayer.style.cssText = 'clip-path:inset(0 0% 0 0 round 6px); transition:none;';
         screws.forEach(el => el.style.cssText = 'opacity:0; transition:none;');
         brush.style.cssText = 'opacity:0;';
@@ -337,7 +339,7 @@
         void btn.offsetWidth;
         btn.style.transition = 'transform 1.4s cubic-bezier(0.34, 1.1, 0.64, 1)';
         btn.style.transform  = 'rotate(0deg)';
-        setTimeout(onDone, 1400);
+        t0 = setTimeout(onDone, 1400);
       }
 
       btn.addEventListener('mouseenter', () => {
@@ -346,7 +348,9 @@
           btn.style.boxShadow  = '0 6px 20px rgba(232,118,42,.45)';
           return;
         }
-        clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+        if (isAnimating) return; // evita doble animación
+        isAnimating = true;
+        clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
 
         straightenSmoothly(() => {
           // FASE 1 – tornillos aparecen y giran

@@ -358,7 +358,7 @@
           btn.classList.add('painting');
 
           requestAnimationFrame(() => requestAnimationFrame(() => {
-            brush.style.transition = 'left 0.65s linear';
+            brush.style.transition = 'left 1.1s linear';
             brush.style.left = (btn.offsetWidth + 40) + 'px';
           }));
 
@@ -366,7 +366,7 @@
               brush.style.opacity = '0';
               btn.classList.add('screwing');
               t3 = setTimeout(markPainted, 2700);
-            }, 700);
+            }, 1150);
           }, 0);
         });
       });

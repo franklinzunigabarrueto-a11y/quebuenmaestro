@@ -208,8 +208,10 @@ button { cursor: pointer; }
   background: var(--orange);
   color: var(--white);
   padding: 15px 48px; font-size: 1rem; font-weight: 600;
-  border-radius: var(--radius-pill);
+  border-radius: 6px;
+  border: none;
   box-shadow: none;
+  outline: none;
   display: inline-block;
   transform-origin: top left;
   animation: balanceo 5s ease-in-out infinite;
@@ -236,7 +238,7 @@ button { cursor: pointer; }
   position: absolute; inset: 0;
   background: url('textura-madera-oscura.png') center/cover no-repeat;
   z-index: 3; pointer-events: none;
-  clip-path: inset(0 0 0 0);
+  clip-path: inset(0 0 0 0 round 6px);
   transition: none;
 }
 .hero-btn-wrapper .brush {

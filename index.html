@@ -320,7 +320,7 @@
         btn.style.animation = 'none';
         btn.style.transform = 'rotate(0deg)';
 
-        vivid.style.cssText = 'clip-path:inset(0 0 0 100%); transition:none;';
+        vivid.style.cssText = 'clip-path:inset(0 0 0 100% round 6px); transition:none;';
         crack.style.cssText = 'opacity:0; transition:none;';
         screws.forEach(el => {
           el.style.cssText = 'opacity:1; transform:rotate(0deg); transition:none;';
@@ -362,7 +362,7 @@
 
             brush.style.cssText = 'opacity:1; left:-100px; transition:none;';
             // Override la transición del CSS para controlarla desde JS
-            vivid.style.cssText = 'clip-path:inset(0 0 0 0%); transition:none;';
+            vivid.style.cssText = 'clip-path:inset(0 0 0 0% round 6px); transition:none;';
             btn.classList.add('painting'); // activa fade del crack-overlay
 
           requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -372,7 +372,7 @@
             // El reveal naranja empieza 0.2s antes de que la brocha entre al botón
             t4 = setTimeout(() => {
               vivid.style.transition = `clip-path ${acrossDuration}s linear`;
-              vivid.style.clipPath = 'inset(0 0 0 100%)';
+              vivid.style.clipPath = 'inset(0 0 0 100% round 6px)';
             }, Math.max(0, preButtonMs - 50));
           }));
 

@@ -627,7 +627,39 @@ button { cursor: pointer; }
 
 @media (max-width: 768px) {
   .navbar__brand-text { display: none; }
-  .navbar__nav { display: none; }
+
+  /* Navbar en dos filas en móvil */
+  .navbar__inner {
+    flex-wrap: wrap;
+    padding: 6px 16px 0;
+    gap: 8px;
+  }
+  .logo-img { height: 56px; }
+
+  /* Ocultar búsqueda y ciudad en móvil para dar espacio */
+  .navbar__search  { display: none; }
+  .navbar__location { display: none; }
+
+  /* Botón más compacto */
+  .navbar__right { margin-left: auto; gap: 8px; }
+  .navbar__pro-text { display: none; }
+  .btn--sm { font-size: 0.78rem; padding: 7px 12px; }
+
+  /* Pestañas en segunda fila, visibles y centradas */
+  .navbar__nav {
+    display: flex !important;
+    width: 100%;
+    justify-content: center;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    padding: 6px 0;
+    order: 10;
+  }
+  .navbar__nav a {
+    font-size: 0.82rem;
+    padding: 4px 14px;
+  }
+
   .hero__search-box { flex-direction: column; border-radius: var(--radius-lg); overflow: visible; gap: 0; }
   .search-field { padding: 0 16px; }
   .search-field--text, .search-field--select { border-bottom: 1px solid var(--border); flex: none; width: 100%; }

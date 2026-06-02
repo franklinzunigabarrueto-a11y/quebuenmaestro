@@ -354,6 +354,13 @@
       btn.addEventListener('mouseleave', () => {
         // La animación siempre corre hasta el final una vez iniciada
       });
+
+      // En móvil: disparar animación automáticamente al cargar
+      if (window.innerWidth <= 768) {
+        setTimeout(() => {
+          if (!isPainted) btn.dispatchEvent(new MouseEvent('mouseenter'));
+        }, 1500);
+      }
     })();
   </script>
 </body>

@@ -163,7 +163,7 @@ button { cursor: pointer; }
 .hero__brand-title {
   font-family: 'Glacial Indifference', sans-serif;
   font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 400; line-height: 1; letter-spacing: 0; margin-bottom: 14px;
+  font-weight: 400; line-height: 1; letter-spacing: -3px; margin-bottom: 14px;
 }
 .ht-orange { color: var(--orange); }
 .ht-dark   { color: var(--dark); }

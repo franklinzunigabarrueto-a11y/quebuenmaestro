@@ -35,6 +35,24 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  left: 0; right: 0;
+  height: 100px;
+  pointer-events: none;
+  z-index: 50;
+}
+body::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, transparent 100%);
+}
+body::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, transparent 100%);
+}
 html { scroll-behavior: smooth; }
 body { font-family: 'Glacial Indifference', sans-serif; color: var(--dark); background: var(--white); line-height: 1.6; overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }

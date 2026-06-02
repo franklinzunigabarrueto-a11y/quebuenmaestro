@@ -341,9 +341,12 @@
 
       function markPainted() {
         isPainted = true;
+        btn.classList.remove('straightening', 'painting', 'screwing');
         btn.classList.add('painted');
         btn.querySelector('.vivid-layer').style.cssText = '';
+        btn.querySelector('.crack-overlay').style.cssText = '';
         btn.querySelectorAll('.screw-el').forEach(el => el.style.cssText = '');
+        brush.style.cssText = '';
       }
 
       btn.addEventListener('mouseenter', () => {

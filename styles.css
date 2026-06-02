@@ -265,6 +265,10 @@ button { cursor: pointer; }
 }
 .btn--hero.painted .crack-overlay { opacity: 0; }
 
+.btn--hero.painted .screw-el {
+  opacity: 1; transform: rotate(0deg);
+}
+
 .btn--hero .screw-el {
   position: absolute;
   top: calc(50% - 9px);

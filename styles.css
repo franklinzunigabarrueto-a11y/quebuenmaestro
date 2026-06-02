@@ -192,14 +192,48 @@ button { cursor: pointer; }
   font-size: clamp(1rem, 2.5vw, 1.4rem);
   color: var(--dark-soft); margin-bottom: 32px;
 }
+@keyframes balanceo {
+  0%   { transform: rotate(6deg); }
+  50%  { transform: rotate(2deg); }
+  100% { transform: rotate(6deg); }
+}
+
 .btn--hero {
+  position: relative;
   background: var(--orange); color: var(--white);
-  padding: 15px 38px; font-size: 1rem; font-weight: 600;
+  padding: 15px 44px 15px 44px; font-size: 1rem; font-weight: 600;
   border-radius: var(--radius-pill);
   box-shadow: 0 4px 18px rgba(232,118,42,.45);
-  transition: transform .2s, box-shadow .2s; display: inline-block;
+  display: inline-block;
+  transform-origin: top right;
+  animation: balanceo 5s ease-in-out infinite;
+  transition: box-shadow .3s ease;
 }
-.btn--hero:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(232,118,42,.5); }
+.btn--hero:hover {
+  animation: none;
+  transform: rotate(0deg);
+  transition: transform 1s ease-out, box-shadow .3s ease;
+  box-shadow: 0 8px 26px rgba(232,118,42,.5);
+}
+.btn--hero::before {
+  content: '';
+  position: absolute;
+  top: calc(50% - 9px);
+  left: 12px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background-image: url('tornillo.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: rotate(1080deg);
+  transition: opacity 0.15s ease, transform 0s 0.15s;
+}
+.btn--hero:hover::before {
+  opacity: 1;
+  transform: rotate(0deg);
+  transition: opacity 0.5s ease 0.5s, transform 2.2s linear 0.5s;
+}
 
 /* =============================================
    QUÉ HACEMOS

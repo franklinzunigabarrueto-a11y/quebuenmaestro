@@ -369,11 +369,11 @@
             brush.style.transition = `left ${totalDuration}s linear`;
             brush.style.left = (W + 40) + 'px';
 
-            // El reveal naranja empieza exactamente cuando la brocha entra al botón
+            // El reveal naranja empieza 0.2s antes de que la brocha entre al botón
             t4 = setTimeout(() => {
               vivid.style.transition = `clip-path ${acrossDuration}s linear`;
               vivid.style.clipPath = 'inset(0 0 0 100%)';
-            }, preButtonMs);
+            }, Math.max(0, preButtonMs - 200));
           }));
 
           t2 = setTimeout(() => {

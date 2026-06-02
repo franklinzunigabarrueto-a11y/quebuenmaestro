@@ -186,7 +186,7 @@ button { cursor: pointer; }
 ============================================= */
 .what-we-do { padding: 72px 0 64px; background: var(--white); }
 .wwd-title {
-  font-family: 'Glacial Indifference', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700;
   color: var(--dark); text-align: center;
 }
@@ -351,7 +351,7 @@ button { cursor: pointer; }
 
 .integrations__text { display: flex; flex-direction: column; gap: 20px; }
 .integrations__title {
-  font-family: 'Glacial Indifference', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 700; color: var(--dark); line-height: 1.3;
 }
 .integrations__desc { font-size: 0.97rem; color: var(--dark-soft); line-height: 1.75; }
@@ -407,7 +407,7 @@ button { cursor: pointer; }
   gap: 40px; text-align: center;
 }
 .register-cta__text h2 {
-  font-family: 'Glacial Indifference', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-family: 'Poppins', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 700; color: var(--white); margin-bottom: 8px;
 }
 .register-cta__text p { color: rgba(255,255,255,.8); font-size: 1rem; }

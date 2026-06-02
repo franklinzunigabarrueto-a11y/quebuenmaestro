@@ -317,10 +317,10 @@
       function markPainted() {
         isPainted = true;
 
-        // Fijar estado pintado con estilos inline (máxima prioridad)
         btn.classList.remove('straightening', 'painting', 'screwing');
         btn.style.animation = 'none';
         btn.style.transform = 'rotate(0deg)';
+        btn.style.transition = 'transform .2s ease, box-shadow .2s ease';
 
         vivid.style.cssText = 'clip-path:inset(0 0 0 100% round 6px); transition:none;';
         crack.style.cssText = 'opacity:0; transition:none;';
@@ -351,7 +351,11 @@
       }
 
       btn.addEventListener('mouseenter', () => {
-        if (isPainted) return;
+        if (isPainted) {
+          btn.style.transform = 'translateY(-2px)';
+          btn.style.boxShadow = '0 6px 20px rgba(232,118,42,.45)';
+          return;
+        }
         clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
 
         straightenSmoothly(() => {
@@ -388,7 +392,10 @@
       });
 
       btn.addEventListener('mouseleave', () => {
-        // La animación siempre corre hasta el final una vez iniciada
+        if (isPainted) {
+          btn.style.transform = 'rotate(0deg)';
+          btn.style.boxShadow = '0 8px 28px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.25)';
+        }
       });
 
       // En móvil: disparar animación automáticamente al cargar

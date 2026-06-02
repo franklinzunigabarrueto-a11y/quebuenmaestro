@@ -156,7 +156,10 @@ button { cursor: pointer; }
 .hero {
   position: relative; min-height: 360px;
   background: #ffffff;
-  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; overflow: visible;
+}
+.hero__workers-clip {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
 }
 .hero__worker {
   position: absolute; top: 0; height: 100%; width: 30%;

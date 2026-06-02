@@ -208,7 +208,7 @@ button { cursor: pointer; }
 
 .btn--hero {
   position: relative;
-  background: var(--orange);
+  background: #1e1a17;
   color: var(--white);
   padding: 15px 48px; font-size: 1rem; font-weight: 600;
   border-radius: 6px;

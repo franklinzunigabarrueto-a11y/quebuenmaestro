@@ -70,7 +70,15 @@
         <span class="ht-orange">Q</span>ué<span class="ht-orange">b</span>uen<span class="ht-orange">m</span>aestro!
       </h1>
       <p class="hero__subtitle"><em>Un portal de especialistas para tu proyecto</em></p>
-      <a href="#directorio" class="btn btn--hero">Catálogo de Especialistas</a>
+      <div class="hero-btn-wrapper" id="heroBtnWrapper">
+        <a href="#directorio" class="btn btn--hero" id="heroBtn">
+          <span class="btn-text">Catálogo de Especialistas</span>
+          <span class="crack-overlay"></span>
+          <span class="vivid-layer"></span>
+          <span class="screw-el"></span>
+        </a>
+        <span class="brush" id="heroBrush">🖌️</span>
+      </div>
     </div>
   </section>
 
@@ -305,5 +313,52 @@
   </a>
 
   <script src="script.js"></script>
+  <script>
+    (function() {
+      const btn   = document.getElementById('heroBtn');
+      const brush = document.getElementById('heroBrush');
+      if (!btn || !brush) return;
+      let t1, t2;
+
+      btn.addEventListener('mouseenter', () => {
+        clearTimeout(t1); clearTimeout(t2);
+
+        btn.classList.add('straightening');
+
+        t1 = setTimeout(() => {
+          brush.style.transition = 'none';
+          brush.style.left = '-52px';
+          brush.style.opacity = '1';
+
+          btn.classList.add('painting');
+
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            brush.style.transition = 'left 0.65s linear';
+            brush.style.left = (btn.offsetWidth + 20) + 'px';
+          }));
+
+          t2 = setTimeout(() => {
+            brush.style.opacity = '0';
+            btn.classList.add('screwing');
+          }, 700);
+        }, 1000);
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        clearTimeout(t1); clearTimeout(t2);
+        btn.classList.remove('straightening', 'painting', 'screwing');
+        brush.style.transition = 'none';
+        brush.style.opacity = '0';
+        brush.style.left = '-52px';
+        const vivid = btn.querySelector('.vivid-layer');
+        vivid.style.transition = 'none';
+        vivid.style.clipPath = 'inset(0 100% 0 0 round 100px)';
+        const screw = btn.querySelector('.screw-el');
+        screw.style.transition = 'none';
+        screw.style.opacity = '0';
+        screw.style.transform = 'rotate(1080deg)';
+      });
+    })();
+  </script>
 </body>
 </html>

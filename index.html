@@ -77,7 +77,7 @@
           <span class="vivid-layer"></span>
           <span class="screw-el"></span>
         </a>
-        <span class="brush" id="heroBrush">🖌️</span>
+        <span class="brush" id="heroBrush"><img src="brocha.png" alt="" /></span>
       </div>
     </div>
   </section>
@@ -318,38 +318,47 @@
       const btn   = document.getElementById('heroBtn');
       const brush = document.getElementById('heroBrush');
       if (!btn || !brush) return;
-      let t1, t2;
+      let t1, t2, t3;
+      let isPainted = false;
 
       btn.addEventListener('mouseenter', () => {
-        clearTimeout(t1); clearTimeout(t2);
+        if (isPainted) return;
+        clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
 
         btn.classList.add('straightening');
 
         t1 = setTimeout(() => {
           brush.style.transition = 'none';
-          brush.style.left = '-52px';
+          brush.style.left = '-80px';
           brush.style.opacity = '1';
 
           btn.classList.add('painting');
 
           requestAnimationFrame(() => requestAnimationFrame(() => {
             brush.style.transition = 'left 0.65s linear';
-            brush.style.left = (btn.offsetWidth + 20) + 'px';
+            brush.style.left = (btn.offsetWidth + 30) + 'px';
           }));
 
           t2 = setTimeout(() => {
             brush.style.opacity = '0';
             btn.classList.add('screwing');
+
+            // Marcar como pintado permanentemente al terminar el tornillo
+            t3 = setTimeout(() => {
+              isPainted = true;
+              btn.classList.add('painted');
+            }, 2700);
           }, 700);
         }, 1000);
       });
 
       btn.addEventListener('mouseleave', () => {
-        clearTimeout(t1); clearTimeout(t2);
+        if (isPainted) return;
+        clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
         btn.classList.remove('straightening', 'painting', 'screwing');
         brush.style.transition = 'none';
         brush.style.opacity = '0';
-        brush.style.left = '-52px';
+        brush.style.left = '-80px';
         const vivid = btn.querySelector('.vivid-layer');
         vivid.style.transition = 'none';
         vivid.style.clipPath = 'inset(0 100% 0 0 round 100px)';

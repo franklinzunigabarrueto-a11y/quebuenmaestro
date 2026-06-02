@@ -209,7 +209,7 @@ button { cursor: pointer; }
   color: var(--white);
   padding: 15px 48px; font-size: 1rem; font-weight: 600;
   border-radius: var(--radius-pill);
-  box-shadow: 0 4px 18px rgba(232,118,42,.35);
+  box-shadow: none;
   display: inline-block;
   transform-origin: top center;
   animation: balanceo 5s ease-in-out infinite;

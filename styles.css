@@ -348,8 +348,8 @@ button { cursor: pointer; }
 .directory::before {
   content: '';
   position: absolute; inset: 0;
-  background: url('logo.png') center/120px auto repeat;
-  opacity: 0.18;
+  background: url('patron-tile.png') 0 0/600px 450px repeat;
+  opacity: 1;
   pointer-events: none;
   z-index: 0;
 }

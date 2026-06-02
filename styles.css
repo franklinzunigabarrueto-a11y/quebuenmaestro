@@ -246,7 +246,7 @@ button { cursor: pointer; }
   filter: drop-shadow(1px 3px 5px rgba(0,0,0,0.25));
 }
 .hero-btn-wrapper .brush img {
-  width: 90px; height: auto; display: block; transform: scaleX(-1);
+  width: 90px; height: auto; display: block; transform: scaleX(-1) rotate(180deg);
 }
 
 /* Estados JS */

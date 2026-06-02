@@ -250,10 +250,6 @@ button { cursor: pointer; }
 }
 
 /* Estados JS */
-.btn--hero.painting .vivid-layer {
-  clip-path: inset(0 0 0 100%);
-  transition: clip-path 1.1s linear;
-}
 .btn--hero.painted .vivid-layer { clip-path: inset(0 0 0 100%); }
 
 .btn--hero.painting .crack-overlay {

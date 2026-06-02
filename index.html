@@ -298,11 +298,11 @@
       const crack = btn.querySelector('.crack-overlay');
       const screws = btn.querySelectorAll('.screw-el');
 
-      let t1, t2, t3;
+      let t1, t2, t3, t4;
       let isPainted = false;
 
       function resetBtn() {
-        clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
+        clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
         btn.classList.remove('straightening', 'painting', 'screwing');
 
         // Limpiar inline styles para que el CSS base tome control
@@ -354,12 +354,26 @@
 
         straightenSmoothly(() => {
           t1 = setTimeout(() => {
-          brush.style.cssText = 'opacity:1; left:-100px; transition:none;';
-          btn.classList.add('painting');
+            const W = btn.offsetWidth;
+            const totalTravel = W + 140; // desde -100px hasta W+40px
+            const totalDuration = 1.1;
+            const preButtonMs = (100 / totalTravel) * totalDuration * 1000;
+            const acrossDuration = (W / totalTravel) * totalDuration;
+
+            brush.style.cssText = 'opacity:1; left:-100px; transition:none;';
+            // Override la transición del CSS para controlarla desde JS
+            vivid.style.cssText = 'clip-path:inset(0 0 0 0%); transition:none;';
+            btn.classList.add('painting'); // activa fade del crack-overlay
 
           requestAnimationFrame(() => requestAnimationFrame(() => {
-            brush.style.transition = 'left 1.1s linear';
-            brush.style.left = (btn.offsetWidth + 40) + 'px';
+            brush.style.transition = `left ${totalDuration}s linear`;
+            brush.style.left = (W + 40) + 'px';
+
+            // El reveal naranja empieza exactamente cuando la brocha entra al botón
+            t4 = setTimeout(() => {
+              vivid.style.transition = `clip-path ${acrossDuration}s linear`;
+              vivid.style.clipPath = 'inset(0 0 0 100%)';
+            }, preButtonMs);
           }));
 
           t2 = setTimeout(() => {

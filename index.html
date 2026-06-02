@@ -318,42 +318,11 @@
       const btn   = document.getElementById('heroBtn');
       const brush = document.getElementById('heroBrush');
       if (!btn || !brush) return;
+
       let t1, t2, t3;
       let isPainted = false;
 
-      btn.addEventListener('mouseenter', () => {
-        if (isPainted) return;
-        clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
-
-        btn.classList.add('straightening');
-
-        t1 = setTimeout(() => {
-          brush.style.transition = 'none';
-          brush.style.left = '-80px';
-          brush.style.opacity = '1';
-
-          btn.classList.add('painting');
-
-          requestAnimationFrame(() => requestAnimationFrame(() => {
-            brush.style.transition = 'left 0.65s linear';
-            brush.style.left = (btn.offsetWidth + 30) + 'px';
-          }));
-
-          t2 = setTimeout(() => {
-            brush.style.opacity = '0';
-            btn.classList.add('screwing');
-
-            // Marcar como pintado permanentemente al terminar el tornillo
-            t3 = setTimeout(() => {
-              isPainted = true;
-              btn.classList.add('painted');
-            }, 2700);
-          }, 700);
-        }, 1000);
-      });
-
-      btn.addEventListener('mouseleave', () => {
-        if (isPainted) return;
+      function resetBtn() {
         clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
         btn.classList.remove('straightening', 'painting', 'screwing');
         brush.style.transition = 'none';
@@ -366,6 +335,45 @@
         screw.style.transition = 'none';
         screw.style.opacity = '0';
         screw.style.transform = 'rotate(1080deg)';
+      }
+
+      function markPainted() {
+        isPainted = true;
+        btn.classList.add('painted');
+        // Limpiar estilos inline para que el CSS de .painted tome control
+        btn.querySelector('.vivid-layer').style.cssText = '';
+        btn.querySelector('.screw-el').style.cssText = '';
+      }
+
+      btn.addEventListener('mouseenter', () => {
+        if (isPainted) return;
+        clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
+
+        btn.classList.add('straightening');
+
+        t1 = setTimeout(() => {
+          brush.style.transition = 'none';
+          brush.style.left = '-80px';
+          brush.style.opacity = '1';
+          btn.classList.add('painting');
+
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            brush.style.transition = 'left 0.65s linear';
+            brush.style.left = (btn.offsetWidth + 30) + 'px';
+          }));
+
+          t2 = setTimeout(() => {
+            brush.style.opacity = '0';
+            btn.classList.add('screwing');
+
+            t3 = setTimeout(markPainted, 2700);
+          }, 700);
+        }, 1000);
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        if (isPainted) return;
+        resetBtn();
       });
     })();
   </script>

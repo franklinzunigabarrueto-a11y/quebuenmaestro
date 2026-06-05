@@ -202,8 +202,16 @@ button { cursor: pointer; }
   object-fit: cover; object-position: top center;
   opacity: 0.32; pointer-events: none;
 }
-.hero__worker--left  { left: 0;  object-position: top right; }
-.hero__worker--right { right: 0; object-position: top left; }
+.hero__worker--left {
+  left: 0; object-position: top right;
+  -webkit-mask-image: linear-gradient(to right, black 55%, transparent 100%);
+  mask-image: linear-gradient(to right, black 55%, transparent 100%);
+}
+.hero__worker--right {
+  right: 0; object-position: top left;
+  -webkit-mask-image: linear-gradient(to left, black 55%, transparent 100%);
+  mask-image: linear-gradient(to left, black 55%, transparent 100%);
+}
 .hero__grid {
   position: absolute; inset: 0; z-index: 1;
   background-image:

@@ -299,6 +299,15 @@ button { cursor: pointer; }
   display: inline-block;
   opacity: 0; animation: fade-up-in .6s .7s ease forwards;
 }
+.hero__anchor-screw {
+  position: absolute;
+  top: -8px; left: -8px;
+  width: 16px; height: 16px;
+  background: url('tornillo_sin_fondo.png') center/contain no-repeat;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,.5));
+  z-index: 10;
+  pointer-events: none;
+}
 
 .btn--hero {
   position: relative;

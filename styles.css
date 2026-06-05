@@ -289,9 +289,9 @@ button { cursor: pointer; }
   opacity: 0; animation: fade-up-in .6s .45s ease forwards;
 }
 @keyframes balanceo {
-  0%   { transform: scale(0.94) rotate(50deg); }
-  50%  { transform: scale(0.94) rotate(45deg); }
-  100% { transform: scale(0.94) rotate(50deg); }
+  0%   { transform: scale(0.94) rotate(68deg); }
+  50%  { transform: scale(0.94) rotate(62deg); }
+  100% { transform: scale(0.94) rotate(68deg); }
 }
 
 .hero-btn-wrapper {

@@ -246,6 +246,19 @@ button { cursor: pointer; }
 }
 .ht-orange { color: var(--orange); }
 .ht-dark   { color: var(--dark); }
+
+/* Animación de expansión del título hero */
+.hero__expand {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  transition: max-width 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hero__brand-title.expanded .hero__expand--1 { max-width: 3em; }
+.hero__brand-title.expanded .hero__expand--2 { max-width: 4em;  transition-delay: 0.18s; }
+.hero__brand-title.expanded .hero__expand--3 { max-width: 7em;  transition-delay: 0.36s; }
 .hero__subtitle {
   font-family: 'Glacial Indifference', sans-serif; font-style: italic;
   font-size: clamp(1rem, 2.5vw, 1.4rem);

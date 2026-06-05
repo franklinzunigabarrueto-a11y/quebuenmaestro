@@ -77,6 +77,7 @@ button { cursor: pointer; }
   padding: 11px 22px; border-radius: var(--radius-pill);
   font-family: 'Glacial Indifference', sans-serif; font-weight: 600; font-size: 0.9rem;
   border: 2px solid transparent; transition: all .2s ease;
+  white-space: nowrap;
 }
 .btn--primary { background: var(--orange); color: var(--white); box-shadow: 0 4px 14px rgba(232,118,42,.35); }
 .btn--primary:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,118,42,.45); }
@@ -90,7 +91,7 @@ button { cursor: pointer; }
    LOGO
 ============================================= */
 .logo-link { display: inline-flex; align-items: center; flex-shrink: 0; }
-.logo-img { height: 56px; width: auto; display: block; }
+.logo-img { height: 72px; width: auto; display: block; }
 .logo-img--footer { height: 38px; }
 
 /* =============================================
@@ -101,10 +102,10 @@ button { cursor: pointer; }
   border-bottom: 1px solid var(--border);
   box-shadow: 0 1px 4px rgba(0,0,0,.06);
 }
-/* Grid 3 columnas iguales */
+/* Izquierda flexible | espacio visual | derecha al tamaño de su contenido */
 .navbar__inner {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 60px auto;
   align-items: center;
   max-width: 1280px; margin: 0 auto; padding: 4px 24px;
 }
@@ -157,8 +158,8 @@ button { cursor: pointer; }
 .navbar__pro-cta { display: flex; align-items: center; }
 .btn--sm { padding: 8px 16px; font-size: 0.82rem; }
 
-.navbar__nav { display: flex; gap: 24px; }
-.navbar__nav a { font-size: 0.88rem; font-weight: 500; color: var(--orange); transition: all .2s; text-decoration: none; }
+.navbar__nav { display: flex; gap: 16px; flex-wrap: nowrap; }
+.navbar__nav a { font-size: 0.88rem; font-weight: 500; color: var(--orange); transition: all .2s; text-decoration: none; white-space: nowrap; }
 .navbar__nav a:hover { opacity: .7; }
 .navbar__nav a.active { background: var(--dark); color: #fff; padding: 5px 14px; border-radius: 100px; opacity: 1; }
 .navbar__nav a.active:hover { opacity: .82; }
@@ -713,6 +714,7 @@ button { cursor: pointer; }
 
   /* Navbar en dos filas en móvil */
   .navbar__inner {
+    display: flex;
     flex-wrap: wrap;
     padding: 6px 16px 0;
     gap: 8px;

@@ -6,7 +6,7 @@ export async function onRequestGet({ env, request }) {
   const search    = url.searchParams.get('search')    || '';
   const sort      = url.searchParams.get('sort')      || 'rating';
 
-  let query = `SELECT id, tipo, nombre, rut, años, whatsapp, email, instagram,
+  let query = `SELECT id, tipo, nombre, años, whatsapp, email, instagram,
                       ciudades, especialidad, servicios, descripcion, horario,
                       horario_detalle, fotos, avatar, approved_at
                FROM professionals WHERE status = 'approved'`;

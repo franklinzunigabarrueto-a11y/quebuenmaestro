@@ -5,7 +5,11 @@ export async function onRequestGet({ env, params }) {
 
   try {
     const pro = await env.DB
-      .prepare(`SELECT * FROM professionals WHERE id = ? AND status = 'approved'`)
+      .prepare(`SELECT id, tipo, nombre, años, whatsapp, email, instagram,
+                       ciudades, especialidad, servicios, descripcion, horario,
+                       horario_detalle, fotos, avatar, approved_at, web, facebook,
+                       representante, viaja, otra_ciudad, certificaciones, telefono
+                FROM professionals WHERE id = ? AND status = 'approved'`)
       .bind(id)
       .first();
 

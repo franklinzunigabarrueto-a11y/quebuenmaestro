@@ -44,7 +44,12 @@ export async function onRequest({ request, env, next }) {
     .replace(/\/api\/professionals\/\d+$/, '/api/professionals/:id');
 
   const ruleKey = `${method}|${normalizedPath}`;
-  const rule    = RATE_LIMITS[ruleKey];
+  let rule      = RATE_LIMITS[ruleKey];
+
+  // Rate limiting estricto para rutas admin: 30 requests por hora por IP
+  if (path.startsWith('/api/admin')) {
+    rule = { max: 30, windowHours: 1, message: 'Límite de solicitudes admin alcanzado. Espera 1 hora.' };
+  }
 
   if (rule && env.DB) {
     const windowEpoch = Math.floor(Date.now() / (rule.windowHours * 3600 * 1000));

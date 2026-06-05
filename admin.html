@@ -205,6 +205,16 @@
   <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
 
   <script>
+    function esc(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
     let adminToken = sessionStorage.getItem('qbm_admin_token') || '';
     let currentTab = 'pending';
     let currentSection = 'professionals';
@@ -260,11 +270,11 @@
           <tbody>${sups.map(s => {
             const ciudades = (() => { try { return JSON.parse(s.ciudades).slice(0,2).join(', '); } catch { return s.ciudades||'—'; } })();
             return `<tr>
-              <td><strong>${s.nombre}</strong></td>
-              <td style="font-size:.82rem;">${s.categoria}</td>
-              <td style="font-size:.82rem;">${s.email}</td>
-              <td style="font-size:.82rem;">${ciudades}</td>
-              <td>${statusMap[s.status]||s.status}</td>
+              <td><strong>${esc(s.nombre)}</strong></td>
+              <td style="font-size:.82rem;">${esc(s.categoria)}</td>
+              <td style="font-size:.82rem;">${esc(s.email)}</td>
+              <td style="font-size:.82rem;">${esc(ciudades)}</td>
+              <td>${statusMap[s.status]||esc(s.status)}</td>
               <td><div class="action-btns">
                 ${s.status !== 'approved' ? `<button class="btn-approve" onclick="actionSupplier(${s.id},'approve')">Aprobar</button>` : ''}
                 ${s.status !== 'rejected' ? `<button class="btn-reject"  onclick="actionSupplier(${s.id},'reject')">Rechazar</button>` : ''}
@@ -311,10 +321,10 @@
           <thead><tr><th>Logo</th><th>Nombre</th><th>Sitio web</th><th>Descripción</th><th>Estado</th><th>Acciones</th></tr></thead>
           <tbody>${sponsors.map(s => `
             <tr id="sp-row-${s.id}">
-              <td>${s.logo_url ? `<img src="${s.logo_url}" style="height:36px;max-width:80px;object-fit:contain;border-radius:4px;" />` : '<span style="color:#ccc;font-size:.8rem;">Sin logo</span>'}</td>
-              <td><strong>${s.nombre}</strong></td>
-              <td style="font-size:.82rem;">${s.website ? `<a href="${s.website}" target="_blank" style="color:#E8762A;">${s.website}</a>` : '—'}</td>
-              <td style="font-size:.82rem;color:#6B6B6B;">${s.descripcion || '—'}</td>
+              <td>${s.logo_url ? `<img src="${esc(s.logo_url)}" style="height:36px;max-width:80px;object-fit:contain;border-radius:4px;" />` : '<span style="color:#ccc;font-size:.8rem;">Sin logo</span>'}</td>
+              <td><strong>${esc(s.nombre)}</strong></td>
+              <td style="font-size:.82rem;">${s.website ? `<a href="${esc(s.website)}" target="_blank" style="color:#E8762A;">${esc(s.website)}</a>` : '—'}</td>
+              <td style="font-size:.82rem;color:#6B6B6B;">${s.descripcion ? esc(s.descripcion) : '—'}</td>
               <td>
                 <button onclick="toggleSponsor(${s.id}, ${s.activo ? 0 : 1})"
                   style="padding:4px 12px;border-radius:100px;font-size:.75rem;font-weight:700;border:none;cursor:pointer;
@@ -520,12 +530,12 @@
 
       return `<tr id="row-${p.id}">
         <td style="color:#999;font-size:0.8rem;">#${p.id}</td>
-        <td><strong>${p.nombre}</strong><br><span style="font-size:0.78rem;color:#999;">${p.tipo}</span></td>
-        <td>${p.especialidad}</td>
-        <td style="font-size:0.82rem;">${p.email}</td>
-        <td style="font-size:0.82rem;">${ciudades}</td>
+        <td><strong>${esc(p.nombre)}</strong><br><span style="font-size:0.78rem;color:#999;">${esc(p.tipo)}</span></td>
+        <td>${esc(p.especialidad)}</td>
+        <td style="font-size:0.82rem;">${esc(p.email)}</td>
+        <td style="font-size:0.82rem;">${esc(ciudades)}</td>
         <td style="font-size:0.82rem;color:#999;">${date}</td>
-        <td>${statusMap[p.status] || p.status}</td>
+        <td>${statusMap[p.status] || esc(p.status)}</td>
         <td>${actions}</td>
       </tr>`;
     }
@@ -569,38 +579,38 @@
             <button class="modal-close" onclick="closeModal()">×</button>
             <div style="display:flex;align-items:center;gap:14px;margin-bottom:4px;">
               ${p.avatar
-                ? `<img id="modal-avatar" src="" alt="${p.nombre}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #E5E5E5;flex-shrink:0;" />`
-                : `<div style="width:56px;height:56px;border-radius:50%;background:#FDF0E6;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#E8762A;flex-shrink:0;">${p.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</div>`
+                ? `<img id="modal-avatar" src="" alt="${esc(p.nombre)}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #E5E5E5;flex-shrink:0;" />`
+                : `<div style="width:56px;height:56px;border-radius:50%;background:#FDF0E6;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#E8762A;flex-shrink:0;">${esc(p.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase())}</div>`
               }
               <div>
-                <div class="modal-title" style="margin-bottom:2px;">${p.nombre}</div>
+                <div class="modal-title" style="margin-bottom:2px;">${esc(p.nombre)}</div>
                 <div style="font-size:0.82rem;color:#999;">${p.tipo === 'empresa' ? 'Empresa' : 'Profesional independiente'} · Registrado ${new Date(p.created_at).toLocaleDateString('es-CL')}</div>
               </div>
             </div>
 
             <div class="modal-section">
               <h4>Datos de contacto</h4>
-              <div class="modal-field"><strong>WhatsApp</strong> +56 9 ${p.whatsapp}</div>
-              <div class="modal-field"><strong>Email</strong> ${p.email}</div>
-              ${p.telefono ? `<div class="modal-field"><strong>Teléfono fijo</strong> ${p.telefono}</div>` : ''}
-              ${p.instagram ? `<div class="modal-field"><strong>Instagram</strong> @${p.instagram}</div>` : ''}
-              ${p.web ? `<div class="modal-field"><strong>Web</strong> ${p.web}</div>` : ''}
+              <div class="modal-field"><strong>WhatsApp</strong> +56 9 ${esc(p.whatsapp)}</div>
+              <div class="modal-field"><strong>Email</strong> ${esc(p.email)}</div>
+              ${p.telefono ? `<div class="modal-field"><strong>Teléfono fijo</strong> ${esc(p.telefono)}</div>` : ''}
+              ${p.instagram ? `<div class="modal-field"><strong>Instagram</strong> @${esc(p.instagram)}</div>` : ''}
+              ${p.web ? `<div class="modal-field"><strong>Web</strong> ${esc(p.web)}</div>` : ''}
             </div>
 
             <div class="modal-section">
               <h4>Especialidad y cobertura</h4>
-              <div class="modal-field"><strong>Especialidad</strong> ${p.especialidad}</div>
-              <div class="modal-field"><strong>Años de experiencia</strong> ${p.años}</div>
-              <div class="modal-field"><strong>Ciudades</strong> ${ciudades}</div>
+              <div class="modal-field"><strong>Especialidad</strong> ${esc(p.especialidad)}</div>
+              <div class="modal-field"><strong>Años de experiencia</strong> ${esc(String(p.años))}</div>
+              <div class="modal-field"><strong>Ciudades</strong> ${esc(ciudades)}</div>
               ${p.viaja ? `<div class="modal-field"><strong>Viaja</strong> Sí, dispuesto a viajar</div>` : ''}
-              ${p.certificaciones ? `<div class="modal-field"><strong>Certificaciones</strong> ${p.certificaciones}</div>` : ''}
-              ${servicios !== '—' ? `<div class="modal-field"><strong>Servicios</strong> ${servicios}</div>` : ''}
-              ${horario !== '—' ? `<div class="modal-field"><strong>Horario</strong> ${horario}</div>` : ''}
+              ${p.certificaciones ? `<div class="modal-field"><strong>Certificaciones</strong> ${esc(p.certificaciones)}</div>` : ''}
+              ${servicios !== '—' ? `<div class="modal-field"><strong>Servicios</strong> ${esc(servicios)}</div>` : ''}
+              ${horario !== '—' ? `<div class="modal-field"><strong>Horario</strong> ${esc(horario)}</div>` : ''}
             </div>
 
             <div class="modal-section">
               <h4>Descripción</h4>
-              <p style="font-size:0.9rem;color:#3D3D3D;line-height:1.7;">${p.descripcion}</p>
+              <p style="font-size:0.9rem;color:#3D3D3D;line-height:1.7;">${esc(p.descripcion)}</p>
             </div>
 
             <div class="modal-section">

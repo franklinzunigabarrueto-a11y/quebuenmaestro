@@ -1,3 +1,8 @@
+function sanitize(str, maxLen = 500) {
+  if (typeof str !== 'string') return '';
+  return str.replace(/[<>"'`]/g, '').trim().slice(0, maxLen);
+}
+
 // GET /api/suppliers — lista proveedores aprobados (público)
 export async function onRequestGet({ env, request }) {
   const url      = new URL(request.url);
@@ -36,10 +41,16 @@ export async function onRequestPost({ env, request }) {
     if (!nombre || !email || !whatsapp || !descripcion || !categoria || !ciudades?.length)
       return json({ error: 'Faltan campos obligatorios' }, 400);
 
+    const sNombre      = sanitize(nombre, 120);
+    const sDescripcion = sanitize(descripcion, 500);
+    const sCategoria   = sanitize(categoria, 80);
+    const sWeb         = sanitize(web, 300);
+    const sInstagram   = sanitize(instagram, 60);
+
     await env.DB.prepare(
       `INSERT INTO suppliers (nombre, email, whatsapp, web, instagram, descripcion, categoria, ciudades, logo)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    ).bind(nombre, email, whatsapp, web, instagram, descripcion, categoria,
+    ).bind(sNombre, email, whatsapp, sWeb, sInstagram, sDescripcion, sCategoria,
            JSON.stringify(ciudades), logo).run();
 
     return json({ success: true }, 201);

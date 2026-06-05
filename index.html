@@ -341,8 +341,9 @@
       function straightenSmoothly(onDone) {
         const matrix = new DOMMatrixReadOnly(getComputedStyle(btn).transform);
         const currentAngle = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI);
+        const currentScale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
         btn.style.animation  = 'none';
-        btn.style.transform  = `rotate(${currentAngle}deg)`;
+        btn.style.transform  = `scale(${currentScale}) rotate(${currentAngle}deg)`;
         btn.style.transition = 'none';
         void btn.offsetWidth;
         btn.style.transition = 'transform 1.4s cubic-bezier(0.34, 1.1, 0.64, 1)';

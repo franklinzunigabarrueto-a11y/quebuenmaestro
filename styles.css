@@ -230,9 +230,9 @@ button { cursor: pointer; }
   color: var(--dark-soft); margin-bottom: 32px;
 }
 @keyframes balanceo {
-  0%   { transform: rotate(14deg); }
-  50%  { transform: rotate(8deg); }
-  100% { transform: rotate(14deg); }
+  0%   { transform: scale(1.12) rotate(14deg); }
+  50%  { transform: scale(1.12) rotate(8deg); }
+  100% { transform: scale(1.12) rotate(14deg); }
 }
 
 .hero-btn-wrapper {

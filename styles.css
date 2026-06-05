@@ -188,39 +188,43 @@ button { cursor: pointer; }
    HERO — estilo original: foto clara + título tipográfico
 ============================================= */
 .hero {
-  position: relative; min-height: 360px;
-  background: #ffffff;
-  display: flex; align-items: center; justify-content: center; overflow: visible;
+  position: relative; min-height: 44vh;
+  background: #FAFAFA;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  padding: 56px 24px 52px;
+  border-bottom: 1px solid #EFEFEF;
 }
-.hero__workers-clip {
-  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+.hero__grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(232,118,42,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,118,42,.07) 1px, transparent 1px);
+  background-size: 52px 52px;
 }
-.hero__worker {
-  position: absolute; top: 0; height: 100%; width: 30%;
-  object-fit: cover; object-position: top center;
-  filter: none;
-  pointer-events: none;
+.hero__glow {
+  position: absolute; width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(232,118,42,.10) 0%, transparent 65%);
+  top: 40%; left: 50%; transform: translate(-50%, -50%);
+  animation: hero-glow-pulse 5s ease-in-out infinite alternate;
+  pointer-events: none; z-index: 0;
 }
-.hero__worker--left  { left: 0;  object-position: top right; }
-.hero__worker--right { right: 0; object-position: top left; }
-.hero__overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(210,207,203,.55) 0%,
-    rgba(220,218,214,.10) 25%,
-    rgba(220,218,214,.10) 75%,
-    rgba(210,207,203,.55) 100%
-  );
+@keyframes hero-glow-pulse {
+  0%   { transform: translate(-50%, -50%) scale(1); }
+  100% { transform: translate(-50%, -50%) scale(1.15); }
+}
+@keyframes fade-up-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .hero__content {
   position: relative; z-index: 2;
-  text-align: center; padding: 56px 24px 52px; max-width: 760px;
+  text-align: center; max-width: 760px;
 }
 .hero__brand-title {
   font-family: 'Glacial Indifference', sans-serif;
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 400; line-height: 1; letter-spacing: -3px; margin-bottom: 14px;
+  opacity: 0; animation: fade-up-in .7s .2s ease forwards;
 }
 .ht-orange { color: var(--orange); }
 .ht-dark   { color: var(--dark); }
@@ -228,6 +232,7 @@ button { cursor: pointer; }
   font-family: 'Glacial Indifference', sans-serif; font-style: italic;
   font-size: clamp(1rem, 2.5vw, 1.4rem);
   color: var(--dark-soft); margin-bottom: 32px;
+  opacity: 0; animation: fade-up-in .6s .45s ease forwards;
 }
 @keyframes balanceo {
   0%   { transform: scale(0.94) rotate(14deg); }
@@ -238,6 +243,7 @@ button { cursor: pointer; }
 .hero-btn-wrapper {
   position: relative;
   display: inline-block;
+  opacity: 0; animation: fade-up-in .6s .7s ease forwards;
 }
 
 .btn--hero {

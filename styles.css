@@ -194,8 +194,18 @@ button { cursor: pointer; }
   padding: 56px 24px 52px;
   border-bottom: 1px solid #EFEFEF;
 }
+.hero__workers-clip {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+}
+.hero__worker {
+  position: absolute; top: 0; height: 100%; width: 32%;
+  object-fit: cover; object-position: top center;
+  opacity: 0.32; pointer-events: none;
+}
+.hero__worker--left  { left: 0;  object-position: top right; }
+.hero__worker--right { right: 0; object-position: top left; }
 .hero__grid {
-  position: absolute; inset: 0; z-index: 0;
+  position: absolute; inset: 0; z-index: 1;
   background-image:
     linear-gradient(rgba(232,118,42,.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(232,118,42,.07) 1px, transparent 1px);
@@ -206,7 +216,7 @@ button { cursor: pointer; }
   background: radial-gradient(circle, rgba(232,118,42,.10) 0%, transparent 65%);
   top: 40%; left: 50%; transform: translate(-50%, -50%);
   animation: hero-glow-pulse 5s ease-in-out infinite alternate;
-  pointer-events: none; z-index: 0;
+  pointer-events: none; z-index: 1;
 }
 @keyframes hero-glow-pulse {
   0%   { transform: translate(-50%, -50%) scale(1); }

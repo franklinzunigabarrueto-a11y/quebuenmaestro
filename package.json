@@ -1,0 +1,14 @@
+{
+  "name": "quebuenmaestro",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler pages dev . --compatibility-date=2024-09-23",
+    "deploy": "wrangler pages deploy . --project-name=quebuenmaestro",
+    "db:migrate": "wrangler d1 execute qbm-professionals --file=schema.sql",
+    "db:migrate:prod": "wrangler d1 execute qbm-professionals --file=schema.sql --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^3.99.0"
+  }
+}

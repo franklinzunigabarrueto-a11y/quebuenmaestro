@@ -1,0 +1,5 @@
+# Redirigir archivos de config a 404
+/wrangler.toml        /404   404
+/schema.sql           /404   404
+/package.json         /404   404
+/package-lock.json    /404   404

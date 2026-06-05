@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Términos y Condiciones — Québuenmaestro!</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { background: #F9F9F9; color: #1A1A1A; }
+
+    .terms-header {
+      background: #1A1A1A;
+      padding: 48px 0 40px;
+      text-align: center;
+    }
+    .terms-header__logo { height: 44px; margin-bottom: 20px; display: inline-block; }
+    .terms-header h1 {
+      font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 6px;
+    }
+    .terms-header p { font-size: .88rem; color: #9CA3AF; }
+
+    .terms-body {
+      max-width: 820px; margin: 0 auto; padding: 56px 24px 80px;
+    }
+
+    .terms-last-update {
+      display: inline-block;
+      background: #FEF3C7; color: #92400E;
+      font-size: .75rem; font-weight: 700; padding: 4px 12px;
+      border-radius: 100px; margin-bottom: 36px;
+    }
+
+    .terms-toc {
+      background: white; border: 1.5px solid #E5E5E5; border-radius: 12px;
+      padding: 24px 28px; margin-bottom: 48px;
+    }
+    .terms-toc h2 { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #9CA3AF; margin-bottom: 14px; }
+    .terms-toc ol { padding-left: 18px; margin: 0; }
+    .terms-toc li { margin-bottom: 6px; }
+    .terms-toc a { color: #E8762A; text-decoration: none; font-size: .88rem; }
+    .terms-toc a:hover { text-decoration: underline; }
+
+    .terms-section { margin-bottom: 44px; }
+    .terms-section h2 {
+      font-size: 1.05rem; font-weight: 700; color: #1A1A1A;
+      padding-bottom: 10px; border-bottom: 2px solid #E8762A;
+      margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+    }
+    .terms-section h2 .num {
+      background: #E8762A; color: white;
+      font-size: .75rem; font-weight: 700;
+      width: 24px; height: 24px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .terms-section p, .terms-section li {
+      font-size: .92rem; line-height: 1.8; color: #3D3D3D;
+    }
+    .terms-section ul, .terms-section ol {
+      padding-left: 20px; margin: 12px 0;
+    }
+    .terms-section li { margin-bottom: 6px; }
+
+    .terms-highlight {
+      background: #FEF2F2; border-left: 4px solid #EF4444;
+      padding: 14px 18px; border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+    }
+    .terms-highlight p { color: #7F1D1D; font-weight: 600; margin: 0; font-size: .9rem; }
+
+    .terms-important {
+      background: #FDF0E6; border-left: 4px solid #E8762A;
+      padding: 14px 18px; border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+    }
+    .terms-important p { color: #7C2D12; margin: 0; font-size: .9rem; }
+
+    .terms-footer {
+      text-align: center; margin-top: 60px; padding-top: 28px;
+      border-top: 1px solid #E5E5E5;
+      font-size: .82rem; color: #9CA3AF;
+    }
+    .terms-footer a { color: #E8762A; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .terms-header h1 { font-size: 1.3rem; }
+      .terms-body { padding: 36px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+
+      <div class="navbar__col-left">
+        <a href="index.html" class="logo-link">
+        <img src="logo.png" alt="Qbm!" class="logo-img" />
+      </a>
+        <div class="navbar__search">
+        <input type="text" id="searchText" placeholder="Nombre, especialidad o servicio" />
+        <button aria-label="Buscar">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+      </div>
+        <div class="navbar__location">
+        <svg width="15" height="15" fill="#E8762A" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <select id="searchCity" class="location-select">
+          <option value="">Todas las ciudades</option>
+          <option>Santiago</option><option>Talca</option><option>Concepción</option>
+          <option>Temuco</option><option>Valparaíso</option><option>Antofagasta</option>
+          <option>La Serena</option><option>Puerto Montt</option><option>Rancagua</option>
+        </select>
+      </div>
+      </div>
+      <div class="navbar__col-mid"></div>
+
+      <div class="navbar__right">
+        <div class="navbar__pro-cta">
+          <a href="registro.html" class="btn btn--primary btn--sm">Regístrate Aquí!</a>
+        </div>
+        <nav class="navbar__nav">
+          <a href="index.html">Inicio</a>
+          <a href="especialistas.html">Especialistas</a>
+          <a href="proveedores.html">Proveedores</a>
+          <a href="quienes.html">Quiénes Somos</a>
+          <a href="blog.html">Blog</a>
+          <a href="index.html#contacto">Contacto</a>
+        </nav>
+      </div>
+
+    </div>
+  </header>
+</div>
+</header>
+
+  <div class="terms-header">
+    <a href="index.html" style="text-decoration:none;display:inline-block;margin-bottom:20px;">
+      <span style="font-family:'Glacial Indifference',sans-serif;font-size:2rem;font-weight:400;letter-spacing:-1.5px;color:#fff;line-height:1;">
+        <span style="color:#E8762A;">Q</span>ué<span style="color:#E8762A;">b</span>uen<span style="color:#E8762A;">m</span>aestro!
+      </span>
+    </a>
+    <h1>Términos y Condiciones de Uso</h1>
+    <p>Plataforma de directorio de profesionales de la construcción — Chile</p>
+  </div>
+
+  <div class="terms-body">
+
+    <span class="terms-last-update">Última actualización: junio de 2026</span>
+
+    <!-- ÍNDICE -->
+    <div class="terms-toc">
+      <h2>Índice de contenidos</h2>
+      <ol>
+        <li><a href="#s1">Identificación de la plataforma</a></li>
+        <li><a href="#s2">Naturaleza del servicio</a></li>
+        <li><a href="#s3">Independencia de los profesionales registrados</a></li>
+        <li><a href="#s4">Responsabilidad de los profesionales registrados</a></li>
+        <li><a href="#s5">Limitación de responsabilidad de Québuenmaestro!</a></li>
+        <li><a href="#s6">Veracidad de la información</a></li>
+        <li><a href="#s7">Condiciones de registro y publicación</a></li>
+        <li><a href="#s8">Uso permitido de la plataforma</a></li>
+        <li><a href="#s9">Propiedad intelectual</a></li>
+        <li><a href="#s10">Modificaciones y suspensión del servicio</a></li>
+        <li><a href="#s11">Ley aplicable y jurisdicción</a></li>
+        <li><a href="#s12">Contacto</a></li>
+      </ol>
+    </div>
+
+    <!-- 1 -->
+    <div class="terms-section" id="s1">
+      <h2><span class="num">1</span>Identificación de la plataforma</h2>
+      <p>
+        <strong><span style="color:#E8762A;">Q</span>ué<span style="color:#E8762A;">b</span>uen<span style="color:#E8762A;">m</span>aestro!</strong> (en adelante, "la Plataforma", "<span style="color:#E8762A;">QBM</span>" o "nosotros") es un servicio digital de directorio
+        en línea cuya única función es facilitar la visibilidad de profesionales y empresas del rubro de la construcción
+        en Chile. La Plataforma opera bajo el dominio <strong>quebuenmaestro.cl</strong>.
+      </p>
+      <p>
+        Al acceder, navegar, registrarse o utilizar cualquier función de esta Plataforma, usted declara haber leído,
+        comprendido y aceptado íntegramente los presentes Términos y Condiciones. Si no está de acuerdo con
+        alguno de ellos, debe abstenerse de utilizar el sitio.
+      </p>
+    </div>
+
+    <!-- 2 -->
+    <div class="terms-section" id="s2">
+      <h2><span class="num">2</span>Naturaleza del servicio</h2>
+      <p>
+        QBM es estrictamente una <strong>plataforma de publicación y difusión de perfiles</strong>. Su función se limita a:
+      </p>
+      <ul>
+        <li>Recibir y publicar la información que cada profesional o empresa declara sobre sí mismo.</li>
+        <li>Permitir que usuarios interesados en contratar servicios de construcción encuentren y contacten directamente a los profesionales listados.</li>
+        <li>Mantener un directorio organizado por especialidad y zona geográfica.</li>
+      </ul>
+      <div class="terms-important">
+        <p>QBM <strong>no es una agencia de empleo, no es intermediaria contractual</strong> y <strong>no participa en ningún acuerdo, contrato, negociación ni prestación de servicios</strong> entre el profesional/empresa registrada y los usuarios que los contacten.</p>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="terms-section" id="s3">
+      <h2><span class="num">3</span>Independencia de los profesionales registrados</h2>
+      <p>
+        Los profesionales y empresas que aparecen en el directorio de QBM son <strong>entidades completamente independientes</strong>
+        de esta Plataforma. En ningún caso existe entre QBM y los profesionales registrados una relación de:
+      </p>
+      <ul>
+        <li>Dependencia laboral o relación de trabajo (empleador-empleado).</li>
+        <li>Representación, mandato o poder para actuar en nombre de QBM.</li>
+        <li>Sociedad, asociación o vínculo comercial de ningún tipo.</li>
+        <li>Agencia, corretaje o intermediación.</li>
+        <li>Franquicia, afiliación ni endoso de sus servicios.</li>
+      </ul>
+      <p>
+        La aparición en el directorio de QBM no implica certificación, validación, recomendación ni garantía alguna
+        respecto a la calidad, idoneidad, legalidad o confiabilidad del profesional o empresa publicada.
+      </p>
+    </div>
+
+    <!-- 4 -->
+    <div class="terms-section" id="s4">
+      <h2><span class="num">4</span>Responsabilidad de los profesionales registrados</h2>
+      <p>
+        Cada persona natural o jurídica que se registre en QBM asume plena y exclusiva responsabilidad por:
+      </p>
+      <ul>
+        <li>La exactitud, veracidad y actualización de la información que proporciona en su perfil.</li>
+        <li>Contar con las habilitaciones, permisos, licencias y titulaciones que la ley exige para el ejercicio de su oficio o profesión.</li>
+        <li>La calidad de los servicios que presta, el cumplimiento de sus compromisos y el trato hacia sus clientes.</li>
+        <li>Cualquier daño material, físico, económico o de cualquier naturaleza que pudiera ocasionar en el desempeño de sus labores.</li>
+        <li>El cumplimiento de las normativas de seguridad, laborales, tributarias y civiles vigentes en Chile.</li>
+        <li>Cualquier conflicto, disputa o litigio surgido entre el profesional y sus clientes.</li>
+      </ul>
+      <div class="terms-highlight">
+        <p>Al registrarse en QBM, el profesional o empresa declara que sus actividades son lícitas, que cuenta con las habilitaciones correspondientes y que actúa bajo su propia responsabilidad y la de su empresa, sin comprometer a QBM en sus actos.</p>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="terms-section" id="s5">
+      <h2><span class="num">5</span>Limitación de responsabilidad de <span style="color:#E8762A;">Q</span>ué<span style="color:#E8762A;">b</span>uen<span style="color:#E8762A;">m</span>aestro!</h2>
+      <p>
+        En la máxima medida permitida por la legislación chilena vigente, QBM <strong>no será responsable</strong>,
+        bajo ninguna teoría jurídica ni circunstancia, por:
+      </p>
+      <ul>
+        <li>La calidad, seguridad o resultado de los trabajos realizados por cualquier profesional o empresa listada en el directorio.</li>
+        <li>Incumplimientos contractuales, daños, perjuicios o pérdidas ocasionadas por los profesionales registrados a sus clientes o a terceros.</li>
+        <li>Lesiones, accidentes, daños a la propiedad o cualquier consecuencia derivada de los servicios contratados a través de contactos generados en la Plataforma.</li>
+        <li>La información falsa, inexacta, desactualizada o engañosa que los profesionales o empresas hayan declarado en sus perfiles.</li>
+        <li>Fraudes, estafas, incumplimientos u otras conductas ilícitas cometidas por personas registradas en la Plataforma.</li>
+        <li>Conflictos, disputas o diferencias surgidas entre usuarios y profesionales.</li>
+        <li>El uso que terceros den a la información publicada en el directorio.</li>
+        <li>Interrupciones, errores técnicos o indisponibilidad temporal del sitio web.</li>
+      </ul>
+      <div class="terms-highlight">
+        <p>QBM actúa exclusivamente como soporte tecnológico de publicación. Toda relación contractual que nazca del uso de este directorio es directa y exclusiva entre el usuario y el profesional, sin que QBM sea parte de dicha relación.</p>
+      </div>
+      <p>
+        El usuario que contrate servicios a un profesional encontrado en QBM lo hace <strong>bajo su propio riesgo y responsabilidad</strong>,
+        asumiendo la obligación de verificar por sus propios medios la idoneidad, experiencia y confiabilidad del profesional antes de contratar.
+      </p>
+    </div>
+
+    <!-- 6 -->
+    <div class="terms-section" id="s6">
+      <h2><span class="num">6</span>Veracidad de la información</h2>
+      <p>
+        QBM no verifica ni certifica la autenticidad de los títulos, certificaciones, experiencia, documentación ni
+        ninguna otra información declarada por los profesionales en sus perfiles. Toda la información publicada
+        proviene directamente del profesional o empresa registrada, quien responde por su veracidad.
+      </p>
+      <p>
+        QBM se reserva el derecho de revisar los perfiles publicados y retirar del directorio aquellos que,
+        a su sola discreción, contengan información manifiestamente falsa, engañosa, ilícita u ofensiva,
+        sin que ello implique responsabilidad alguna por el contenido previamente publicado.
+      </p>
+    </div>
+
+    <!-- 7 -->
+    <div class="terms-section" id="s7">
+      <h2><span class="num">7</span>Condiciones de registro y publicación</h2>
+      <p>
+        Para registrar un perfil en QBM, el solicitante declara y garantiza que:
+      </p>
+      <ul>
+        <li>Es mayor de 18 años o actúa en representación legal de una empresa debidamente constituida.</li>
+        <li>Toda la información proporcionada es verdadera, completa y actualizada.</li>
+        <li>Está autorizado para utilizar las imágenes y contenido que adjunta en su perfil.</li>
+        <li>Sus actividades son lícitas conforme a la legislación chilena.</li>
+        <li>Acepta que QBM puede rechazar, suspender o eliminar su publicación en cualquier momento y sin expresión de causa, especialmente si se detecta información falsa, conducta inadecuada o denuncias fundadas de parte de usuarios.</li>
+      </ul>
+      <p>
+        La publicación en QBM no garantiza un número determinado de contactos, clientes ni resultados económicos.
+        QBM no asegura visibilidad, posicionamiento específico ni exclusividad de ningún tipo.
+      </p>
+    </div>
+
+    <!-- 8 -->
+    <div class="terms-section" id="s8">
+      <h2><span class="num">8</span>Uso permitido de la plataforma</h2>
+      <p>Queda estrictamente prohibido el uso de QBM para:</p>
+      <ul>
+        <li>Publicar información falsa, fraudulenta o que induzca a error.</li>
+        <li>Suplantar la identidad de otra persona o empresa.</li>
+        <li>Realizar scraping, extracción masiva de datos u otras prácticas que afecten el funcionamiento del sitio.</li>
+        <li>Promover actividades ilegales, discriminatorias u ofensivas.</li>
+        <li>Contactar a otros usuarios con fines de spam, acoso o publicidad no solicitada.</li>
+      </ul>
+      <p>
+        El incumplimiento de estas condiciones faculta a QBM para suspender o eliminar definitivamente el acceso
+        del infractor, sin perjuicio de las acciones legales que pudieran corresponder.
+      </p>
+    </div>
+
+    <!-- 9 -->
+    <div class="terms-section" id="s9">
+      <h2><span class="num">9</span>Propiedad intelectual</h2>
+      <p>
+        La marca, logotipo, diseño, código y contenidos propios de QBM son propiedad exclusiva de la Plataforma
+        y están protegidos por la legislación de propiedad intelectual chilena e internacional.
+        Queda prohibida su reproducción, distribución o uso comercial sin autorización escrita previa.
+      </p>
+      <p>
+        Respecto al contenido aportado por los profesionales (fotos, textos, información), al subirlo a la Plataforma,
+        el profesional otorga a QBM una licencia no exclusiva, gratuita y revocable para publicarlo con el
+        único fin de mostrar su perfil en el directorio.
+      </p>
+    </div>
+
+    <!-- 10 -->
+    <div class="terms-section" id="s10">
+      <h2><span class="num">10</span>Modificaciones y suspensión del servicio</h2>
+      <p>
+        QBM se reserva el derecho de modificar los presentes Términos y Condiciones en cualquier momento.
+        Las modificaciones entrarán en vigor desde su publicación en este mismo enlace. El uso continuado de
+        la Plataforma tras la publicación de cambios implica la aceptación de los nuevos términos.
+      </p>
+      <p>
+        QBM podrá suspender, modificar o discontinuar el servicio total o parcialmente, de forma temporal
+        o definitiva, sin previo aviso y sin responsabilidad frente a los usuarios o profesionales registrados.
+      </p>
+    </div>
+
+    <!-- 11 -->
+    <div class="terms-section" id="s11">
+      <h2><span class="num">11</span>Ley aplicable y jurisdicción</h2>
+      <p>
+        Los presentes Términos y Condiciones se rigen íntegramente por las leyes de la República de Chile,
+        incluyendo pero no limitándose a la Ley N.° 19.496 sobre Protección de los Derechos de los Consumidores,
+        la Ley N.° 19.628 sobre Protección de la Vida Privada y el Código Civil chileno.
+      </p>
+      <p>
+        Para la resolución de cualquier controversia derivada del uso de la Plataforma, las partes se someten
+        a la jurisdicción de los tribunales ordinarios de justicia de la ciudad de Santiago de Chile,
+        renunciando expresamente a cualquier otro fuero que pudiera corresponderles.
+      </p>
+    </div>
+
+    <!-- 12 -->
+    <div class="terms-section" id="s12">
+      <h2><span class="num">12</span>Contacto</h2>
+      <p>
+        Para consultas, reclamos o notificaciones relacionadas con estos Términos y Condiciones, puede
+        contactarnos en:
+      </p>
+      <ul>
+        <li><strong>Correo electrónico:</strong> contacto@quebuenmaestro.cl</li>
+        <li><strong>Sitio web:</strong> quebuenmaestro.cl</li>
+      </ul>
+      <p>
+        Nos comprometemos a responder toda comunicación formal relacionada con el uso de la Plataforma
+        en un plazo razonable.
+      </p>
+    </div>
+
+    <div class="terms-footer">
+      <p>© 2026 Québuenmaestro! — Todos los derechos reservados.</p>
+      <p style="margin-top:6px;"><a href="index.html">← Volver al inicio</a></p>
+    </div>
+
+  </div>
+
+  <script>
+    // Aplicar colores de marca en todo el contenido del documento
+    const QBM_FULL = '<span style="color:#E8762A">Q</span>ué<span style="color:#E8762A">b</span>uen<span style="color:#E8762A">m</span>aestro!';
+    const QBM_SIGLA = '<span style="color:#E8762A">Qbm!</span>';
+
+    function applyBrandColors(el) {
+      el.innerHTML = el.innerHTML
+        .replace(/Québuenmaestro!/g, QBM_FULL)
+        .replace(/\bQBM\b/g, QBM_SIGLA);
+    }
+
+    // Búsqueda redirige al directorio
+    (function(){
+      function goSearch(){ window.location.href='index.html#directorio'; }
+      document.getElementById('searchText')?.addEventListener('keydown',e=>{ if(e.key==='Enter') goSearch(); });
+      document.querySelector('.navbar__search button')?.addEventListener('click', goSearch);
+      document.querySelector('.location-select')?.addEventListener('change', goSearch);
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      applyBrandColors(document.querySelector('.terms-body'));
+    });
+  </script>
+</body>
+</html>

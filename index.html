@@ -14,48 +14,46 @@
   <header class="navbar">
     <div class="navbar__inner">
 
-      <a href="index.html" class="logo-link">
+      <div class="navbar__col-left">
+        <a href="index.html" class="logo-link">
         <img src="logo.png" alt="Qbm!" class="logo-img" />
       </a>
-
-      <div class="navbar__search">
-        <input type="text" id="searchText" placeholder="Nombre, especialidad o servicio"
-          onkeydown="if(event.key==='Enter'){applyFilters();document.getElementById('directorio').scrollIntoView({behavior:'smooth'})}" />
+        <div class="navbar__search">
+        <input type="text" id="searchText" placeholder="Nombre, especialidad o servicio" onkeydown="if(event.key==='Enter'){applyFilters();document.getElementById('directorio').scrollIntoView({behavior:'smooth'})}" />
         <button aria-label="Buscar" onclick="applyFilters();document.getElementById('directorio').scrollIntoView({behavior:'smooth'})">
           <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         </button>
       </div>
-
-      <div class="navbar__location">
+        <div class="navbar__location">
         <svg width="15" height="15" fill="#E8762A" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         <select id="searchCity" onchange="applyFilters()" class="location-select">
           <option value="">Todas las ciudades</option>
-          <option>Santiago</option>
-          <option>Talca</option>
-          <option>Concepción</option>
-          <option>Temuco</option>
-          <option>Valparaíso</option>
-          <option>Antofagasta</option>
-          <option>La Serena</option>
-          <option>Puerto Montt</option>
-          <option>Rancagua</option>
+          <option>Santiago</option><option>Talca</option><option>Concepción</option>
+          <option>Temuco</option><option>Valparaíso</option><option>Antofagasta</option>
+          <option>La Serena</option><option>Puerto Montt</option><option>Rancagua</option>
         </select>
       </div>
+      </div>
+      <div class="navbar__col-mid"></div>
 
       <div class="navbar__right">
         <div class="navbar__pro-cta">
-          <span class="navbar__pro-text">¿Prestas servicios como maestro?</span>
           <a href="registro.html" class="btn btn--primary btn--sm">Regístrate Aquí!</a>
         </div>
         <nav class="navbar__nav">
-          <a href="#directorio">Proveedores</a>
-          <a href="#">Blog</a>
-          <a href="#">Contacto</a>
+          <a href="index.html" class="active">Inicio</a>
+          <a href="especialistas.html">Especialistas</a>
+          <a href="proveedores.html">Proveedores</a>
+          <a href="quienes.html">Quiénes Somos</a>
+          <a href="blog.html">Blog</a>
+          <a href="#contacto">Contacto</a>
         </nav>
       </div>
 
     </div>
   </header>
+</div>
+</header>
 
   <!-- ===== HERO ===== -->
   <section class="hero">
@@ -78,7 +76,6 @@
           <span class="btn-text">Catálogo de Especialistas</span>
           <span class="crack-overlay"></span>
           <span class="vivid-layer"></span>
-          <span class="screw-el screw-el--left"></span>
           <span class="screw-el screw-el--right"></span>
           <span class="paint-layer"></span>
         </a>
@@ -199,6 +196,14 @@
     </div>
   </section>
 
+  <!-- ===== AUSPICIADORES ===== -->
+  <section id="auspiciadores" class="sponsors-section" style="display:none;">
+    <div class="container">
+      <p class="sponsors-section__label">Con el apoyo de</p>
+      <div class="sponsors-grid" id="sponsorsGrid"></div>
+    </div>
+  </section>
+
   <!-- ===== REGISTRO PROFESIONAL ===== -->
   <section id="registro" class="register-cta">
     <div class="container">
@@ -229,7 +234,7 @@
   </section>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="footer">
+  <footer class="footer" id="contacto">
     <div class="footer__top">
       <div class="container">
         <div class="footer__grid">
@@ -265,13 +270,13 @@
             <a href="#">Registrar empresa</a>
             <a href="#">API e Integraciones</a>
             <a href="#">FlowDesk</a>
-            <a href="#">Blog</a>
+            <a href="blog.html">Blog</a>
           </div>
           <div class="footer__col">
             <h4>Legal</h4>
-            <a href="#">Quiénes Somos</a>
+            <a href="quienes.html">Quiénes Somos</a>
             <a href="#">Privacidad</a>
-            <a href="#">Términos y Condiciones</a>
+            <a href="terminos.html">Términos y Condiciones</a>
             <a href="#">Contacto</a>
           </div>
         </div>
@@ -279,17 +284,19 @@
     </div>
     <div class="footer__bottom">
       <div class="container">
-        <p>Copyright © 2026 Québuenmaestro! — Todos los derechos reservados</p>
+        <p>Copyright © 2026 <span style="color:#E8762A;">Q</span>ué<span style="color:#E8762A;">b</span>uen<span style="color:#E8762A;">m</span>aestro! — Todos los derechos reservados</p>
         <p>contacto@quebuenmaestro.cl &nbsp;·&nbsp; +569 XX XXX XX</p>
       </div>
     </div>
   </footer>
 
   <!-- Floating CTA -->
-  <a href="tel:+569XXXXXXXX" class="floating-btn" aria-label="Contáctanos">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-    <span>Hablemos</span>
+  <a href="registro.html" class="floating-btn" aria-label="Registra tu perfil">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>¿Eres maestro?</span>
   </a>
+
+  <div id="pageFade" class="page-fade" aria-hidden="true"></div>
 
   <script src="script.js"></script>
   <script>

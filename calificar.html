@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calificar profesional — Québuenmaestro!</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { background: #F5F5F5; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+
+    .cal-card {
+      background: white; border-radius: 20px; padding: 40px 36px;
+      width: 100%; max-width: 480px; box-shadow: 0 4px 24px rgba(0,0,0,.08);
+      text-align: center;
+    }
+
+    .cal-logo { height: 56px; margin: 0 auto 24px; }
+
+    .cal-pro-avatar {
+      width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
+      margin: 0 auto 12px; border: 3px solid #E5E5E5; display: block;
+    }
+    .cal-pro-initials {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: #FDF0E6; color: #E8762A;
+      font-size: 1.6rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .cal-pro-name { font-size: 1.2rem; font-weight: 700; color: #1A1A1A; margin: 0 0 4px; }
+    .cal-pro-type { font-size: 0.82rem; color: #9CA3AF; margin: 0 0 28px; text-transform: uppercase; letter-spacing: .4px; }
+
+    /* Estrellas interactivas */
+    .star-picker { display: flex; justify-content: center; gap: 8px; margin-bottom: 8px; }
+    .star-picker button {
+      background: none; border: none; font-size: 2.4rem; cursor: pointer;
+      color: #D1D5DB; transition: color .15s, transform .15s;
+      padding: 4px; line-height: 1;
+    }
+    .star-picker button.active,
+    .star-picker button.hover { color: #F59E0B; transform: scale(1.15); }
+    .star-label { font-size: 0.88rem; color: #9CA3AF; margin: 0 0 24px; min-height: 20px; }
+
+    .cal-form { text-align: left; display: flex; flex-direction: column; gap: 16px; }
+    .cal-form label { font-size: 0.88rem; font-weight: 600; color: #3D3D3D; }
+    .cal-form input, .cal-form textarea {
+      width: 100%; padding: 11px 14px; border: 1.5px solid #E5E5E5; border-radius: 12px;
+      font-family: 'Glacial Indifference', sans-serif; font-size: 0.9rem; color: #1A1A1A;
+      outline: none; transition: border-color .2s; margin-top: 4px;
+    }
+    .cal-form input:focus, .cal-form textarea:focus { border-color: #E8762A; }
+    .cal-form textarea { resize: vertical; min-height: 100px; }
+
+    .cal-submit {
+      width: 100%; padding: 14px; border: none; border-radius: 100px;
+      background: #E8762A; color: white;
+      font-family: 'Glacial Indifference', sans-serif; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: background .2s; margin-top: 4px;
+      box-shadow: 0 4px 14px rgba(232,118,42,.35);
+    }
+    .cal-submit:hover { background: #C55E18; }
+    .cal-submit:disabled { background: #ccc; cursor: default; box-shadow: none; }
+
+    .cal-error { color: #EF4444; font-size: 0.85rem; text-align: center; margin-top: 8px; }
+    .cal-success { display: none; flex-direction: column; align-items: center; gap: 12px; }
+    .cal-success svg { color: #E8762A; }
+    .cal-success h2 { font-size: 1.3rem; font-weight: 700; color: #1A1A1A; }
+    .cal-success p  { color: #6B6B6B; font-size: 0.9rem; }
+
+    .cal-loading { color: #9CA3AF; font-size: 0.9rem; }
+    .cal-expired { color: #EF4444; font-size: 1rem; margin: 16px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="cal-card" id="calCard">
+
+    <img src="logo.png" alt="Québuenmaestro!" class="cal-logo" />
+
+    <!-- Cargando -->
+    <div id="calLoading">
+      <svg width="36" height="36" fill="none" stroke="#E8762A" stroke-width="2" viewBox="0 0 24 24" style="animation:spin 1s linear infinite;margin:0 auto 12px;display:block;"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0"/></svg>
+      <p class="cal-loading">Validando link...</p>
+    </div>
+
+    <!-- Error / Expirado -->
+    <div id="calInvalid" style="display:none;">
+      <p class="cal-expired" id="calErrorMsg">Link inválido o expirado.</p>
+      <a href="index.html" class="btn btn--ghost">Volver al directorio</a>
+    </div>
+
+    <!-- Formulario -->
+    <div id="calForm" style="display:none;">
+      <div id="calAvatar"></div>
+      <p class="cal-pro-name" id="calNombre"></p>
+      <p class="cal-pro-type" id="calTipo"></p>
+
+      <div class="star-picker" id="starPicker" role="group" aria-label="Selecciona tu calificación">
+        <button type="button" data-val="1" aria-label="1 estrella">★</button>
+        <button type="button" data-val="2" aria-label="2 estrellas">★</button>
+        <button type="button" data-val="3" aria-label="3 estrellas">★</button>
+        <button type="button" data-val="4" aria-label="4 estrellas">★</button>
+        <button type="button" data-val="5" aria-label="5 estrellas">★</button>
+      </div>
+      <p class="star-label" id="starLabel">Toca una estrella para calificar</p>
+
+      <form class="cal-form" id="reviewForm" novalidate>
+        <div>
+          <label for="reviewerName">Tu nombre <span style="color:#E8762A;">*</span></label>
+          <input type="text" id="reviewerName" placeholder="Ej: María González" maxlength="80" required />
+        </div>
+        <div>
+          <label for="reviewComment">¿Cómo fue tu experiencia? <span style="color:#9CA3AF;font-weight:400;">(opcional)</span></label>
+          <textarea id="reviewComment" placeholder="Cuéntanos sobre el trabajo realizado..." maxlength="500"></textarea>
+        </div>
+        <p class="cal-error hidden" id="formError"></p>
+        <button type="submit" class="cal-submit" id="calSubmit" disabled>Enviar calificación</button>
+      </form>
+    </div>
+
+    <!-- Éxito -->
+    <div class="cal-success" id="calSuccess">
+      <svg width="56" height="56" fill="none" stroke="#E8762A" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></svg>
+      <h2>¡Gracias por tu reseña!</h2>
+      <p id="successMsg">Tu calificación fue registrada.</p>
+      <a href="index.html" class="btn btn--ghost" style="margin-top:8px;">Volver al directorio</a>
+    </div>
+
+  </div>
+
+  <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+
+  <script>
+    const STAR_LABELS = ['','Muy malo','Regular','Bueno','Muy bueno','Excelente'];
+    let selectedRating = 0;
+
+    // ── Cargar datos del token ──
+    async function init() {
+      const token = new URLSearchParams(location.search).get('token');
+      if (!token) { showInvalid('Link inválido.'); return; }
+
+      try {
+        const res  = await fetch(`/api/review/${token}`);
+        const data = await res.json();
+
+        if (!res.ok) { showInvalid(data.error || 'Link inválido o expirado.'); return; }
+
+        // Mostrar datos del profesional
+        const p = data.professional;
+        document.getElementById('calNombre').textContent = p.nombre;
+        document.getElementById('calTipo').textContent   = p.especialidad;
+
+        const avatarEl = document.getElementById('calAvatar');
+        if (p.avatar) {
+          avatarEl.innerHTML = `<img src="${p.avatar}" alt="${p.nombre}" class="cal-pro-avatar" />`;
+        } else {
+          const initials = p.nombre.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+          avatarEl.innerHTML = `<div class="cal-pro-initials">${initials}</div>`;
+        }
+
+        document.getElementById('calLoading').style.display = 'none';
+        document.getElementById('calForm').style.display    = 'block';
+
+        initStars(token);
+
+      } catch {
+        showInvalid('Error de conexión. Intenta nuevamente.');
+      }
+    }
+
+    // ── Estrellas interactivas ──
+    function initStars(token) {
+      const picker  = document.getElementById('starPicker');
+      const label   = document.getElementById('starLabel');
+      const buttons = picker.querySelectorAll('button');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('mouseenter', () => highlightStars(parseInt(btn.dataset.val)));
+        btn.addEventListener('mouseleave', () => highlightStars(selectedRating));
+        btn.addEventListener('click', () => {
+          selectedRating = parseInt(btn.dataset.val);
+          highlightStars(selectedRating);
+          label.textContent = STAR_LABELS[selectedRating];
+          label.style.color = '#E8762A';
+          document.getElementById('calSubmit').disabled = false;
+        });
+      });
+
+      function highlightStars(n) {
+        buttons.forEach((b, i) => {
+          b.classList.toggle('active', i < n);
+        });
+      }
+
+      // Submit
+      document.getElementById('reviewForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        if (selectedRating === 0) return;
+
+        const name    = document.getElementById('reviewerName').value.trim();
+        const comment = document.getElementById('reviewComment').value.trim();
+        const errEl   = document.getElementById('formError');
+
+        if (!name) {
+          errEl.textContent = 'Por favor ingresa tu nombre.';
+          errEl.classList.remove('hidden');
+          return;
+        }
+        errEl.classList.add('hidden');
+
+        const btn = document.getElementById('calSubmit');
+        btn.disabled = true;
+        btn.textContent = 'Enviando...';
+
+        try {
+          const res  = await fetch(`/api/review/${token}`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ rating: selectedRating, reviewer_name: name, comment }),
+          });
+          const data = await res.json();
+
+          if (data.success) {
+            document.getElementById('calForm').style.display = 'none';
+            const successEl = document.getElementById('calSuccess');
+            successEl.style.display = 'flex';
+            document.getElementById('successMsg').textContent =
+              `Tu calificación para ${data.professional} fue registrada. ¡Gracias!`;
+          } else {
+            errEl.textContent = data.error || 'Error al enviar. Intenta nuevamente.';
+            errEl.classList.remove('hidden');
+            btn.disabled = false;
+            btn.textContent = 'Enviar calificación';
+          }
+        } catch {
+          errEl.textContent = 'Error de conexión. Intenta nuevamente.';
+          errEl.classList.remove('hidden');
+          btn.disabled = false;
+          btn.textContent = 'Enviar calificación';
+        }
+      });
+    }
+
+    function showInvalid(msg) {
+      document.getElementById('calLoading').style.display  = 'none';
+      document.getElementById('calInvalid').style.display  = 'block';
+      document.getElementById('calErrorMsg').textContent   = msg;
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Admin — Québuenmaestro!</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { background: #F5F5F5; }
+
+    .admin-header {
+      background: #1A1A1A; color: white;
+      padding: 16px 24px; display: flex; align-items: center;
+      justify-content: space-between; gap: 16px;
+    }
+    .admin-header h1 { font-size: 1.1rem; font-weight: 700; }
+    .admin-header span { font-size: 0.8rem; color: #999; }
+
+    .admin-tabs {
+      display: flex; gap: 0;
+      background: white; border-bottom: 1px solid #E5E5E5;
+      padding: 0 24px;
+    }
+    .admin-tab {
+      padding: 14px 20px; font-size: 0.88rem; font-weight: 600;
+      color: #6B6B6B; border-bottom: 2px solid transparent;
+      cursor: pointer; transition: all .2s;
+    }
+    .admin-tab.active { color: #E8762A; border-color: #E8762A; }
+    .admin-tab:hover { color: #E8762A; }
+
+    .admin-content { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+    .admin-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+    .admin-table th { background: #F9F9F9; padding: 12px 16px; text-align: left; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #6B6B6B; }
+    .admin-table td { padding: 14px 16px; border-top: 1px solid #F0F0F0; font-size: 0.88rem; vertical-align: middle; }
+    .admin-table tr:hover td { background: #FAFAFA; }
+
+    /* Modal de detalle */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 500; display: flex; align-items: flex-start; justify-content: center; padding: 32px 16px; overflow-y: auto; }
+    .modal-box { background: white; border-radius: 16px; width: 100%; max-width: 760px; padding: 32px; position: relative; }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: #F5F5F5; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
+    .modal-close:hover { background: #E5E5E5; }
+    .modal-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+    .modal-section { margin-top: 20px; }
+    .modal-section h4 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #999; margin-bottom: 10px; }
+    .modal-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .modal-photo { aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; background: #F5F5F5; }
+    .modal-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-photo--empty { display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 0.8rem; }
+    .modal-field { display: flex; gap: 8px; padding: 8px 0; border-bottom: 1px solid #F5F5F5; font-size: 0.88rem; }
+    .modal-field strong { min-width: 130px; color: #6B6B6B; flex-shrink: 0; }
+    .modal-actions { display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end; }
+
+    .status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; }
+    .status-badge--pending  { background: #FEF3C7; color: #92400E; }
+    .status-badge--approved { background: #ECFDF5; color: #065F46; }
+    .status-badge--rejected { background: #FEF2F2; color: #991B1B; }
+
+    .action-btns { display: flex; gap: 8px; }
+    .btn-approve { background: #059669; color: white; border: none; padding: 6px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: background .2s; }
+    .btn-approve:hover { background: #047857; }
+    .btn-reject  { background: #EF4444; color: white; border: none; padding: 6px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: background .2s; }
+    .btn-reject:hover { background: #DC2626; }
+    .btn-view    { background: #F5F5F5; color: #3D3D3D; border: 1.5px solid #E5E5E5; padding: 6px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: all .2s; }
+    .btn-view:hover { border-color: #E8762A; color: #E8762A; }
+
+    .empty-state { text-align: center; padding: 80px 24px; color: #999; }
+    .empty-state p { margin-top: 12px; }
+
+    .admin-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: white; border-radius: 12px; padding: 20px 24px; border: 1.5px solid #E5E5E5; }
+    .stat-card__num  { font-size: 2rem; font-weight: 700; color: #1A1A1A; }
+    .stat-card__label { font-size: 0.82rem; color: #6B6B6B; margin-top: 4px; }
+    .stat-card--orange .stat-card__num { color: #E8762A; }
+    .stat-card--green  .stat-card__num { color: #059669; }
+
+    /* Login overlay */
+    #loginOverlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.5);
+      display: flex; align-items: center; justify-content: center; z-index: 999;
+    }
+    .login-card {
+      background: white; border-radius: 16px; padding: 40px;
+      width: 100%; max-width: 380px; text-align: center;
+    }
+    .login-card h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+    .login-card p  { font-size: 0.88rem; color: #6B6B6B; margin-bottom: 24px; }
+    .login-card input {
+      width: 100%; padding: 12px 14px; border: 1.5px solid #E5E5E5; border-radius: 8px;
+      font-size: 0.95rem; margin-bottom: 12px; outline: none;
+      font-family: 'Glacial Indifference', sans-serif;
+    }
+    .login-card input:focus { border-color: #E8762A; }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN OVERLAY -->
+  <div id="loginOverlay">
+    <div class="login-card">
+      <img src="logo.png" alt="Qbm!" style="height:60px;margin:0 auto 16px;" />
+      <h2>Panel de administración</h2>
+      <p>Ingresa el token de acceso</p>
+      <input type="password" id="tokenInput" placeholder="Token de administrador" />
+      <button id="loginBtn" class="btn btn--primary" style="width:100%;">Ingresar</button>
+      <p id="loginError" style="color:#EF4444;font-size:0.82rem;margin-top:8px;display:none;">Token incorrecto</p>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="admin-header">
+    <div>
+      <h1><span style="color:#E8762A;">Q</span>ué<span style="color:#E8762A;">b</span>uen<span style="color:#E8762A;">m</span>aestro! — Panel Admin</h1>
+      <span>Gestión de profesionales registrados</span>
+    </div>
+    <a href="index.html" style="color:#999;font-size:0.85rem;">← Ver sitio</a>
+  </div>
+
+  <!-- TABS -->
+  <div class="admin-tabs">
+    <div class="admin-tab active" id="tab-pros" onclick="switchSection('professionals')">Profesionales <span id="tabPendingCount"></span></div>
+    <div class="admin-tab" id="tab-suppliers" onclick="switchSection('suppliers')">Proveedores <span id="tabSuppliersCount"></span></div>
+    <div class="admin-tab" id="tab-sponsors" onclick="switchSection('sponsors')">Auspiciadores</div>
+  </div>
+
+  <div class="admin-content">
+
+    <!-- STATS -->
+    <div class="admin-stats" id="adminStats" style="display:none;">
+      <div class="stat-card stat-card--orange">
+        <div class="stat-card__num" id="statPending">—</div>
+        <div class="stat-card__label">Pendientes de revisión</div>
+      </div>
+      <div class="stat-card stat-card--green">
+        <div class="stat-card__num" id="statApproved">—</div>
+        <div class="stat-card__label">Publicados en directorio</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__num" id="statTotal">—</div>
+        <div class="stat-card__label">Total registrados</div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN PROFESIONALES -->
+    <div id="sectionProfessionals">
+      <div style="display:flex;gap:0;border-bottom:1px solid #E5E5E5;margin-bottom:24px;">
+        <div class="admin-tab active" id="subtab-pending"  onclick="loadTab('pending')"  style="padding:10px 18px;font-size:.82rem;">Pendientes <span id="tabPendingCount"></span></div>
+        <div class="admin-tab"        id="subtab-approved" onclick="loadTab('approved')" style="padding:10px 18px;font-size:.82rem;">Aprobados</div>
+        <div class="admin-tab"        id="subtab-rejected" onclick="loadTab('rejected')" style="padding:10px 18px;font-size:.82rem;">Rechazados</div>
+        <div class="admin-tab"        id="subtab-all"      onclick="loadTab('all')"      style="padding:10px 18px;font-size:.82rem;">Todos</div>
+      </div>
+      <div id="tableContainer">
+        <div class="empty-state">
+          <svg width="40" height="40" fill="none" stroke="#E8762A" stroke-width="2" viewBox="0 0 24 24" style="animation:spin 1s linear infinite;margin:0 auto"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0"/></svg>
+          <p>Cargando...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN AUSPICIADORES -->
+    <div id="sectionSponsors" style="display:none;">
+
+      <!-- Formulario agregar -->
+      <div style="background:white;border-radius:12px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:28px;">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:16px;">Agregar auspiciador</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <label style="font-size:.78rem;font-weight:700;color:#6B6B6B;display:block;margin-bottom:4px;">Nombre *</label>
+            <input id="spNombre" type="text" placeholder="Ferretería ABC" style="width:100%;padding:10px 12px;border:1.5px solid #E5E5E5;border-radius:8px;font-size:.88rem;outline:none;box-sizing:border-box;" />
+          </div>
+          <div>
+            <label style="font-size:.78rem;font-weight:700;color:#6B6B6B;display:block;margin-bottom:4px;">Sitio web</label>
+            <input id="spWebsite" type="url" placeholder="https://..." style="width:100%;padding:10px 12px;border:1.5px solid #E5E5E5;border-radius:8px;font-size:.88rem;outline:none;box-sizing:border-box;" />
+          </div>
+          <div>
+            <label style="font-size:.78rem;font-weight:700;color:#6B6B6B;display:block;margin-bottom:4px;">URL del logo</label>
+            <input id="spLogo" type="url" placeholder="https://empresa.cl/logo.png" style="width:100%;padding:10px 12px;border:1.5px solid #E5E5E5;border-radius:8px;font-size:.88rem;outline:none;box-sizing:border-box;" />
+          </div>
+          <div>
+            <label style="font-size:.78rem;font-weight:700;color:#6B6B6B;display:block;margin-bottom:4px;">Descripción corta</label>
+            <input id="spDesc" type="text" placeholder="Materiales de construcción" style="width:100%;padding:10px 12px;border:1.5px solid #E5E5E5;border-radius:8px;font-size:.88rem;outline:none;box-sizing:border-box;" />
+          </div>
+        </div>
+        <div style="margin-top:14px;display:flex;align-items:center;gap:12px;">
+          <button id="spAddBtn" class="btn-approve" style="padding:10px 24px;" onclick="addSponsor()">+ Agregar</button>
+          <span id="spMsg" style="font-size:.82rem;"></span>
+        </div>
+      </div>
+
+      <!-- Lista de auspiciadores -->
+      <div id="sponsorsList"></div>
+
+    </div>
+
+    <!-- SECCIÓN PROVEEDORES -->
+    <div id="sectionSuppliers" style="display:none;">
+      <div id="suppliersList"></div>
+    </div>
+
+    </div>
+
+  </div>
+
+  <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+
+  <script>
+    let adminToken = sessionStorage.getItem('qbm_admin_token') || '';
+    let currentTab = 'pending';
+    let currentSection = 'professionals';
+
+    // =============================================
+    // SECCIÓN PRINCIPAL (profesionales / auspiciadores)
+    // =============================================
+    function switchSection(section) {
+      currentSection = section;
+      document.getElementById('tab-pros').classList.toggle('active', section === 'professionals');
+      document.getElementById('tab-sponsors').classList.toggle('active', section === 'sponsors');
+      document.getElementById('tab-suppliers').classList.toggle('active', section === 'suppliers');
+      document.getElementById('sectionProfessionals').style.display = section === 'professionals' ? '' : 'none';
+      document.getElementById('sectionSponsors').style.display      = section === 'sponsors'      ? '' : 'none';
+      document.getElementById('sectionSuppliers').style.display     = section === 'suppliers'     ? '' : 'none';
+      document.getElementById('adminStats').style.display           = section === 'professionals' ? 'grid' : 'none';
+      if (section === 'sponsors')   loadSponsorsAdmin();
+      if (section === 'suppliers')  loadSuppliersAdmin();
+    }
+
+    // =============================================
+    // PROVEEDORES — ADMIN
+    // =============================================
+    async function loadSuppliersAdmin() {
+      const list = document.getElementById('suppliersList');
+      list.innerHTML = '<p style="color:#999;font-size:.88rem;">Cargando...</p>';
+      try {
+        const res  = await fetch('/api/admin/suppliers?status=all', { headers: { 'Authorization': `Bearer ${adminToken}` } });
+        const data = await res.json();
+        const sups = data.suppliers || [];
+        document.getElementById('tabSuppliersCount').textContent = sups.filter(s => s.status === 'pending').length > 0
+          ? `(${sups.filter(s => s.status === 'pending').length})` : '';
+        renderSuppliersAdmin(sups);
+      } catch {
+        list.innerHTML = '<p style="color:#EF4444;">Error al cargar proveedores.</p>';
+      }
+    }
+
+    function renderSuppliersAdmin(sups) {
+      const list = document.getElementById('suppliersList');
+      if (sups.length === 0) {
+        list.innerHTML = '<div class="empty-state"><p>No hay proveedores registrados aún.</p></div>';
+        return;
+      }
+      const statusMap = {
+        pending:  '<span class="status-badge status-badge--pending">⏳ Pendiente</span>',
+        approved: '<span class="status-badge status-badge--approved">✓ Aprobado</span>',
+        rejected: '<span class="status-badge status-badge--rejected">✗ Rechazado</span>',
+      };
+      list.innerHTML = `
+        <table class="admin-table">
+          <thead><tr><th>Empresa</th><th>Categoría</th><th>Email</th><th>Ciudades</th><th>Estado</th><th>Acciones</th></tr></thead>
+          <tbody>${sups.map(s => {
+            const ciudades = (() => { try { return JSON.parse(s.ciudades).slice(0,2).join(', '); } catch { return s.ciudades||'—'; } })();
+            return `<tr>
+              <td><strong>${s.nombre}</strong></td>
+              <td style="font-size:.82rem;">${s.categoria}</td>
+              <td style="font-size:.82rem;">${s.email}</td>
+              <td style="font-size:.82rem;">${ciudades}</td>
+              <td>${statusMap[s.status]||s.status}</td>
+              <td><div class="action-btns">
+                ${s.status !== 'approved' ? `<button class="btn-approve" onclick="actionSupplier(${s.id},'approve')">Aprobar</button>` : ''}
+                ${s.status !== 'rejected' ? `<button class="btn-reject"  onclick="actionSupplier(${s.id},'reject')">Rechazar</button>` : ''}
+              </div></td>
+            </tr>`;
+          }).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    async function actionSupplier(id, action) {
+      if (!confirm(`¿${action === 'approve' ? 'Aprobar' : 'Rechazar'} este proveedor?`)) return;
+      await fetch(`/api/admin/suppliers/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}` },
+        body: JSON.stringify({ action }),
+      });
+      loadSuppliersAdmin();
+    }
+
+    // =============================================
+    // AUSPICIADORES — ADMIN
+    // =============================================
+    async function loadSponsorsAdmin() {
+      const list = document.getElementById('sponsorsList');
+      list.innerHTML = '<p style="color:#999;font-size:.88rem;">Cargando...</p>';
+      try {
+        const res  = await fetch('/api/admin/sponsors', { headers: { 'Authorization': `Bearer ${adminToken}` } });
+        const data = await res.json();
+        renderSponsors(data.sponsors || []);
+      } catch {
+        list.innerHTML = '<p style="color:#EF4444;">Error al cargar auspiciadores.</p>';
+      }
+    }
+
+    function renderSponsors(sponsors) {
+      const list = document.getElementById('sponsorsList');
+      if (sponsors.length === 0) {
+        list.innerHTML = '<div class="empty-state"><p>No hay auspiciadores aún. Agrega el primero.</p></div>';
+        return;
+      }
+      list.innerHTML = `
+        <table class="admin-table">
+          <thead><tr><th>Logo</th><th>Nombre</th><th>Sitio web</th><th>Descripción</th><th>Estado</th><th>Acciones</th></tr></thead>
+          <tbody>${sponsors.map(s => `
+            <tr id="sp-row-${s.id}">
+              <td>${s.logo_url ? `<img src="${s.logo_url}" style="height:36px;max-width:80px;object-fit:contain;border-radius:4px;" />` : '<span style="color:#ccc;font-size:.8rem;">Sin logo</span>'}</td>
+              <td><strong>${s.nombre}</strong></td>
+              <td style="font-size:.82rem;">${s.website ? `<a href="${s.website}" target="_blank" style="color:#E8762A;">${s.website}</a>` : '—'}</td>
+              <td style="font-size:.82rem;color:#6B6B6B;">${s.descripcion || '—'}</td>
+              <td>
+                <button onclick="toggleSponsor(${s.id}, ${s.activo ? 0 : 1})"
+                  style="padding:4px 12px;border-radius:100px;font-size:.75rem;font-weight:700;border:none;cursor:pointer;
+                  background:${s.activo ? '#ECFDF5' : '#F3F4F6'};color:${s.activo ? '#065F46' : '#6B6B6B'};">
+                  ${s.activo ? '✓ Activo' : '○ Inactivo'}
+                </button>
+              </td>
+              <td><button class="btn-reject" onclick="deleteSponsor(${s.id})" style="font-size:.78rem;padding:5px 12px;">Eliminar</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    async function addSponsor() {
+      const nombre  = document.getElementById('spNombre').value.trim();
+      const website = document.getElementById('spWebsite').value.trim();
+      const logo    = document.getElementById('spLogo').value.trim();
+      const desc    = document.getElementById('spDesc').value.trim();
+      const msg     = document.getElementById('spMsg');
+
+      if (!nombre) { msg.style.color = '#EF4444'; msg.textContent = 'El nombre es obligatorio.'; return; }
+
+      const btn = document.getElementById('spAddBtn');
+      btn.disabled = true; btn.textContent = 'Guardando...';
+
+      try {
+        const res  = await fetch('/api/admin/sponsors', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}` },
+          body: JSON.stringify({ nombre, website, logo_url: logo, descripcion: desc }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          msg.style.color = '#059669'; msg.textContent = '¡Auspiciador agregado!';
+          ['spNombre','spWebsite','spLogo','spDesc'].forEach(id => document.getElementById(id).value = '');
+          loadSponsorsAdmin();
+        } else {
+          msg.style.color = '#EF4444'; msg.textContent = data.error || 'Error al guardar.';
+        }
+      } catch {
+        msg.style.color = '#EF4444'; msg.textContent = 'Error de conexión.';
+      }
+      btn.disabled = false; btn.textContent = '+ Agregar';
+      setTimeout(() => { msg.textContent = ''; }, 3000);
+    }
+
+    async function toggleSponsor(id, activo) {
+      await fetch(`/api/admin/sponsors/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}` },
+        body: JSON.stringify({ activo }),
+      });
+      loadSponsorsAdmin();
+    }
+
+    async function deleteSponsor(id) {
+      if (!confirm('¿Eliminar este auspiciador?')) return;
+      await fetch(`/api/admin/sponsors/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${adminToken}` },
+      });
+      loadSponsorsAdmin();
+    }
+
+    // =============================================
+    // LOGIN
+    // =============================================
+    function showLoginError(msg) {
+      const el = document.getElementById('loginError');
+      el.textContent = msg;
+      el.style.display = 'block';
+      document.getElementById('loginOverlay').style.display = 'flex';
+    }
+
+    function doLogin() {
+      const token = document.getElementById('tokenInput').value.trim();
+      if (!token) return;
+      const btn = document.getElementById('loginBtn');
+      btn.textContent = 'Verificando...';
+      btn.disabled = true;
+      adminToken = token;
+      sessionStorage.setItem('qbm_admin_token', token);
+      loadTab('pending').finally(() => {
+        btn.textContent = 'Ingresar';
+        btn.disabled = false;
+      });
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', doLogin);
+    document.getElementById('tokenInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') doLogin();
+    });
+
+    // =============================================
+    // CARGAR TAB
+    // =============================================
+    async function loadTab(status) {
+      currentTab = status;
+
+      if (currentSection !== 'professionals') switchSection('professionals');
+      currentTab = status;
+      ['pending','approved','rejected','all'].forEach(s => {
+        const el = document.getElementById(`subtab-${s}`);
+        if (el) el.classList.toggle('active', s === status);
+      });
+
+      const container = document.getElementById('tableContainer');
+      container.innerHTML = `<div class="empty-state"><svg width="40" height="40" fill="none" stroke="#E8762A" stroke-width="2" viewBox="0 0 24 24" style="animation:spin 1s linear infinite;margin:0 auto"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0"/></svg><p>Cargando...</p></div>`;
+
+      try {
+        const res  = await fetch(`/api/admin/professionals?status=${status}`, {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        if (res.status === 401) {
+          showLoginError('Token incorrecto');
+          sessionStorage.removeItem('qbm_admin_token');
+          return;
+        }
+
+        if (!res.ok) {
+          showLoginError(`Error del servidor (${res.status})`);
+          return;
+        }
+
+        // Login exitoso — ocultar overlay
+        document.getElementById('loginOverlay').style.display = 'none';
+        document.getElementById('adminStats').style.display = 'grid';
+
+        const data = await res.json();
+        renderTable(data.professionals || []);
+
+        // Actualizar stats con todos para los contadores
+        if (status !== 'all') updateStats();
+      } catch (err) {
+        showLoginError('Error de conexión: ' + err.message);
+      }
+    }
+
+    async function updateStats() {
+      try {
+        const res  = await fetch('/api/admin/professionals?status=all', {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        const data = await res.json();
+        const all  = data.professionals || [];
+        document.getElementById('statPending').textContent  = all.filter(p => p.status === 'pending').length;
+        document.getElementById('statApproved').textContent = all.filter(p => p.status === 'approved').length;
+        document.getElementById('statTotal').textContent    = all.length;
+        const pendingCount = all.filter(p => p.status === 'pending').length;
+        document.getElementById('tabPendingCount').textContent = pendingCount > 0 ? `(${pendingCount})` : '';
+      } catch {}
+    }
+
+    // =============================================
+    // RENDER TABLA
+    // =============================================
+    function renderTable(professionals) {
+      const container = document.getElementById('tableContainer');
+
+      if (professionals.length === 0) {
+        container.innerHTML = `<div class="empty-state"><svg width="48" height="48" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><p>No hay registros en esta categoría.</p></div>`;
+        return;
+      }
+
+      container.innerHTML = `
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Especialidad</th>
+              <th>Email</th>
+              <th>Ciudades</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${professionals.map(renderRow).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    function renderRow(p) {
+      const statusMap = {
+        pending:  '<span class="status-badge status-badge--pending">⏳ Pendiente</span>',
+        approved: '<span class="status-badge status-badge--approved">✓ Aprobado</span>',
+        rejected: '<span class="status-badge status-badge--rejected">✗ Rechazado</span>',
+      };
+      const date   = new Date(p.created_at).toLocaleDateString('es-CL');
+      const ciudades = (() => { try { return JSON.parse(p.ciudades).slice(0,2).join(', '); } catch { return p.ciudades || '—'; } })();
+
+      const actions = p.status === 'pending'
+        ? `<div class="action-btns">
+             <button class="btn-view"    onclick="openDetail(${p.id})">Revisar →</button>
+           </div>`
+        : `<div class="action-btns">
+             ${p.status === 'approved' ? `<button class="btn-reject" onclick="action(${p.id},'reject')">Rechazar</button>` : `<button class="btn-approve" onclick="action(${p.id},'approve')">Aprobar</button>`}
+             <button class="btn-view" onclick="openDetail(${p.id})">Ver detalle</button>
+           </div>`;
+
+      return `<tr id="row-${p.id}">
+        <td style="color:#999;font-size:0.8rem;">#${p.id}</td>
+        <td><strong>${p.nombre}</strong><br><span style="font-size:0.78rem;color:#999;">${p.tipo}</span></td>
+        <td>${p.especialidad}</td>
+        <td style="font-size:0.82rem;">${p.email}</td>
+        <td style="font-size:0.82rem;">${ciudades}</td>
+        <td style="font-size:0.82rem;color:#999;">${date}</td>
+        <td>${statusMap[p.status] || p.status}</td>
+        <td>${actions}</td>
+      </tr>`;
+    }
+
+    // =============================================
+    // MODAL DE DETALLE
+    // =============================================
+    async function openDetail(id) {
+      // Insertar modal en el DOM
+      let modal = document.getElementById('detailModal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'detailModal';
+        modal.className = 'modal-overlay';
+        document.body.appendChild(modal);
+      }
+
+      modal.innerHTML = `<div class="modal-box"><button class="modal-close" onclick="closeModal()">×</button><p style="color:#999;text-align:center;padding:40px 0;">Cargando...</p></div>`;
+      modal.style.display = 'flex';
+
+      try {
+        const res  = await fetch(`/api/admin/professionals/${id}`, {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        const p = await res.json();
+
+        const ciudades = (p.ciudades || []).join(', ') || '—';
+        const servicios = (p.servicios || []).join(', ') || '—';
+        const horario = (p.horario || []).join(', ') || '—';
+
+        // Fotos: cargar como blob autenticado
+        const fotosHtml = (p.fotos_preview && p.fotos_preview.length > 0)
+          ? p.fotos_preview.map(url => `
+              <div class="modal-photo">
+                <img id="photo-${btoa(url)}" src="" alt="Foto de trabajo" />
+              </div>`).join('')
+          : `<div class="modal-photo modal-photo--empty" style="grid-column:1/-1">Sin fotos adjuntas</div>`;
+
+        modal.innerHTML = `
+          <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:4px;">
+              ${p.avatar
+                ? `<img id="modal-avatar" src="" alt="${p.nombre}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #E5E5E5;flex-shrink:0;" />`
+                : `<div style="width:56px;height:56px;border-radius:50%;background:#FDF0E6;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#E8762A;flex-shrink:0;">${p.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</div>`
+              }
+              <div>
+                <div class="modal-title" style="margin-bottom:2px;">${p.nombre}</div>
+                <div style="font-size:0.82rem;color:#999;">${p.tipo === 'empresa' ? 'Empresa' : 'Profesional independiente'} · Registrado ${new Date(p.created_at).toLocaleDateString('es-CL')}</div>
+              </div>
+            </div>
+
+            <div class="modal-section">
+              <h4>Datos de contacto</h4>
+              <div class="modal-field"><strong>WhatsApp</strong> +56 9 ${p.whatsapp}</div>
+              <div class="modal-field"><strong>Email</strong> ${p.email}</div>
+              ${p.telefono ? `<div class="modal-field"><strong>Teléfono fijo</strong> ${p.telefono}</div>` : ''}
+              ${p.instagram ? `<div class="modal-field"><strong>Instagram</strong> @${p.instagram}</div>` : ''}
+              ${p.web ? `<div class="modal-field"><strong>Web</strong> ${p.web}</div>` : ''}
+            </div>
+
+            <div class="modal-section">
+              <h4>Especialidad y cobertura</h4>
+              <div class="modal-field"><strong>Especialidad</strong> ${p.especialidad}</div>
+              <div class="modal-field"><strong>Años de experiencia</strong> ${p.años}</div>
+              <div class="modal-field"><strong>Ciudades</strong> ${ciudades}</div>
+              ${p.viaja ? `<div class="modal-field"><strong>Viaja</strong> Sí, dispuesto a viajar</div>` : ''}
+              ${p.certificaciones ? `<div class="modal-field"><strong>Certificaciones</strong> ${p.certificaciones}</div>` : ''}
+              ${servicios !== '—' ? `<div class="modal-field"><strong>Servicios</strong> ${servicios}</div>` : ''}
+              ${horario !== '—' ? `<div class="modal-field"><strong>Horario</strong> ${horario}</div>` : ''}
+            </div>
+
+            <div class="modal-section">
+              <h4>Descripción</h4>
+              <p style="font-size:0.9rem;color:#3D3D3D;line-height:1.7;">${p.descripcion}</p>
+            </div>
+
+            <div class="modal-section">
+              <h4>Fotos adjuntas (${(p.fotos_preview || []).length})</h4>
+              <div class="modal-photos">${fotosHtml}</div>
+            </div>
+
+            ${p.status === 'pending' ? `
+            <div class="modal-actions">
+              <button class="btn-reject"  onclick="action(${p.id},'reject');closeModal()">✗ Rechazar perfil</button>
+              <button class="btn-approve" onclick="action(${p.id},'approve');closeModal()">✓ Aprobar y publicar</button>
+            </div>` : ''}
+            ${p.status === 'approved' ? `
+            <div class="modal-actions" style="justify-content:flex-start;margin-top:8px;border-top:1px solid #F0F0F0;padding-top:16px;">
+              <button class="btn-view" onclick="generateToken(${p.id})" style="background:#1A1A1A;color:white;border:none;">
+                🔗 Generar link de calificación
+              </button>
+            </div>
+            <div id="tokenResult-${p.id}" style="display:none;margin-top:12px;padding:12px;background:#F5F5F5;border-radius:8px;font-size:0.82rem;">
+              <p style="color:#6B6B6B;margin-bottom:6px;">Copia este link y envíalo al cliente por WhatsApp:</p>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input id="tokenUrl-${p.id}" type="text" readonly style="flex:1;padding:8px;border:1.5px solid #E5E5E5;border-radius:8px;font-size:0.82rem;background:white;" />
+                <button onclick="copyToken(${p.id})" style="padding:8px 14px;background:#E8762A;color:white;border:none;border-radius:8px;cursor:pointer;font-size:0.82rem;font-weight:600;white-space:nowrap;">Copiar</button>
+              </div>
+              <p style="color:#9CA3AF;margin-top:6px;font-size:0.78rem;">El link expira en 30 días y solo puede usarse una vez.</p>
+            </div>` : ''}
+          </div>`;
+
+        // Cargar avatar autenticado
+        if (p.avatar) {
+          loadAuthPhoto(`/api/admin/photos/${p.avatar}`, 'modal-avatar');
+        }
+
+        // Cargar fotos autenticadas como blob
+        for (const url of (p.fotos_preview || [])) {
+          loadAuthPhoto(url);
+        }
+
+      } catch {
+        modal.innerHTML = `<div class="modal-box"><button class="modal-close" onclick="closeModal()">×</button><p>Error al cargar.</p></div>`;
+      }
+    }
+
+    async function loadAuthPhoto(url, fixedId = null) {
+      try {
+        const res    = await fetch(url, { headers: { 'Authorization': `Bearer ${adminToken}` } });
+        const blob   = await res.blob();
+        const objUrl = URL.createObjectURL(blob);
+        const imgId  = fixedId || `photo-${btoa(url)}`;
+        const img    = document.getElementById(imgId);
+        if (img) img.src = objUrl;
+      } catch { /* silencioso */ }
+    }
+
+    async function generateToken(proId) {
+      try {
+        const res  = await fetch('/api/admin/tokens', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}` },
+          body:    JSON.stringify({ professional_id: proId }),
+        });
+        const data = await res.json();
+        if (data.url) {
+          const resultEl = document.getElementById(`tokenResult-${proId}`);
+          const urlInput  = document.getElementById(`tokenUrl-${proId}`);
+          urlInput.value  = data.url;
+          resultEl.style.display = 'block';
+        } else {
+          alert('Error: ' + (data.error || 'No se pudo generar el link'));
+        }
+      } catch { alert('Error de conexión'); }
+    }
+
+    function copyToken(proId) {
+      const input = document.getElementById(`tokenUrl-${proId}`);
+      navigator.clipboard.writeText(input.value).then(() => {
+        const btn = input.nextElementSibling;
+        btn.textContent = '¡Copiado!';
+        setTimeout(() => btn.textContent = 'Copiar', 2000);
+      });
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('detailModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    // Cerrar modal al hacer click fuera
+    document.addEventListener('click', e => {
+      const modal = document.getElementById('detailModal');
+      if (modal && e.target === modal) closeModal();
+    });
+
+    // =============================================
+    // APROBAR / RECHAZAR
+    // =============================================
+    async function action(id, act) {
+      const label = act === 'approve' ? 'aprobar' : 'rechazar';
+      if (!confirm(`¿Confirmas ${label} este perfil?`)) return;
+
+      try {
+        const res = await fetch(`/api/admin/professionals/${id}`, {
+          method:  'PATCH',
+          headers: {
+            'Content-Type':  'application/json',
+            'Authorization': `Bearer ${adminToken}`,
+          },
+          body: JSON.stringify({ action: act }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          loadTab(currentTab);
+          updateStats();
+        } else {
+          alert('Error: ' + data.error);
+        }
+      } catch {
+        alert('Error de conexión');
+      }
+    }
+
+    // =============================================
+    // INIT
+    // =============================================
+    if (adminToken) {
+      loadTab('pending');
+    }
+  </script>
+</body>
+</html>

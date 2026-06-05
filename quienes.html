@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiénes Somos — Québuenmaestro!</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --orange:#E8762A; --dark:#1A1A1A; --white:#fff; }
+    body { font-family:'Glacial Indifference',sans-serif; background:#fff; color:var(--dark); overflow-x:hidden; }
+
+
+    /* ── HERO ── */
+    .qs-hero {
+      min-height:44vh; background:#FAFAFA;
+      display:flex; align-items:center; justify-content:center;
+      position:relative; overflow:hidden;
+      padding:56px 24px 48px;
+      border-bottom:1px solid #EFEFEF;
+    }
+    .qs-hero__grid {
+      position:absolute; inset:0; z-index:0;
+      background-image:
+        linear-gradient(rgba(232,118,42,.07) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(232,118,42,.07) 1px,transparent 1px);
+      background-size:52px 52px;
+    }
+    /* Mancha naranja suave */
+    .qs-hero__glow {
+      position:absolute; width:600px; height:600px;
+      background:radial-gradient(circle,rgba(232,118,42,.1) 0%,transparent 65%);
+      top:40%; left:50%; transform:translate(-50%,-50%);
+      animation:glow-pulse 5s ease-in-out infinite alternate; pointer-events:none;
+    }
+    @keyframes glow-pulse {
+      0%  { transform:translate(-50%,-50%) scale(1); }
+      100%{ transform:translate(-50%,-50%) scale(1.15); }
+    }
+    .qs-hero__content { position:relative; z-index:2; text-align:center; max-width:800px; }
+    .qs-hero__tag {
+      display:inline-block;
+      background:#FDF0E6; color:var(--orange);
+      border:1px solid rgba(232,118,42,.25);
+      font-size:.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      padding:6px 16px; border-radius:100px; margin-bottom:28px;
+      opacity:0; animation:fade-up-in .5s .15s ease forwards;
+    }
+    .qs-hero__logo-display {
+      font-family:'Glacial Indifference',sans-serif;
+      font-size:clamp(3rem,8vw,6.5rem); font-weight:400; letter-spacing:-3px;
+      line-height:1; margin-bottom:20px;
+      color:var(--dark);
+      opacity:0; animation:fade-up-in .7s .3s ease forwards;
+    }
+    .qs-hero__logo-display .o { color:var(--orange); }
+    .qs-hero__title {
+      font-size:clamp(1.1rem,2.5vw,1.5rem); font-weight:400;
+      color:#6B6B6B; line-height:1.5; margin-bottom:32px; font-style:italic;
+      opacity:0; animation:fade-up-in .6s .55s ease forwards;
+    }
+    .qs-hero__chips {
+      display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+      opacity:0; animation:fade-up-in .6s .75s ease forwards;
+    }
+    .qs-hero__chip {
+      background:white; border:1.5px solid #E5E5E5;
+      color:#4B5563; font-size:.8rem; padding:8px 16px; border-radius:100px;
+      display:flex; align-items:center; gap:7px;
+      box-shadow:0 2px 8px rgba(0,0,0,.04);
+    }
+    .qs-hero__chip svg { color:var(--orange); flex-shrink:0; }
+
+    .qs-hero__scroll {
+      position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      opacity:0; animation:fade-up-in .5s 1.1s ease forwards;
+      color:#ABABAB; font-size:.68rem; letter-spacing:1.5px; text-transform:uppercase;
+    }
+    .qs-hero__scroll__line {
+      width:1px; height:36px;
+      background:linear-gradient(var(--orange),transparent);
+      animation:scroll-pulse 1.6s 1.2s ease-in-out infinite;
+    }
+    @keyframes scroll-pulse {
+      0%,100%{ opacity:1; transform:scaleY(1); }
+      50%    { opacity:.2; transform:scaleY(.4); }
+    }
+    @keyframes fade-up-in {
+      from{ opacity:0; transform:translateY(20px); }
+      to  { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── SECCIONES ── */
+    .qs-section { padding:96px 24px; }
+    .qs-container { max-width:1060px; margin:0 auto; }
+    .qs-section-label {
+      font-size:.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      color:var(--orange); display:block; margin-bottom:12px;
+    }
+    .qs-section-title { font-size:1.9rem; font-weight:700; line-height:1.3; color:var(--dark); }
+
+    /* ── INTRO ── */
+    .qs-intro { background:#fff; }
+    .qs-intro__grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+    .qs-intro__card {
+      background:linear-gradient(135deg,#FDF6EF 0%,#F5EBE0 100%);
+      border-radius:20px; padding:40px 32px; position:relative; overflow:hidden;
+      border:1.5px solid #EDE0D0;
+    }
+    .qs-intro__card::before {
+      content:''; position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(232,118,42,.06) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(232,118,42,.06) 1px,transparent 1px);
+      background-size:28px 28px;
+    }
+    .qs-intro__svg { position:relative; z-index:1; display:block; margin:0 auto; }
+    .qs-intro__badge {
+      position:absolute; bottom:-18px; right:20px;
+      background:var(--orange); color:white; border-radius:14px; padding:14px 20px;
+      box-shadow:0 8px 28px rgba(232,118,42,.35); text-align:center; z-index:2;
+    }
+    .qs-intro__badge strong { display:block; font-size:1.8rem; font-weight:700; line-height:1; }
+    .qs-intro__badge span  { font-size:.68rem; opacity:.9; letter-spacing:.5px; }
+    .qs-intro__text h2     { font-size:1.9rem; font-weight:700; line-height:1.25; margin-bottom:18px; }
+    .qs-intro__text h2 span{ color:var(--orange); }
+    .qs-intro__text p      { font-size:.95rem; line-height:1.85; color:#4B5563; margin-bottom:14px; }
+    .qs-intro__list { list-style:none; margin-top:22px; display:flex; flex-direction:column; gap:10px; }
+    .qs-intro__list li {
+      display:flex; align-items:flex-start; gap:10px;
+      font-size:.9rem; color:#3D3D3D; line-height:1.5;
+    }
+    .qs-intro__list li::before {
+      content:''; width:20px; height:20px; flex-shrink:0;
+      background:var(--orange); border-radius:50%;
+      background-image:url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='1 4 3.5 6.5 9 1' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:center;
+    }
+
+    /* ── PROBLEMA + DONUT ── */
+    .qs-problem { background:#F9F9F9; border-top:1px solid #EFEFEF; border-bottom:1px solid #EFEFEF; }
+    .qs-problem__header { text-align:center; margin-bottom:60px; }
+    .qs-problem__grid   { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+    .qs-problem__text   { font-size:.95rem; line-height:1.85; color:#4B5563; margin-bottom:16px; }
+
+    .donut-wrap { display:flex; flex-direction:column; align-items:center; gap:24px; }
+    .donut-track { fill:none; stroke:#E9E9E9; stroke-width:18; }
+    .donut-ring  {
+      fill:none; stroke:var(--orange); stroke-width:18; stroke-linecap:round;
+      stroke-dasharray:502.65; stroke-dashoffset:502.65;
+      transform-origin:center; transform:rotate(-90deg);
+      transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1);
+    }
+    .donut-legend { display:flex; flex-direction:column; gap:10px; width:100%; max-width:260px; }
+    .donut-legend__item { display:flex; align-items:center; gap:10px; font-size:.82rem; color:#6B6B6B; line-height:1.4; }
+    .donut-legend__dot  { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+
+    /* ── STATS BARS ── */
+    .qs-stats { background:#fff; }
+    .qs-stats__grid { display:grid; grid-template-columns:1fr 1fr; gap:40px 72px; margin-top:52px; }
+    .stat-bar__header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+    .stat-bar__label  { font-size:.9rem; font-weight:600; color:var(--dark); }
+    .stat-bar__pct    { font-size:1.3rem; font-weight:700; color:var(--orange); }
+    .stat-bar__track  { height:10px; background:#F0F0F0; border-radius:100px; overflow:hidden; }
+    .stat-bar__fill   { height:100%; background:var(--orange); border-radius:100px; width:0%; transition:width 1.4s cubic-bezier(.4,0,.2,1); }
+    .stat-bar__sub    { font-size:.78rem; color:#9CA3AF; margin-top:6px; }
+
+    /* ── MISIÓN — único fondo oscuro ── */
+    .qs-mission {
+      background:var(--dark); text-align:center; position:relative; overflow:hidden;
+    }
+    .qs-mission__bg {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(232,118,42,.05) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(232,118,42,.05) 1px,transparent 1px);
+      background-size:40px 40px;
+    }
+    .qs-mission__content { position:relative; z-index:1; max-width:780px; margin:0 auto; }
+    .qs-mission .qs-section-label { color:var(--orange); }
+    .qs-mission__quote {
+      font-size:clamp(1.4rem,2.8vw,2.2rem); font-weight:700;
+      color:#fff; line-height:1.5;
+    }
+    .qs-mission__quote em { font-style:normal; color:var(--orange); }
+    .qs-mission__divider  { width:56px; height:3px; background:var(--orange); margin:32px auto; border-radius:2px; }
+    .qs-mission__sub      { font-size:.95rem; color:#9CA3AF; line-height:1.8; }
+    .qs-mission__pillars  { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:52px; }
+    .qs-pillar {
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+      border-radius:14px; padding:28px 22px; text-align:center;
+      transition:background .3s, border-color .3s;
+    }
+    .qs-pillar:hover { background:rgba(232,118,42,.1); border-color:rgba(232,118,42,.3); }
+    .qs-pillar__num   { font-size:2.4rem; font-weight:700; color:var(--orange); display:block; margin-bottom:8px; line-height:1; }
+    .qs-pillar__label { font-size:.82rem; color:#9CA3AF; line-height:1.5; }
+
+    /* ── VALORES ── */
+    .qs-values { background:#FAFAFA; border-top:1px solid #EFEFEF; }
+    .qs-values__header { text-align:center; margin-bottom:52px; }
+    .qs-values__grid   { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .qs-value-card {
+      background:#fff; border:1.5px solid #E5E5E5; border-radius:16px; padding:32px 26px;
+      transition:border-color .3s, box-shadow .3s, transform .3s;
+    }
+    .qs-value-card:hover {
+      border-color:var(--orange);
+      box-shadow:0 12px 40px rgba(232,118,42,.1);
+      transform:translateY(-6px);
+    }
+    .qs-value-card__icon {
+      width:52px; height:52px; background:#FDF0E6; border-radius:12px;
+      display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+      transition:background .3s, transform .3s;
+    }
+    .qs-value-card:hover .qs-value-card__icon { background:var(--orange); transform:rotate(-8deg) scale(1.1); }
+    .qs-value-card:hover .qs-value-card__icon svg { stroke:#fff; }
+    .qs-value-card__icon svg { transition:stroke .3s; }
+    .qs-value-card h3 { font-size:1rem; font-weight:700; margin-bottom:10px; }
+    .qs-value-card p  { font-size:.87rem; line-height:1.75; color:#6B6B6B; }
+
+    /* ── CTA ── */
+    .qs-cta {
+      background:linear-gradient(135deg,var(--orange) 0%,#C55E18 100%);
+      text-align:center; padding:80px 24px; position:relative; overflow:hidden;
+    }
+    .qs-cta::before {
+      content:''; position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+      background-size:32px 32px;
+    }
+    .qs-cta__inner { position:relative; z-index:1; }
+    .qs-cta h2  { font-size:1.9rem; font-weight:700; color:#fff; margin-bottom:10px; }
+    .qs-cta p   { font-size:.95rem; color:rgba(255,255,255,.82); margin-bottom:32px; }
+    .qs-cta__btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .qs-btn-white {
+      background:white; color:var(--orange); padding:13px 34px; border-radius:100px;
+      font-family:'Glacial Indifference',sans-serif; font-weight:700; font-size:.92rem;
+      text-decoration:none; transition:transform .2s, box-shadow .2s; display:inline-block;
+    }
+    .qs-btn-white:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.18); }
+    .qs-btn-ghost {
+      background:transparent; color:white; border:2px solid rgba(255,255,255,.5);
+      padding:13px 34px; border-radius:100px;
+      font-family:'Glacial Indifference',sans-serif; font-weight:700; font-size:.92rem;
+      text-decoration:none; transition:border-color .2s, background .2s; display:inline-block;
+    }
+    .qs-btn-ghost:hover { border-color:white; background:rgba(255,255,255,.08); }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity:0; transform:translateY(32px);
+      transition:opacity .65s ease, transform .65s ease;
+    }
+    .reveal.from-left  { transform:translateX(-36px); }
+    .reveal.from-right { transform:translateX(36px); }
+    .reveal.visible    { opacity:1; transform:none; }
+    .reveal.delay-1 { transition-delay:.1s; }
+    .reveal.delay-2 { transition-delay:.22s; }
+    .reveal.delay-3 { transition-delay:.34s; }
+    .reveal.delay-4 { transition-delay:.46s; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px) {
+      .qs-nav { padding:14px 20px; }
+      .qs-section { padding:60px 20px; }
+      .qs-intro__grid, .qs-problem__grid { grid-template-columns:1fr; gap:40px; }
+      .qs-stats__grid, .qs-values__grid, .qs-mission__pillars { grid-template-columns:1fr; }
+      .qs-intro__badge { right:16px; bottom:-14px; }
+      .qs-hero__logo-display { letter-spacing:-2px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="navbar__inner">
+    <div class="navbar__col-left">
+      <a href="index.html" class="logo-link"><img src="logo.png" alt="Qbm!" class="logo-img" /></a>
+      <div class="navbar__search">
+        <input type="text" id="searchText" placeholder="Nombre, especialidad o servicio" />
+        <button aria-label="Buscar"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
+      </div>
+      <div class="navbar__location">
+        <svg width="15" height="15" fill="#E8762A" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <select class="location-select"><option value="">Todas las ciudades</option><option>Santiago</option><option>Talca</option><option>Concepción</option><option>Temuco</option><option>Valparaíso</option><option>Antofagasta</option><option>La Serena</option><option>Puerto Montt</option><option>Rancagua</option></select>
+      </div>
+    </div>
+    <div class="navbar__col-mid"></div>
+    <div class="navbar__right">
+      <div class="navbar__pro-cta">
+        <a href="registro.html" class="btn btn--primary btn--sm">Regístrate Aquí!</a>
+      </div>
+      <nav class="navbar__nav">
+        <a href="index.html">Inicio</a>
+        <a href="especialistas.html">Especialistas</a>
+        <a href="proveedores.html">Proveedores</a>
+        <a href="quienes.html" class="active">Quiénes Somos</a>
+        <a href="blog.html">Blog</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="qs-hero">
+  <div class="qs-hero__grid"></div>
+  <div class="qs-hero__glow"></div>
+  <div class="qs-hero__content">
+    <span class="qs-hero__tag">Quiénes Somos</span>
+    <div class="qs-hero__logo-display">
+      <span class="o">Q</span>ué<span class="o">b</span>uen<span class="o">m</span>aestro!
+    </div>
+    <p class="qs-hero__title">Construido por quienes conocen la obra</p>
+    <div class="qs-hero__chips">
+      <span class="qs-hero__chip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Constructores de oficio
+      </span>
+      <span class="qs-hero__chip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        100% Chile
+      </span>
+      <span class="qs-hero__chip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        Para profesionales reales
+      </span>
+    </div>
+  </div>
+  <div class="qs-hero__scroll">
+    <span>Scroll</span>
+    <div class="qs-hero__scroll__line"></div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="qs-section qs-intro">
+  <div class="qs-container">
+    <div class="qs-intro__grid">
+
+      <div class="qs-intro__visual reveal from-left" style="padding-bottom:24px;">
+        <div class="qs-intro__card">
+          <svg class="qs-intro__svg" width="100%" viewBox="0 0 340 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="20" y1="222" x2="320" y2="222" stroke="#C8B8A2" stroke-width="2"/>
+            <rect x="30" y="120" width="88" height="102" fill="#E8762A" opacity=".1" rx="3"/>
+            <rect x="40" y="132" width="22" height="26" rx="2" fill="#E8762A" opacity=".3"/>
+            <rect x="72" y="132" width="22" height="26" rx="2" fill="#E8762A" opacity=".3"/>
+            <rect x="40" y="170" width="22" height="26" rx="2" fill="#E8762A" opacity=".3"/>
+            <rect x="72" y="170" width="22" height="26" rx="2" fill="#E8762A" opacity=".3"/>
+            <rect x="54" y="196" width="20" height="26" rx="2" fill="#C8B8A2" opacity=".5"/>
+            <rect x="142" y="55" width="102" height="167" fill="#1A1A1A" opacity=".06" rx="3"/>
+            <rect x="156" y="70" width="24" height="28" rx="2" fill="#E8762A" opacity=".25"/>
+            <rect x="192" y="70" width="24" height="28" rx="2" fill="#E8762A" opacity=".25"/>
+            <rect x="156" y="112" width="24" height="28" rx="2" fill="#E8762A" opacity=".25"/>
+            <rect x="192" y="112" width="24" height="28" rx="2" fill="#E8762A" opacity=".25"/>
+            <rect x="156" y="154" width="24" height="28" rx="2" fill="#E8762A" opacity=".25"/>
+            <rect x="192" y="154" width="24" height="28" rx="2" fill="#E8762A" opacity=".25"/>
+            <rect x="166" y="192" width="28" height="30" rx="2" fill="#C8B8A2" opacity=".4"/>
+            <line x1="296" y1="222" x2="296" y2="28" stroke="#1A1A1A" stroke-width="2.5" opacity=".1"/>
+            <line x1="296" y1="28" x2="180" y2="28" stroke="#1A1A1A" stroke-width="2.5" opacity=".1"/>
+            <line x1="232" y1="28" x2="232" y2="60" stroke="#1A1A1A" stroke-width="1.5" opacity=".08" stroke-dasharray="5 3"/>
+          </svg>
+        </div>
+        <div class="qs-intro__badge">
+          <strong>100%</strong>
+          <span>Hecho en Chile</span>
+        </div>
+      </div>
+
+      <div class="qs-intro__text reveal from-right">
+        <h2>Venimos de la <span>construcción</span>, la conocemos por dentro</h2>
+        <p><span style="color:#E8762A">Q</span>ué<span style="color:#E8762A">b</span>uen<span style="color:#E8762A">m</span>aestro! nació de una necesidad real. Somos un equipo de constructores con años de trayectoria en proyectos de edificación, remodelación y obras en Chile.</p>
+        <p>Hemos estado en obra, hemos buscado maestros de confianza, hemos lidiado con la informalidad del rubro — y sabemos lo difícil que es conectar a buenos profesionales con quienes los necesitan.</p>
+        <ul class="qs-intro__list">
+          <li>Conocemos el oficio, la jerga y los tiempos reales de la construcción</li>
+          <li>Entendemos las necesidades de maestros, técnicos y empresas</li>
+          <li>Creamos <span style="color:#E8762A">Qbm!</span> desde adentro, con respeto genuino por el oficio</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA + DONUT CHART -->
+<section class="qs-section qs-problem">
+  <div class="qs-container">
+    <div class="qs-problem__header reveal">
+      <span class="qs-section-label">El problema que vivimos</span>
+      <h2 class="qs-section-title">El mejor maestro del barrio no aparece en Google</h2>
+    </div>
+    <div class="qs-problem__grid">
+      <div class="reveal">
+        <p class="qs-problem__text">En Chile, la mayoría de los trabajos de construcción y remodelación se acuerdan de boca en boca o por contactos personales. Los mejores maestros, gasfiteres, electricistas y constructoras muchas veces trabajan sin visibilidad digital.</p>
+        <p class="qs-problem__text">Mientras tanto, quienes necesitan sus servicios no saben dónde encontrarlos ni cómo evaluar su confiabilidad. Esa desconexión tiene un costo real: malos trabajos, estafas, y buenos profesionales sin clientes.</p>
+        <p class="qs-problem__text"><strong><span style="color:#E8762A">Qbm!</span> nació para resolver exactamente eso.</strong></p>
+      </div>
+      <div class="donut-wrap reveal delay-2">
+        <svg viewBox="0 0 200 200" width="250" height="250">
+          <circle class="donut-track" cx="100" cy="100" r="80"/>
+          <circle class="donut-ring" id="donutRing" cx="100" cy="100" r="80"/>
+          <circle cx="100" cy="100" r="60" fill="none" stroke="#F5F5F5" stroke-width="1"/>
+          <text x="100" y="88" text-anchor="middle" font-size="44" font-weight="700" fill="#1A1A1A" font-family="Glacial Indifference,sans-serif">
+            <tspan id="donutCount">0</tspan>%
+          </text>
+          <text x="100" y="112" text-anchor="middle" font-size="11" fill="#9CA3AF" font-family="Glacial Indifference,sans-serif">boca a boca</text>
+          <circle id="donutDot" cx="100" cy="20" r="7" fill="white" stroke="#E8762A" stroke-width="3"/>
+        </svg>
+        <div class="donut-legend">
+          <div class="donut-legend__item">
+            <div class="donut-legend__dot" style="background:var(--orange)"></div>
+            <span>Contratan por referidos o trato directo <strong>(70%)</strong></span>
+          </div>
+          <div class="donut-legend__item">
+            <div class="donut-legend__dot" style="background:#E9E9E9"></div>
+            <span>Encuentran al profesional online <strong>(30%)</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BARS -->
+<section class="qs-section qs-stats">
+  <div class="qs-container">
+    <div class="reveal" style="text-align:center;">
+      <span class="qs-section-label">La realidad del sector</span>
+      <h2 class="qs-section-title">El mercado informal de la construcción en Chile</h2>
+    </div>
+    <div class="qs-stats__grid">
+      <div class="stat-bar reveal delay-1">
+        <div class="stat-bar__header">
+          <span class="stat-bar__label">Contratan por boca a boca o referidos</span>
+          <span class="stat-bar__pct">70%</span>
+        </div>
+        <div class="stat-bar__track"><div class="stat-bar__fill" data-width="70"></div></div>
+        <p class="stat-bar__sub">El canal digital es prácticamente inexistente para este rubro</p>
+      </div>
+      <div class="stat-bar reveal delay-2">
+        <div class="stat-bar__header">
+          <span class="stat-bar__label">Profesionales sin presencia digital propia</span>
+          <span class="stat-bar__pct">65%</span>
+        </div>
+        <div class="stat-bar__track"><div class="stat-bar__fill" data-width="65"></div></div>
+        <p class="stat-bar__sub">Sin perfil verificable ni forma de mostrar su trabajo</p>
+      </div>
+      <div class="stat-bar reveal delay-3">
+        <div class="stat-bar__header">
+          <span class="stat-bar__label">Trabajos acordados sin contrato escrito</span>
+          <span class="stat-bar__pct">80%</span>
+        </div>
+        <div class="stat-bar__track"><div class="stat-bar__fill" data-width="80"></div></div>
+        <p class="stat-bar__sub">Genera conflictos y desprotección para ambas partes</p>
+      </div>
+      <div class="stat-bar reveal delay-4">
+        <div class="stat-bar__header">
+          <span class="stat-bar__label">Clientes que no saben cómo verificar a un profesional</span>
+          <span class="stat-bar__pct">72%</span>
+        </div>
+        <div class="stat-bar__track"><div class="stat-bar__fill" data-width="72"></div></div>
+        <p class="stat-bar__sub">Contratan sin referencias verificables, asumiendo el riesgo</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISIÓN — único fondo oscuro -->
+<section class="qs-section qs-mission">
+  <div class="qs-mission__bg"></div>
+  <div class="qs-container">
+    <div class="qs-mission__content">
+      <span class="qs-section-label reveal">Nuestra misión</span>
+      <p class="qs-mission__quote reveal delay-1">
+        Darle <em>presencia digital</em> a quienes construyen Chile con sus manos y conocimiento — y que cualquier persona, desde cualquier ciudad, pueda encontrar al profesional que necesita con <em>información clara y directa</em>.
+      </p>
+      <div class="qs-mission__divider reveal delay-2"></div>
+      <p class="qs-mission__sub reveal delay-3">No somos intermediarios. No cobramos comisión.<br/>Solo conectamos — y dejamos que los buenos profesionales hablen por su trabajo.</p>
+    </div>
+    <div class="qs-mission__pillars">
+      <div class="qs-pillar reveal delay-1">
+        <span class="qs-pillar__num">01</span>
+        <p class="qs-pillar__label">Visibilidad gratuita para cada profesional del rubro</p>
+      </div>
+      <div class="qs-pillar reveal delay-2">
+        <span class="qs-pillar__num">02</span>
+        <p class="qs-pillar__label">Conexión directa entre cliente y profesional, sin intermediarios</p>
+      </div>
+      <div class="qs-pillar reveal delay-3">
+        <span class="qs-pillar__num">03</span>
+        <p class="qs-pillar__label">Un directorio confiable y organizado para todo Chile</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALORES -->
+<section class="qs-section qs-values">
+  <div class="qs-container">
+    <div class="qs-values__header reveal">
+      <span class="qs-section-label">Lo que nos define</span>
+      <h2 class="qs-section-title">Por qué <span style="color:#E8762A">Qbm!</span> es diferente</h2>
+    </div>
+    <div class="qs-values__grid">
+      <div class="qs-value-card reveal delay-1">
+        <div class="qs-value-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E8762A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h3>Conocemos el rubro</h3>
+        <p>Venimos de la construcción — conocemos el oficio, la jerga, los tiempos y las dificultades del trabajo en obra.</p>
+      </div>
+      <div class="qs-value-card reveal delay-2">
+        <div class="qs-value-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E8762A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Valoramos al profesional</h3>
+        <p>Cada maestro, técnico o constructor en esta plataforma merece visibilidad y reconocimiento.</p>
+      </div>
+      <div class="qs-value-card reveal delay-3">
+        <div class="qs-value-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E8762A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>Hecho para Chile</h3>
+        <p>Pensado para la realidad del mercado chileno y las necesidades reales de quienes buscan y ofrecen servicios de construcción.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="qs-cta">
+  <div class="qs-cta__inner reveal">
+    <h2>¿Eres profesional de la construcción?</h2>
+    <p>Publica tu perfil gratis y empieza a recibir clientes que te buscan por especialidad y ciudad.</p>
+    <div class="qs-cta__btns">
+      <a href="registro.html" class="qs-btn-white">Registrar mi perfil</a>
+      <a href="index.html"    class="qs-btn-ghost">Ver el directorio</a>
+    </div>
+  </div>
+</section>
+
+<script>
+
+  // Búsqueda redirige al directorio principal
+  (function(){
+    function goSearch(){ window.location.href='index.html#directorio'; }
+    document.getElementById('searchText')?.addEventListener('keydown',e=>{ if(e.key==='Enter') goSearch(); });
+    document.querySelector('.navbar__search button')?.addEventListener('click', goSearch);
+    document.querySelector('.location-select')?.addEventListener('change', goSearch);
+  })();
+
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  // Donut animado
+  const R = 80, CIRCUM = 2 * Math.PI * R;
+  const donutRing  = document.getElementById('donutRing');
+  const donutCount = document.getElementById('donutCount');
+  const donutDot   = document.getElementById('donutDot');
+  const TARGET = 70;
+
+  const donutObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      let cur = 0;
+      const timer = setInterval(() => {
+        cur = Math.min(cur + TARGET / (1600 / 16), TARGET);
+        donutRing.style.strokeDashoffset = CIRCUM * (1 - cur / 100);
+        donutCount.textContent = Math.floor(cur);
+        const rad = ((cur / 100 * 360) - 90) * Math.PI / 180;
+        donutDot.setAttribute('cx', (100 + R * Math.cos(rad)).toFixed(2));
+        donutDot.setAttribute('cy', (100 + R * Math.sin(rad)).toFixed(2));
+        if (cur >= TARGET) clearInterval(timer);
+      }, 16);
+      donutObs.unobserve(e.target);
+    });
+  }, { threshold: 0.4 });
+  donutObs.observe(donutRing);
+
+  // Barras animadas
+  const barObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const fill = e.target.querySelector('.stat-bar__fill');
+      if (fill) fill.style.width = fill.dataset.width + '%';
+      barObs.unobserve(e.target);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.stat-bar').forEach(el => barObs.observe(el));
+</script>
+</body>
+</html>

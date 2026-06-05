@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrar Proveedor — Québuenmaestro!</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+
+      <div class="navbar__col-left">
+        <a href="index.html" class="logo-link">
+        <img src="logo.png" alt="Qbm!" class="logo-img" />
+      </a>
+        <div class="navbar__search">
+        <input type="text" id="searchText" placeholder="Nombre, especialidad o servicio" />
+        <button aria-label="Buscar">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+      </div>
+        <div class="navbar__location">
+        <svg width="15" height="15" fill="#E8762A" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <select id="searchCity" class="location-select">
+          <option value="">Todas las ciudades</option>
+          <option>Santiago</option><option>Talca</option><option>Concepción</option>
+          <option>Temuco</option><option>Valparaíso</option><option>Antofagasta</option>
+          <option>La Serena</option><option>Puerto Montt</option><option>Rancagua</option>
+        </select>
+      </div>
+      </div>
+      <div class="navbar__col-mid"></div>
+
+      <div class="navbar__right">
+        <div class="navbar__pro-cta">
+          <a href="registro-proveedor.html" class="btn btn--primary btn--sm">Regístrate Aquí!</a>
+        </div>
+        <nav class="navbar__nav">
+          <a href="index.html">Inicio</a>
+          <a href="especialistas.html">Especialistas</a>
+          <a href="proveedores.html" class="active">Proveedores</a>
+          <a href="quienes.html">Quiénes Somos</a>
+          <a href="blog.html">Blog</a>
+          <a href="index.html#contacto">Contacto</a>
+        </nav>
+      </div>
+
+    </div>
+  </header>
+</div>
+</header>
+
+  <div style="max-width:720px;margin:0 auto;padding:48px 24px 80px;">
+
+    <!-- HEADER -->
+    <div style="text-align:center;margin-bottom:40px;">
+      <p style="font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8762A;margin-bottom:10px;">Directorio de Proveedores</p>
+      <h1 style="font-size:2rem;font-weight:700;color:#1A1A1A;margin-bottom:10px;">Publica tu empresa gratis</h1>
+      <p style="font-size:.95rem;color:#6B6B6B;">Conecta con maestros y constructores que buscan proveedores de confianza en todo Chile.</p>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div id="regForm" style="background:white;border:1.5px solid #E5E5E5;border-radius:16px;padding:36px;">
+
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+        <div class="form-group">
+          <label class="form-label">Nombre de la empresa <span class="required">*</span></label>
+          <input type="text" id="pNombre" class="form-input" placeholder="Ferretería El Maestro" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Categoría <span class="required">*</span></label>
+          <select id="pCategoria" class="form-input" required>
+            <option value="">Seleccionar categoría</option>
+            <option>Ferretería</option>
+            <option>Materiales de construcción</option>
+            <option>Herramientas y maquinaria</option>
+            <option>Pinturas y revestimientos</option>
+            <option>Electricidad</option>
+            <option>Gasfitería y plomería</option>
+            <option>Vidrios y aluminios</option>
+            <option>Prefabricados</option>
+            <option>Otros</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+        <div class="form-group">
+          <label class="form-label">Email de contacto <span class="required">*</span></label>
+          <input type="email" id="pEmail" class="form-input" placeholder="contacto@empresa.cl" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">WhatsApp <span class="required">*</span></label>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:.9rem;color:#6B6B6B;white-space:nowrap;">+56 9</span>
+            <input type="tel" id="pWhatsapp" class="form-input" placeholder="1234 5678" maxlength="8" required />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+        <div class="form-group">
+          <label class="form-label">Sitio web</label>
+          <input type="url" id="pWeb" class="form-input" placeholder="https://tuempresa.cl" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Instagram</label>
+          <input type="text" id="pInstagram" class="form-input" placeholder="@tuempresa" />
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:16px;">
+        <label class="form-label">URL del logo</label>
+        <input type="url" id="pLogo" class="form-input" placeholder="https://tuempresa.cl/logo.png" />
+        <p style="font-size:.78rem;color:#9CA3AF;margin-top:4px;">Opcional. Usa una URL pública de la imagen de tu logo.</p>
+      </div>
+
+      <div class="form-group" style="margin-bottom:16px;">
+        <label class="form-label">Descripción <span class="required">*</span></label>
+        <textarea id="pDesc" class="form-input" rows="4" placeholder="Describe los productos o servicios que ofreces, tu experiencia y lo que te diferencia..." required style="resize:vertical;"></textarea>
+      </div>
+
+      <div class="form-group" style="margin-bottom:24px;">
+        <label class="form-label">Ciudades donde operas <span class="required">*</span></label>
+        <div id="ciudadesCheck" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;">
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;font-size:.88rem;cursor:pointer;"><input type="checkbox" value="Santiago"> Santiago</label>
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;font-size:.88rem;cursor:pointer;"><input type="checkbox" value="Talca"> Talca</label>
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;font-size:.88rem;cursor:pointer;"><input type="checkbox" value="Concepción"> Concepción</label>
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;font-size:.88rem;cursor:pointer;"><input type="checkbox" value="Temuco"> Temuco</label>
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;font-size:.88rem;cursor:pointer;"><input type="checkbox" value="Valparaíso"> Valparaíso</label>
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;font-size:.88rem;cursor:pointer;"><input type="checkbox" value="Antofagasta"> Antofagasta</label>
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;font-size:.88rem;cursor:pointer;"><input type="checkbox" value="La Serena"> La Serena</label>
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;font-size:.88rem;cursor:pointer;"><input type="checkbox" value="Puerto Montt"> Puerto Montt</label>
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;font-size:.88rem;cursor:pointer;"><input type="checkbox" value="Rancagua"> Rancagua</label>
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;font-size:.88rem;cursor:pointer;"><input type="checkbox" value="Todo Chile"> Todo Chile</label>
+        </div>
+      </div>
+
+      <!-- Términos -->
+      <div class="terms-accept" id="termsWrapper" style="margin-bottom:20px;">
+        <label class="terms-accept__label">
+          <input type="checkbox" id="acceptTerms" />
+          <span class="terms-accept__box"></span>
+          <span class="terms-accept__text">
+            He leído y acepto los <a href="terminos.html" target="_blank">Términos y Condiciones</a>
+            de <span style="color:#E8762A">Q</span>ué<span style="color:#E8762A">b</span>uen<span style="color:#E8762A">m</span>aestro!
+          </span>
+        </label>
+        <p class="terms-accept__error" id="termsError">Debes aceptar los Términos y Condiciones.</p>
+      </div>
+
+      <p id="formMsg" style="font-size:.85rem;margin-bottom:12px;display:none;"></p>
+      <button id="submitBtn" class="btn btn--primary btn--lg" style="width:100%;" onclick="submitForm()">
+        Publicar mi empresa gratis
+      </button>
+    </div>
+
+    <!-- ÉXITO -->
+    <div id="regSuccess" class="hidden" style="text-align:center;padding:60px 24px;">
+      <div style="width:72px;height:72px;background:#ECFDF5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+        <svg width="36" height="36" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:10px;">¡Registro enviado!</h2>
+      <p style="font-size:.95rem;color:#6B6B6B;margin-bottom:24px;">Tu empresa está siendo revisada. Aparecerá en el directorio de proveedores en 24–48 horas.</p>
+      <a href="proveedores.html" class="btn btn--primary">Ver directorio de proveedores</a>
+    </div>
+
+  </div>
+
+  <script>
+    async function submitForm() {
+      const nombre    = document.getElementById('pNombre').value.trim();
+      const categoria = document.getElementById('pCategoria').value;
+      const email     = document.getElementById('pEmail').value.trim();
+      const whatsapp  = document.getElementById('pWhatsapp').value.trim();
+      const web       = document.getElementById('pWeb').value.trim();
+      const instagram = document.getElementById('pInstagram').value.trim().replace('@','');
+      const logo      = document.getElementById('pLogo').value.trim();
+      const desc      = document.getElementById('pDesc').value.trim();
+      const ciudades  = [...document.querySelectorAll('#ciudadesCheck input:checked')].map(c => c.value);
+      const terms     = document.getElementById('acceptTerms').checked;
+
+      const msg = document.getElementById('formMsg');
+
+      if (!nombre || !categoria || !email || !whatsapp || !desc || !ciudades.length) {
+        msg.style.color = '#EF4444'; msg.textContent = 'Por favor completa todos los campos obligatorios.'; msg.style.display = 'block';
+        return;
+      }
+      if (!terms) {
+        document.getElementById('termsWrapper').classList.add('error');
+        document.getElementById('termsWrapper').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      document.getElementById('termsWrapper').classList.remove('error');
+
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'Enviando...'; btn.disabled = true;
+      msg.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/suppliers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre, categoria, email, whatsapp: whatsapp.replace(/\s/g,''), web, instagram, logo, descripcion: desc, ciudades }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('regForm').classList.add('hidden');
+          document.getElementById('regSuccess').classList.remove('hidden');
+        } else {
+          msg.style.color = '#EF4444'; msg.textContent = data.error || 'Error al enviar. Intenta nuevamente.'; msg.style.display = 'block';
+          btn.textContent = 'Publicar mi empresa gratis'; btn.disabled = false;
+        }
+      } catch {
+        msg.style.color = '#EF4444'; msg.textContent = 'Error de conexión. Intenta nuevamente.'; msg.style.display = 'block';
+        btn.textContent = 'Publicar mi empresa gratis'; btn.disabled = false;
+      }
+    }
+
+    // Redirigir búsqueda al directorio
+    (function(){
+      function goSearch(){ window.location.href = 'especialistas.html'; }
+      document.getElementById('searchText')?.addEventListener('keydown', e => { if (e.key === 'Enter') goSearch(); });
+      document.querySelector('.navbar__search button')?.addEventListener('click', goSearch);
+      document.querySelector('.location-select')?.addEventListener('change', goSearch);
+    })();
+  </script>
+
+</body>
+</html>

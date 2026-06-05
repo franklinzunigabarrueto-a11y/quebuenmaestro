@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Québuenmaestro!</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { background: #F9F9F9; color: #1A1A1A; }
+
+    /* ── HERO BLOG ── */
+    .blog-hero {
+      background: #1A1A1A; padding: 56px 24px 48px;
+      position: relative; overflow: hidden;
+    }
+    .blog-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(232,118,42,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,118,42,.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+    .blog-hero__inner { position: relative; z-index: 1; max-width: 1060px; margin: 0 auto; }
+    .blog-hero__label { font-size: .72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #E8762A; display: block; margin-bottom: 12px; }
+    .blog-hero__title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: white; margin-bottom: 12px; }
+    .blog-hero__sub   { font-size: .97rem; color: #9CA3AF; max-width: 520px; line-height: 1.7; }
+
+    /* ── CATEGORÍAS ── */
+    .blog-cats {
+      background: white; border-bottom: 1px solid #EFEFEF;
+      padding: 16px 24px; overflow-x: auto;
+    }
+    .blog-cats__inner { max-width: 1060px; margin: 0 auto; display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ── LAYOUT PRINCIPAL ── */
+    .blog-layout {
+      max-width: 1060px; margin: 40px auto; padding: 0 24px;
+      display: grid; grid-template-columns: 1fr 300px; gap: 40px;
+    }
+
+    /* ── ARTÍCULO DESTACADO ── */
+    .blog-featured {
+      background: white; border-radius: 16px; overflow: hidden;
+      border: 1.5px solid #E5E5E5; margin-bottom: 28px;
+      transition: box-shadow .2s, transform .2s;
+      cursor: pointer; text-decoration: none; display: block; color: inherit;
+    }
+    .blog-featured:hover { box-shadow: 0 12px 40px rgba(0,0,0,.1); transform: translateY(-2px); }
+    .blog-featured__img {
+      width: 100%; height: 280px; object-fit: cover;
+      background: linear-gradient(135deg, #FDF0E6 0%, #F5DEC8 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .blog-featured__img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,26,26,.4) 0%, transparent 60%);
+    }
+    .blog-featured__badge {
+      position: absolute; top: 20px; left: 20px; z-index: 2;
+      background: #E8762A; color: white;
+      font-size: .7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 100px;
+    }
+    .blog-featured__body { padding: 28px; }
+    .blog-featured__cat  { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #E8762A; margin-bottom: 8px; display: block; }
+    .blog-featured__title { font-size: 1.4rem; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+    .blog-featured__excerpt { font-size: .92rem; color: #6B6B6B; line-height: 1.7; margin-bottom: 16px; }
+    .blog-featured__meta { display: flex; align-items: center; gap: 16px; font-size: .78rem; color: #9CA3AF; }
+    .blog-featured__meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* ── GRID DE ARTÍCULOS ── */
+    .blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .blog-card {
+      background: white; border-radius: 14px; overflow: hidden;
+      border: 1.5px solid #E5E5E5;
+      transition: box-shadow .2s, transform .2s;
+      cursor: pointer; text-decoration: none; display: flex; flex-direction: column; color: inherit;
+    }
+    .blog-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.08); transform: translateY(-2px); }
+    .blog-card__img {
+      width: 100%; height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .blog-card__body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .blog-card__cat  { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #E8762A; margin-bottom: 6px; display: block; }
+    .blog-card__title { font-size: .97rem; font-weight: 700; line-height: 1.4; margin-bottom: 8px; flex: 1; }
+    .blog-card__excerpt { font-size: .82rem; color: #6B6B6B; line-height: 1.6; margin-bottom: 12px; }
+    .blog-card__meta { font-size: .75rem; color: #9CA3AF; display: flex; align-items: center; gap: 10px; }
+    .blog-card__read { font-size: .8rem; font-weight: 700; color: #E8762A; margin-top: 12px; display: inline-flex; align-items: center; gap: 4px; }
+
+    /* Ilustraciones SVG temáticas por artículo */
+    .art-bg { width: 100%; height: 100%; position: absolute; inset: 0; }
+
+    /* ── SIDEBAR ── */
+    .blog-sidebar { }
+    .sidebar-block {
+      background: white; border-radius: 14px; padding: 24px;
+      border: 1.5px solid #E5E5E5; margin-bottom: 20px;
+    }
+    .sidebar-block h3 { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #9CA3AF; margin-bottom: 16px; }
+    .sidebar-post { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #F0F0F0; cursor: pointer; }
+    .sidebar-post:last-child { border-bottom: none; }
+    .sidebar-post__num { font-size: 1.5rem; font-weight: 700; color: #E8762A; line-height: 1; flex-shrink: 0; width: 28px; }
+    .sidebar-post__title { font-size: .85rem; font-weight: 600; line-height: 1.4; color: #1A1A1A; }
+    .sidebar-post__meta  { font-size: .75rem; color: #9CA3AF; margin-top: 3px; }
+
+    .newsletter-block {
+      background: linear-gradient(135deg, #E8762A 0%, #C55E18 100%);
+      border-radius: 14px; padding: 28px; text-align: center; position: relative; overflow: hidden;
+    }
+    .newsletter-block::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);
+      background-size: 24px 24px;
+    }
+    .newsletter-block__inner { position: relative; z-index: 1; }
+    .newsletter-block h3 { font-size: 1rem; font-weight: 700; color: white; margin-bottom: 8px; }
+    .newsletter-block p  { font-size: .82rem; color: rgba(255,255,255,.8); margin-bottom: 16px; line-height: 1.5; }
+    .newsletter-block input {
+      width: 100%; padding: 10px 14px; border-radius: 8px; border: none;
+      font-size: .85rem; margin-bottom: 10px; outline: none;
+      font-family: 'Glacial Indifference', sans-serif;
+    }
+    .newsletter-block button {
+      width: 100%; background: #1A1A1A; color: white; border: none;
+      padding: 11px; border-radius: 8px; font-weight: 700; font-size: .85rem;
+      cursor: pointer; font-family: 'Glacial Indifference', sans-serif;
+      transition: background .2s;
+    }
+    .newsletter-block button:hover { background: #333; }
+
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .blog-tag {
+      background: #F5F5F5; color: #6B6B6B; font-size: .78rem; font-weight: 600;
+      padding: 5px 12px; border-radius: 100px; cursor: pointer; transition: all .2s;
+      border: 1px solid transparent;
+    }
+    .blog-tag:hover { background: #FDF0E6; color: #E8762A; border-color: rgba(232,118,42,.3); }
+
+    /* ── PAGINACIÓN ── */
+    .blog-pagination { display: flex; gap: 8px; justify-content: center; margin-top: 36px; }
+    .blog-page { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .88rem; font-weight: 600; cursor: pointer; border: 1.5px solid #E5E5E5; background: white; color: #6B6B6B; transition: all .2s; }
+    .blog-page.active { background: #E8762A; color: white; border-color: #E8762A; }
+    .blog-page:hover:not(.active) { border-color: #E8762A; color: #E8762A; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .blog-layout { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-sidebar { display: none; }
+    }
+    @media (max-width: 600px) {
+      .blog-featured__img { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar__inner">
+
+      <div class="navbar__col-left">
+        <a href="index.html" class="logo-link">
+        <img src="logo.png" alt="Qbm!" class="logo-img" />
+      </a>
+        <div class="navbar__search">
+        <input type="text" id="searchText" placeholder="Nombre, especialidad o servicio" onkeydown="if(event.key==='Enter') searchBlog()" />
+        <button aria-label="Buscar" onclick="searchBlog()">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+      </div>
+        <div class="navbar__location">
+        <svg width="15" height="15" fill="#E8762A" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <select id="searchCity" class="location-select">
+          <option value="">Todas las ciudades</option>
+          <option>Santiago</option><option>Talca</option><option>Concepción</option>
+          <option>Temuco</option><option>Valparaíso</option><option>Antofagasta</option>
+          <option>La Serena</option><option>Puerto Montt</option><option>Rancagua</option>
+        </select>
+      </div>
+      </div>
+      <div class="navbar__col-mid"></div>
+
+      <div class="navbar__right">
+        <div class="navbar__pro-cta">
+          <a href="registro.html" class="btn btn--primary btn--sm">Regístrate Aquí!</a>
+        </div>
+        <nav class="navbar__nav">
+          <a href="index.html">Inicio</a>
+          <a href="especialistas.html">Especialistas</a>
+          <a href="proveedores.html">Proveedores</a>
+          <a href="quienes.html">Quiénes Somos</a>
+          <a href="blog.html" class="active">Blog</a>
+          <a href="index.html#contacto">Contacto</a>
+        </nav>
+      </div>
+
+    </div>
+  </header>
+</div>
+</header>
+
+  <!-- HERO -->
+  <div class="blog-hero">
+    <div class="blog-hero__inner">
+      <span class="blog-hero__label">Blog</span>
+      <h1 class="blog-hero__title">Consejos, guías y todo<br/>sobre construcción en Chile</h1>
+      <p class="blog-hero__sub">Artículos prácticos para quienes construyen, remodelan o buscan al profesional indicado para su proyecto.</p>
+    </div>
+  </div>
+
+  <!-- CATEGORÍAS -->
+  <div class="blog-cats">
+    <div class="blog-cats__inner">
+      <button class="chip chip--active" onclick="filterCat('')">Todos</button>
+      <button class="chip" onclick="filterCat('Contratación')">Contratación</button>
+      <button class="chip" onclick="filterCat('Materiales')">Materiales</button>
+      <button class="chip" onclick="filterCat('Guías')">Guías</button>
+      <button class="chip" onclick="filterCat('Seguridad')">Seguridad</button>
+      <button class="chip" onclick="filterCat('Precios')">Precios</button>
+      <button class="chip" onclick="filterCat('Normativa')">Normativa</button>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="blog-layout">
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div>
+
+      <!-- ARTÍCULO DESTACADO -->
+      <a class="blog-featured" href="#">
+        <div class="blog-featured__img">
+          <svg class="art-bg" viewBox="0 0 800 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="280" fill="#FDF0E6"/>
+            <rect x="60" y="60" width="160" height="200" fill="#E8762A" opacity=".12" rx="4"/>
+            <rect x="80" y="80" width="40" height="50" rx="3" fill="#E8762A" opacity=".3"/>
+            <rect x="135" y="80" width="40" height="50" rx="3" fill="#E8762A" opacity=".3"/>
+            <rect x="80" y="145" width="40" height="50" rx="3" fill="#E8762A" opacity=".3"/>
+            <rect x="135" y="145" width="40" height="50" rx="3" fill="#E8762A" opacity=".3"/>
+            <rect x="100" y="215" width="40" height="45" rx="3" fill="#C8B8A2" opacity=".5"/>
+            <rect x="300" y="30" width="220" height="220" fill="#1A1A1A" opacity=".07" rx="4"/>
+            <rect x="320" y="50" width="45" height="55" rx="3" fill="#E8762A" opacity=".22"/>
+            <rect x="380" y="50" width="45" height="55" rx="3" fill="#E8762A" opacity=".22"/>
+            <rect x="440" y="50" width="30" height="55" rx="3" fill="#E8762A" opacity=".22"/>
+            <rect x="320" y="120" width="45" height="55" rx="3" fill="#E8762A" opacity=".22"/>
+            <rect x="380" y="120" width="45" height="55" rx="3" fill="#E8762A" opacity=".22"/>
+            <rect x="320" y="190" width="45" height="55" rx="3" fill="#E8762A" opacity=".22"/>
+            <rect x="380" y="190" width="45" height="55" rx="3" fill="#E8762A" opacity=".22"/>
+            <line x1="600" y1="250" x2="600" y2="30" stroke="#1A1A1A" stroke-width="4" opacity=".08"/>
+            <line x1="600" y1="30" x2="480" y2="30" stroke="#1A1A1A" stroke-width="4" opacity=".08"/>
+            <line x1="540" y1="30" x2="540" y2="70" stroke="#1A1A1A" stroke-width="2" stroke-dasharray="5 3" opacity=".07"/>
+            <line x1="0" y1="250" x2="800" y2="250" stroke="#C8B8A2" stroke-width="2" opacity=".4"/>
+            <circle cx="680" cy="80" r="48" fill="#E8762A" opacity=".07"/>
+            <circle cx="680" cy="80" r="32" fill="#E8762A" opacity=".1"/>
+            <text x="680" y="87" text-anchor="middle" font-size="22" fill="#E8762A" opacity=".5" font-weight="700">⚒</text>
+          </svg>
+          <span class="blog-featured__badge">Destacado</span>
+        </div>
+        <div class="blog-featured__body">
+          <span class="blog-featured__cat">Contratación</span>
+          <h2 class="blog-featured__title">Cómo contratar a un maestro de confianza: 7 preguntas que debes hacer antes de firmar cualquier trato</h2>
+          <p class="blog-featured__excerpt">Contratar sin información es el error más común en remodelaciones chilenas. Te mostramos las preguntas clave que separan a un buen profesional de uno que te dejará con el proyecto a medias.</p>
+          <div class="blog-featured__meta">
+            <span><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2 de junio, 2026</span>
+            <span><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 6 min de lectura</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- GRID DE ARTÍCULOS -->
+      <div class="blog-grid" id="blogGrid">
+
+        <!-- Art 1 -->
+        <a class="blog-card" href="#">
+          <div class="blog-card__img">
+            <svg class="art-bg" viewBox="0 0 400 160" fill="none"><rect width="400" height="160" fill="#F0F9FF"/>
+              <rect x="40" y="30" width="320" height="100" fill="#3B82F6" opacity=".07" rx="4"/>
+              <path d="M80 130 L80 60 L160 40 L240 60 L240 130" fill="#3B82F6" opacity=".12"/>
+              <rect x="100" y="85" width="35" height="45" rx="2" fill="#3B82F6" opacity=".25"/>
+              <path d="M160 40 L120 130" stroke="#3B82F6" stroke-width="1" opacity=".15"/>
+              <circle cx="310" cy="60" r="35" fill="#3B82F6" opacity=".06"/>
+              <text x="310" y="68" text-anchor="middle" font-size="28" opacity=".2">💧</text>
+            </svg>
+          </div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Guías</span>
+            <h3 class="blog-card__title">Temporada de lluvia: cómo preparar tu techo y evitar filtraciones</h3>
+            <p class="blog-card__excerpt">Antes de que lleguen las lluvias al sur, estos pasos pueden salvarte de goteras y daños costosos.</p>
+            <div class="blog-card__meta">
+              <span>28 mayo, 2026</span>
+              <span>·</span>
+              <span>4 min</span>
+            </div>
+            <span class="blog-card__read">Leer artículo →</span>
+          </div>
+        </a>
+
+        <!-- Art 2 -->
+        <a class="blog-card" href="#">
+          <div class="blog-card__img">
+            <svg class="art-bg" viewBox="0 0 400 160" fill="none"><rect width="400" height="160" fill="#FEF9EE"/>
+              <rect x="30" y="40" width="100" height="80" fill="#F59E0B" opacity=".12" rx="3"/>
+              <rect x="45" y="55" width="25" height="30" rx="2" fill="#F59E0B" opacity=".3"/>
+              <rect x="85" y="55" width="25" height="30" rx="2" fill="#F59E0B" opacity=".3"/>
+              <path d="M200 130 L200 50 L280 30 L360 50 L360 130" fill="#E8762A" opacity=".1"/>
+              <rect x="220" y="85" width="35" height="45" rx="2" fill="#E8762A" opacity=".2"/>
+              <circle cx="340" cy="55" r="30" fill="#E8762A" opacity=".07"/>
+              <text x="340" y="63" text-anchor="middle" font-size="24" opacity=".25">⚡</text>
+            </svg>
+          </div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Seguridad</span>
+            <h3 class="blog-card__title">5 errores peligrosos al contratar un electricista sin certificación</h3>
+            <p class="blog-card__excerpt">Las instalaciones eléctricas defectuosas son la principal causa de incendios domiciliarios en Chile. Aprende a identificar señales de alerta.</p>
+            <div class="blog-card__meta">
+              <span>22 mayo, 2026</span>
+              <span>·</span>
+              <span>5 min</span>
+            </div>
+            <span class="blog-card__read">Leer artículo →</span>
+          </div>
+        </a>
+
+        <!-- Art 3 -->
+        <a class="blog-card" href="#">
+          <div class="blog-card__img">
+            <svg class="art-bg" viewBox="0 0 400 160" fill="none"><rect width="400" height="160" fill="#F0FDF4"/>
+              <rect x="40" y="50" width="280" height="12" rx="6" fill="#059669" opacity=".15"/>
+              <rect x="40" y="75" width="200" height="12" rx="6" fill="#059669" opacity=".12"/>
+              <rect x="40" y="100" width="240" height="12" rx="6" fill="#059669" opacity=".1"/>
+              <circle cx="340" cy="80" r="45" fill="#059669" opacity=".07"/>
+              <text x="340" y="88" text-anchor="middle" font-size="36" opacity=".2">💰</text>
+            </svg>
+          </div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Precios</span>
+            <h3 class="blog-card__title">Precios reales de remodelación en Chile 2026: cuánto cuesta cada trabajo</h3>
+            <p class="blog-card__excerpt">Desde cambiar una cerámica hasta construir una ampliación. Guía de valores de mercado actualizada para no pagar de más.</p>
+            <div class="blog-card__meta">
+              <span>15 mayo, 2026</span>
+              <span>·</span>
+              <span>8 min</span>
+            </div>
+            <span class="blog-card__read">Leer artículo →</span>
+          </div>
+        </a>
+
+        <!-- Art 4 -->
+        <a class="blog-card" href="#">
+          <div class="blog-card__img">
+            <svg class="art-bg" viewBox="0 0 400 160" fill="none"><rect width="400" height="160" fill="#FFF1F2"/>
+              <rect x="50" y="40" width="120" height="100" fill="#EF4444" opacity=".08" rx="4"/>
+              <rect x="65" y="55" width="28" height="35" rx="2" fill="#EF4444" opacity=".2"/>
+              <rect x="105" y="55" width="28" height="35" rx="2" fill="#EF4444" opacity=".2"/>
+              <rect x="65" y="100" width="28" height="35" rx="2" fill="#EF4444" opacity=".2"/>
+              <rect x="105" y="100" width="28" height="35" rx="2" fill="#EF4444" opacity=".2"/>
+              <path d="M240 40 L360 40 L360 140 L240 140 Z" fill="#EF4444" opacity=".05"/>
+              <text x="300" y="100" text-anchor="middle" font-size="52" opacity=".12">📋</text>
+            </svg>
+          </div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Normativa</span>
+            <h3 class="blog-card__title">Permiso de construcción en Chile: quién lo necesita y cómo tramitarlo</h3>
+            <p class="blog-card__excerpt">No toda obra requiere permiso, pero confundirlo puede costar multas o demoliciones. Aquí lo que dice la ley.</p>
+            <div class="blog-card__meta">
+              <span>8 mayo, 2026</span>
+              <span>·</span>
+              <span>6 min</span>
+            </div>
+            <span class="blog-card__read">Leer artículo →</span>
+          </div>
+        </a>
+
+        <!-- Art 5 -->
+        <a class="blog-card" href="#">
+          <div class="blog-card__img">
+            <svg class="art-bg" viewBox="0 0 400 160" fill="none"><rect width="400" height="160" fill="#FAFAFA"/>
+              <circle cx="120" cy="80" r="55" fill="#E8762A" opacity=".07"/>
+              <path d="M95 80 a25 25 0 1 1 50 0" fill="none" stroke="#E8762A" stroke-width="3" opacity=".3"/>
+              <rect x="108" y="78" width="24" height="4" rx="2" fill="#E8762A" opacity=".4"/>
+              <circle cx="120" cy="80" r="5" fill="#E8762A" opacity=".5"/>
+              <rect x="220" y="40" width="150" height="14" rx="7" fill="#1A1A1A" opacity=".07"/>
+              <rect x="220" y="64" width="120" height="14" rx="7" fill="#1A1A1A" opacity=".06"/>
+              <rect x="220" y="88" width="140" height="14" rx="7" fill="#1A1A1A" opacity=".05"/>
+              <rect x="220" y="112" width="100" height="14" rx="7" fill="#1A1A1A" opacity=".04"/>
+            </svg>
+          </div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Materiales</span>
+            <h3 class="blog-card__title">Hormigón, ladrillo o metalcon: cuál elegir para tu construcción</h3>
+            <p class="blog-card__excerpt">Comparamos los tres sistemas más usados en Chile según costo, resistencia y tiempo de ejecución.</p>
+            <div class="blog-card__meta">
+              <span>1 mayo, 2026</span>
+              <span>·</span>
+              <span>7 min</span>
+            </div>
+            <span class="blog-card__read">Leer artículo →</span>
+          </div>
+        </a>
+
+        <!-- Art 6 -->
+        <a class="blog-card" href="#">
+          <div class="blog-card__img">
+            <svg class="art-bg" viewBox="0 0 400 160" fill="none"><rect width="400" height="160" fill="#F5F3FF"/>
+              <rect x="40" y="35" width="220" height="100" fill="#7C3AED" opacity=".06" rx="4"/>
+              <rect x="60" y="55" width="35" height="60" rx="3" fill="#7C3AED" opacity=".15"/>
+              <rect x="110" y="45" width="35" height="70" rx="3" fill="#7C3AED" opacity=".15"/>
+              <rect x="160" y="65" width="35" height="50" rx="3" fill="#7C3AED" opacity=".15"/>
+              <rect x="210" y="50" width="35" height="65" rx="3" fill="#7C3AED" opacity=".15"/>
+              <path d="M60 115 L77.5 75 L112.5 95 L145 65 L177.5 85 L210 60 L245 80" stroke="#E8762A" stroke-width="2.5" fill="none" opacity=".5"/>
+              <circle cx="320" cy="80" r="40" fill="#7C3AED" opacity=".05"/>
+              <text x="320" y="88" text-anchor="middle" font-size="32" opacity=".15">📊</text>
+            </svg>
+          </div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Contratación</span>
+            <h3 class="blog-card__title">Cotizar bien: cómo comparar presupuestos de construcción sin equivocarte</h3>
+            <p class="blog-card__excerpt">Tener tres presupuestos no garantiza elegir bien. Te explicamos qué mirar más allá del precio final.</p>
+            <div class="blog-card__meta">
+              <span>24 abril, 2026</span>
+              <span>·</span>
+              <span>5 min</span>
+            </div>
+            <span class="blog-card__read">Leer artículo →</span>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- PAGINACIÓN -->
+      <div class="blog-pagination">
+        <div class="blog-page active">1</div>
+        <div class="blog-page">2</div>
+        <div class="blog-page">3</div>
+        <div class="blog-page">→</div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="blog-sidebar">
+
+      <div class="sidebar-block">
+        <h3>Más leídos</h3>
+        <div class="sidebar-post">
+          <span class="sidebar-post__num">01</span>
+          <div>
+            <p class="sidebar-post__title">Cómo evitar estafas al contratar en obra</p>
+            <p class="sidebar-post__meta">3.2k lecturas</p>
+          </div>
+        </div>
+        <div class="sidebar-post">
+          <span class="sidebar-post__num">02</span>
+          <div>
+            <p class="sidebar-post__title">Sueldo de un maestro en Chile: lo que hay que saber</p>
+            <p class="sidebar-post__meta">2.8k lecturas</p>
+          </div>
+        </div>
+        <div class="sidebar-post">
+          <span class="sidebar-post__num">03</span>
+          <div>
+            <p class="sidebar-post__title">Gasfitería de emergencia: qué hacer antes de que llegue el profesional</p>
+            <p class="sidebar-post__meta">2.1k lecturas</p>
+          </div>
+        </div>
+        <div class="sidebar-post">
+          <span class="sidebar-post__num">04</span>
+          <div>
+            <p class="sidebar-post__title">Diferencias entre maestro, técnico e ingeniero: cuándo necesitas a cada uno</p>
+            <p class="sidebar-post__meta">1.9k lecturas</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="newsletter-block">
+        <div class="newsletter-block__inner">
+          <h3>Recibe los mejores artículos</h3>
+          <p>Consejos de construcción directo a tu correo, sin spam.</p>
+          <input type="email" id="nlEmail" placeholder="tucorreo@email.cl" />
+          <button onclick="subscribeNL()">Suscribirme gratis</button>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <h3>Temas</h3>
+        <div class="tag-cloud">
+          <span class="blog-tag">Contratación</span>
+          <span class="blog-tag">Gasfitería</span>
+          <span class="blog-tag">Electricidad</span>
+          <span class="blog-tag">Permisos</span>
+          <span class="blog-tag">Materiales</span>
+          <span class="blog-tag">Remodelación</span>
+          <span class="blog-tag">Precios 2026</span>
+          <span class="blog-tag">Seguridad</span>
+          <span class="blog-tag">Albañilería</span>
+          <span class="blog-tag">Normativa</span>
+        </div>
+      </div>
+
+      <div class="sidebar-block" style="background:#FDF0E6;border-color:#F0DEC8;">
+        <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#E8762A;margin-bottom:10px;">¿Eres profesional?</p>
+        <p style="font-size:.85rem;color:#4B5563;line-height:1.6;margin-bottom:14px;">Publica tu perfil gratis y llega a más clientes en todo Chile.</p>
+        <a href="registro.html" class="btn btn--primary btn--sm" style="width:100%;justify-content:center;">Registrarme gratis</a>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    function filterCat(cat) {
+      document.querySelectorAll('.blog-cats .chip').forEach(c => c.classList.remove('chip--active'));
+      event.target.classList.add('chip--active');
+    }
+
+    function searchBlog() {
+      const q = document.getElementById('searchText').value.trim();
+      if (q) alert('Búsqueda de artículos próximamente disponible.');
+    }
+
+    function subscribeNL() {
+      const email = document.getElementById('nlEmail').value.trim();
+      if (!email) return;
+      document.getElementById('nlEmail').value = '';
+      alert('¡Gracias! Te avisaremos cuando publiquemos nuevos artículos.');
+    }
+
+    // Redirigir búsqueda general al directorio
+    document.querySelector('.location-select')?.addEventListener('change', () => {
+      window.location.href = 'especialistas.html';
+    });
+  </script>
+
+</body>
+</html>

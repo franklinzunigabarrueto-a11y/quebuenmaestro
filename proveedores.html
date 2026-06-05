@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proveedores — Québuenmaestro!</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .sup-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .sup-card {
+      background: white; border: 1.5px solid #E5E5E5; border-radius: 14px;
+      padding: 24px; cursor: pointer; text-decoration: none; color: inherit;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .sup-card:hover { border-color: #E8762A; box-shadow: 0 8px 24px rgba(232,118,42,.1); transform: translateY(-3px); }
+    .sup-card__header { display: flex; align-items: center; gap: 14px; }
+    .sup-card__logo {
+      width: 52px; height: 52px; border-radius: 10px; object-fit: contain;
+      background: #FDF0E6; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; border: 1px solid #F0E0D0; overflow: hidden;
+    }
+    .sup-card__logo img { width: 100%; height: 100%; object-fit: contain; }
+    .sup-card__logo-placeholder { font-size: 1.3rem; font-weight: 700; color: #E8762A; }
+    .sup-card__name { font-size: 1rem; font-weight: 700; color: #1A1A1A; margin-bottom: 2px; }
+    .sup-card__cat  { font-size: .78rem; color: #E8762A; font-weight: 600; }
+    .sup-card__desc { font-size: .87rem; color: #6B6B6B; line-height: 1.6; flex: 1; }
+    .sup-card__footer { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; border-top: 1px solid #F0F0F0; }
+    .sup-card__city { font-size: .78rem; color: #9CA3AF; }
+    .sup-card__link { font-size: .8rem; font-weight: 700; color: #E8762A; display: flex; align-items: center; gap: 4px; }
+
+    .sup-hero {
+      background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+      padding: 56px 24px 48px; text-align: center; position: relative; overflow: hidden;
+    }
+    .sup-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(232,118,42,.06) 1px,transparent 1px), linear-gradient(90deg,rgba(232,118,42,.06) 1px,transparent 1px);
+      background-size: 44px 44px;
+    }
+    .sup-hero__inner { position: relative; z-index: 1; }
+    .sup-hero p.label { font-size: .72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #E8762A; margin-bottom: 10px; }
+    .sup-hero h1 { font-size: 2.2rem; font-weight: 700; color: white; margin-bottom: 10px; }
+    .sup-hero p.sub { font-size: .97rem; color: #9CA3AF; margin-bottom: 28px; }
+    .sup-hero__btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .cat-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+
+      <div class="navbar__col-left">
+        <a href="index.html" class="logo-link">
+        <img src="logo.png" alt="Qbm!" class="logo-img" />
+      </a>
+        <div class="navbar__search">
+        <input type="text" id="searchText" placeholder="Nombre, especialidad o servicio" onkeydown="if(event.key==='Enter') filterSuppliers()" />
+        <button aria-label="Buscar" onclick="filterSuppliers()">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+      </div>
+        <div class="navbar__location">
+        <svg width="15" height="15" fill="#E8762A" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <select id="searchCity" onchange="filterSuppliers()" class="location-select">
+          <option value="">Todas las ciudades</option>
+          <option>Santiago</option><option>Talca</option><option>Concepción</option>
+          <option>Temuco</option><option>Valparaíso</option><option>Antofagasta</option>
+          <option>La Serena</option><option>Puerto Montt</option><option>Rancagua</option>
+        </select>
+      </div>
+      </div>
+      <div class="navbar__col-mid"></div>
+
+      <div class="navbar__right">
+        <div class="navbar__pro-cta">
+          <a href="registro-proveedor.html" class="btn btn--primary btn--sm">Regístrate Aquí!</a>
+        </div>
+        <nav class="navbar__nav">
+          <a href="index.html">Inicio</a>
+          <a href="especialistas.html">Especialistas</a>
+          <a href="proveedores.html" class="active">Proveedores</a>
+          <a href="quienes.html">Quiénes Somos</a>
+          <a href="blog.html">Blog</a>
+          <a href="index.html#contacto">Contacto</a>
+        </nav>
+      </div>
+
+    </div>
+  </header>
+</div>
+</header>
+
+  <!-- HERO -->
+  <div class="sup-hero">
+    <div class="sup-hero__inner">
+      <p class="label">Directorio</p>
+      <h1>Proveedores de construcción</h1>
+      <p class="sub">Ferreterías, materiales, herramientas y servicios de suministro para tus proyectos</p>
+      <div class="sup-hero__btns">
+        <a href="registro-proveedor.html" class="btn btn--primary">Publicar mi empresa</a>
+        <a href="#directorio-sup" class="btn btn--ghost" style="border-color:rgba(255,255,255,.3);color:white;">Ver directorio ↓</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTROS -->
+  <div style="background:white;border-bottom:1px solid #EFEFEF;padding:16px 24px;overflow-x:auto;">
+    <div id="catChips" class="cat-chips" style="max-width:1280px;margin:0 auto;">
+      <button class="chip chip--active" data-cat="">Todos</button>
+      <button class="chip" data-cat="Ferretería">Ferretería</button>
+      <button class="chip" data-cat="Materiales de construcción">Materiales</button>
+      <button class="chip" data-cat="Herramientas y maquinaria">Herramientas</button>
+      <button class="chip" data-cat="Pinturas y revestimientos">Pinturas</button>
+      <button class="chip" data-cat="Electricidad">Electricidad</button>
+      <button class="chip" data-cat="Gasfitería y plomería">Gasfitería</button>
+      <button class="chip" data-cat="Vidrios y aluminios">Vidrios</button>
+      <button class="chip" data-cat="Prefabricados">Prefabricados</button>
+      <button class="chip" data-cat="Otros">Otros</button>
+    </div>
+  </div>
+
+  <!-- DIRECTORIO -->
+  <div id="directorio-sup" style="max-width:1280px;margin:0 auto;padding:32px 24px;">
+    <p id="supCount" style="font-size:.88rem;color:#9CA3AF;font-weight:600;margin-bottom:20px;"></p>
+    <div class="sup-grid" id="supGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:80px 24px;color:#9CA3AF;">
+        <svg width="40" height="40" fill="none" stroke="#E8762A" stroke-width="2" viewBox="0 0 24 24" style="animation:spin 1s linear infinite;margin:0 auto 16px;display:block;"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0"/></svg>
+        <p>Cargando proveedores...</p>
+      </div>
+    </div>
+    <div class="no-results hidden" id="supNoResults">
+      <svg width="48" height="48" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <p>No se encontraron proveedores con esos filtros.</p>
+    </div>
+  </div>
+
+  <!-- CTA REGISTRO -->
+  <section style="background:#F9F9F9;border-top:1px solid #EFEFEF;padding:64px 24px;text-align:center;">
+    <p style="font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8762A;margin-bottom:10px;">¿Eres proveedor?</p>
+    <h2 style="font-size:1.8rem;font-weight:700;margin-bottom:10px;">Publica tu empresa en el directorio</h2>
+    <p style="font-size:.95rem;color:#6B6B6B;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;">Conecta con maestros y constructores que buscan materiales, herramientas y servicios para sus proyectos.</p>
+    <a href="registro-proveedor.html" class="btn btn--primary btn--lg">Registrar mi empresa</a>
+  </section>
+
+  <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+
+  <script>
+    const CATS = ['', 'Ferretería','Materiales de construcción','Herramientas y maquinaria',
+      'Pinturas y revestimientos','Electricidad','Gasfitería y plomería','Vidrios y aluminios','Prefabricados','Otros'];
+
+    let allSuppliers = [];
+    let activecat = '';
+
+    function esc(s) {
+      return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    async function loadSuppliers() {
+      try {
+        const res  = await fetch('/api/suppliers');
+        const data = await res.json();
+        allSuppliers = data.suppliers || [];
+      } catch { allSuppliers = []; }
+      filterSuppliers();
+    }
+
+    function filterSuppliers() {
+      const search = document.getElementById('searchText').value.toLowerCase().trim();
+      const ciudad = document.getElementById('searchCity').value.toLowerCase();
+      let list = allSuppliers;
+      if (activecat) list = list.filter(s => s.categoria === activecat);
+      if (ciudad)    list = list.filter(s => {
+        try { return JSON.parse(s.ciudades).some(c => c.toLowerCase().includes(ciudad)); }
+        catch { return (s.ciudades||'').toLowerCase().includes(ciudad); }
+      });
+      if (search)    list = list.filter(s =>
+        s.nombre.toLowerCase().includes(search) || (s.descripcion||'').toLowerCase().includes(search)
+      );
+      renderSuppliers(list);
+    }
+
+    function renderSuppliers(list) {
+      const grid = document.getElementById('supGrid');
+      const count = document.getElementById('supCount');
+      const noRes = document.getElementById('supNoResults');
+
+      count.textContent = `Mostrando ${list.length} proveedor${list.length !== 1 ? 'es' : ''}`;
+
+      if (list.length === 0) {
+        grid.innerHTML = '';
+        noRes.classList.remove('hidden');
+        return;
+      }
+      noRes.classList.add('hidden');
+      grid.innerHTML = list.map(s => {
+        const ciudades = (() => { try { return JSON.parse(s.ciudades).slice(0,2).join(', '); } catch { return s.ciudades||'—'; } })();
+        const initials = s.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+        return `
+          <div class="sup-card">
+            <div class="sup-card__header">
+              <div class="sup-card__logo">
+                ${s.logo
+                  ? `<img src="${esc(s.logo)}" alt="${esc(s.nombre)}" />`
+                  : `<span class="sup-card__logo-placeholder">${initials}</span>`}
+              </div>
+              <div>
+                <div class="sup-card__name">${esc(s.nombre)}</div>
+                <div class="sup-card__cat">${esc(s.categoria)}</div>
+              </div>
+            </div>
+            <p class="sup-card__desc">${esc(s.descripcion)}</p>
+            <div class="sup-card__footer">
+              <span class="sup-card__city">📍 ${esc(ciudades)}</span>
+              ${s.web ? `<a href="${esc(s.web)}" target="_blank" rel="noopener" class="sup-card__link">Visitar →</a>` : ''}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    // Category chips
+    document.getElementById('catChips').addEventListener('click', e => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      document.querySelectorAll('#catChips .chip').forEach(c => c.classList.remove('chip--active'));
+      chip.classList.add('chip--active');
+      activecat = chip.dataset.cat;
+      filterSuppliers();
+    });
+
+    loadSuppliers();
+  </script>
+
+</body>
+</html>

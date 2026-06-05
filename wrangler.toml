@@ -1,0 +1,17 @@
+name = "quebuenmaestro"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "qbm-professionals"
+database_id = "48721d78-4c7b-41dc-a3ba-725c7ee6dcc9"
+
+[[r2_buckets]]
+binding = "FOTOS"
+bucket_name = "qbm-fotos"
+
+[vars]
+ADMIN_EMAIL = "franklinzunigabarrueto@gmail.com"
+PUBLIC_BASE_URL = "https://quebuenmaestro.cl"
+# ADMIN_TOKEN se configura como secreto cifrado → npx wrangler pages secret put ADMIN_TOKEN

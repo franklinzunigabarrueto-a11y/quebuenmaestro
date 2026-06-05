@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Especialistas — Québuenmaestro!</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+
+      <div class="navbar__col-left">
+        <a href="index.html" class="logo-link">
+        <img src="logo.png" alt="Qbm!" class="logo-img" />
+      </a>
+        <div class="navbar__search">
+        <input type="text" id="searchText" placeholder="Nombre, especialidad o servicio" onkeydown="if(event.key==='Enter') applyFilters()" />
+        <button aria-label="Buscar" onclick="applyFilters()">
+          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+      </div>
+        <div class="navbar__location">
+        <svg width="15" height="15" fill="#E8762A" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <select id="searchCity" onchange="applyFilters()" class="location-select">
+          <option value="">Todas las ciudades</option>
+          <option>Santiago</option><option>Talca</option><option>Concepción</option>
+          <option>Temuco</option><option>Valparaíso</option><option>Antofagasta</option>
+          <option>La Serena</option><option>Puerto Montt</option><option>Rancagua</option>
+        </select>
+      </div>
+      </div>
+      <div class="navbar__col-mid"></div>
+
+      <div class="navbar__right">
+        <div class="navbar__pro-cta">
+          <a href="registro.html" class="btn btn--primary btn--sm">Regístrate Aquí!</a>
+        </div>
+        <nav class="navbar__nav">
+          <a href="index.html">Inicio</a>
+          <a href="especialistas.html" class="active">Especialistas</a>
+          <a href="proveedores.html">Proveedores</a>
+          <a href="quienes.html">Quiénes Somos</a>
+          <a href="blog.html">Blog</a>
+          <a href="index.html#contacto">Contacto</a>
+        </nav>
+      </div>
+
+    </div>
+  </header>
+</div>
+</header>
+
+  <!-- HEADER PÁGINA -->
+  <div style="background:#FAFAFA;border-bottom:1px solid #EFEFEF;padding:36px 24px 28px;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <p style="font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8762A;margin-bottom:8px;">Directorio</p>
+      <h1 style="font-size:1.9rem;font-weight:700;color:#1A1A1A;margin-bottom:8px;">Especialistas de la construcción</h1>
+      <p style="font-size:.95rem;color:#6B6B6B;">Maestros, técnicos, profesionales e ingenieros disponibles en todo Chile</p>
+    </div>
+  </div>
+
+  <!-- FILTROS ESPECIALIDAD -->
+  <div style="background:white;border-bottom:1px solid #EFEFEF;padding:16px 24px;overflow-x:auto;">
+    <div id="categoryChips" style="max-width:1280px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="chip chip--active" data-specialty="">Todos</button>
+      <button class="chip" data-specialty="Gasfitería">Gasfitería</button>
+      <button class="chip" data-specialty="Electricidad">Electricidad</button>
+      <button class="chip" data-specialty="Albañilería">Albañilería</button>
+      <button class="chip" data-specialty="Carpintería">Carpintería</button>
+      <button class="chip" data-specialty="Pintura">Pintura</button>
+      <button class="chip" data-specialty="Construcción">Construcción</button>
+      <button class="chip" data-specialty="Soldadura">Soldadura</button>
+      <button class="chip" data-specialty="Climatización">Climatización</button>
+      <button class="chip" data-specialty="Arquitectura">Arquitectura</button>
+      <button class="chip" data-specialty="Instalaciones">Instalaciones</button>
+      <button class="chip" data-specialty="Techado">Techado</button>
+      <button class="chip" data-specialty="Otros">Otros</button>
+    </div>
+  </div>
+
+  <!-- RESULTADOS -->
+  <div style="max-width:1280px;margin:0 auto;padding:32px 24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:gap;">
+      <p id="resultsCount" style="font-size:.88rem;color:#9CA3AF;font-weight:600;"></p>
+      <select id="sortBy" onchange="applyFilters()" style="font-size:.82rem;border:1.5px solid #E5E5E5;border-radius:8px;padding:6px 12px;color:#3D3D3D;background:white;cursor:pointer;">
+        <option value="rating">Mayor valoración</option>
+        <option value="recent">Más recientes</option>
+        <option value="name">Nombre A-Z</option>
+      </select>
+    </div>
+    <div class="pros-grid" id="prosGrid"></div>
+    <div class="no-results hidden" id="noResults">
+      <svg width="48" height="48" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <p>No se encontraron especialistas con esos filtros.</p>
+      <button class="btn btn--ghost" onclick="resetFilters()">Limpiar filtros</button>
+    </div>
+  </div>
+
+  <!-- CTA REGISTRO -->
+  <section class="register-cta" style="margin-top:40px;">
+    <div class="container">
+      <div class="register-cta__inner">
+        <div class="register-cta__text">
+          <h2>¿Eres profesional de la construcción?</h2>
+          <p>Registra tu perfil gratis y aparece en el directorio. Tus clientes te buscan aquí.</p>
+        </div>
+        <a href="registro.html" class="btn btn--primary btn--lg" style="background:white;color:#E8762A;">Registrar mi perfil</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

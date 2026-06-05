@@ -342,11 +342,11 @@
         const matrix = new DOMMatrixReadOnly(getComputedStyle(btn).transform);
         const currentAngle = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI);
         btn.style.animation  = 'none';
-        btn.style.transform  = `scale(1.12) rotate(${currentAngle}deg)`;
+        btn.style.transform  = `rotate(${currentAngle}deg)`;
         btn.style.transition = 'none';
         void btn.offsetWidth;
         btn.style.transition = 'transform 1.4s cubic-bezier(0.34, 1.1, 0.64, 1)';
-        btn.style.transform  = 'scale(1.12) rotate(0deg)';
+        btn.style.transform  = 'rotate(0deg)';
         t0 = setTimeout(onDone, 1400);
       }
 
@@ -363,8 +363,6 @@
         straightenSmoothly(() => {
           // FASE 1 – tornillos aparecen y giran
           t1 = setTimeout(() => {
-            btn.style.transition = 'transform 2.2s cubic-bezier(0.4, 0, 0.2, 1)';
-            btn.style.transform  = 'scale(1) rotate(0deg)';
             btn.classList.add('screwing');
 
             // FASE 2 – brocha pinta encima de los tornillos

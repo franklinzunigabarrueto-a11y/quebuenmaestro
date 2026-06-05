@@ -190,9 +190,13 @@ button { cursor: pointer; }
 .hero {
   position: relative; min-height: 44vh;
   background: #FAFAFA;
-  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; overflow: visible;
   padding: 56px 24px 52px;
   border-bottom: 1px solid #EFEFEF;
+  z-index: 2;
+}
+.hero__bg-clip {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
 }
 .hero__workers-clip {
   position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
@@ -213,7 +217,7 @@ button { cursor: pointer; }
   mask-image: linear-gradient(to left, black 55%, transparent 100%);
 }
 .hero__grid {
-  position: absolute; inset: 0; z-index: 1;
+  position: absolute; inset: 0; z-index: 0;
   background-image:
     linear-gradient(rgba(232,118,42,.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(232,118,42,.07) 1px, transparent 1px);
@@ -224,7 +228,7 @@ button { cursor: pointer; }
   background: radial-gradient(circle, rgba(232,118,42,.10) 0%, transparent 65%);
   top: 40%; left: 50%; transform: translate(-50%, -50%);
   animation: hero-glow-pulse 5s ease-in-out infinite alternate;
-  pointer-events: none; z-index: 1;
+  pointer-events: none; z-index: 0;
 }
 @keyframes hero-glow-pulse {
   0%   { transform: translate(-50%, -50%) scale(1); }

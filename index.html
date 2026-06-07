@@ -368,7 +368,7 @@
             // FASE 2 – brocha pinta encima de los tornillos
             t2 = setTimeout(() => {
               const W            = btn.offsetWidth;
-              const totalTravel  = W + 140;
+              const totalTravel  = W + 220;
               const totalDur     = 1.0;
               const preButtonMs  = (100 / totalTravel) * totalDur * 1000;
               const acrossDur    = (W   / totalTravel) * totalDur;
@@ -377,7 +377,7 @@
 
               requestAnimationFrame(() => requestAnimationFrame(() => {
                 brush.style.transition = `left ${totalDur}s linear`;
-                brush.style.left = (W + 40) + 'px';
+                brush.style.left = (W + 120) + 'px';
 
                 // Paint-layer revela de izquierda a derecha siguiendo la brocha
                 t3 = setTimeout(() => {
@@ -386,10 +386,12 @@
                 }, Math.max(0, preButtonMs - 50));
               }));
 
-              // Brocha desaparece y se fija el estado final
+              // Brocha se difumina como humo suave al salir por la derecha
               t4 = setTimeout(() => {
+                brush.style.transition = 'opacity 0.55s ease-out, filter 0.55s ease-out';
                 brush.style.opacity = '0';
-                setTimeout(markPainted, 250);
+                brush.style.filter  = 'drop-shadow(1px 3px 5px rgba(0,0,0,0.05)) blur(8px)';
+                setTimeout(markPainted, 600);
               }, 1050);
             }, 2200); // espera a que los tornillos terminen de girar
           }, 0);

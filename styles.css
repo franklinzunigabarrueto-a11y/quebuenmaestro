@@ -258,12 +258,12 @@ button { cursor: pointer; }
   overflow: hidden;
   white-space: nowrap;
   vertical-align: bottom;
-  transition: max-width 1.5s cubic-bezier(0.45, 0, 0.55, 1);
+  transition: max-width 0.75s cubic-bezier(0.45, 0, 0.55, 1);
 }
-/* "ué": 0s → termina en 1.5s | "uen": 0.5s pausa → delay 2s → termina en 3.5s | "aestro": 0.5s pausa → delay 4s → termina en 5.5s */
+/* "ué": 0s → 0.75s | "uen": delay 1.0s → 1.75s | "aestro": delay 2.0s → 2.75s | "!": delay 2.6s → 4.0s */
 .hero__brand-title.expanded .hero__expand--1 { max-width: 3em; }
-.hero__brand-title.expanded .hero__expand--2 { max-width: 4em;  transition-delay: 2.0s; }
-.hero__brand-title.expanded .hero__expand--3 { max-width: 7em;  transition-delay: 4.0s; }
+.hero__brand-title.expanded .hero__expand--2 { max-width: 4em;  transition-delay: 1.0s; }
+.hero__brand-title.expanded .hero__expand--3 { max-width: 7em;  transition-delay: 2.0s; }
 
 /* "!" aparece al final con brillo naranja de 1 segundo */
 .hero__exclam {
@@ -271,7 +271,7 @@ button { cursor: pointer; }
   display: inline-block;
 }
 .hero__brand-title.expanded .hero__exclam {
-  animation: exclam-arrive 1.4s ease-out 6.0s forwards;
+  animation: exclam-arrive 1.4s ease-out 2.6s forwards;
 }
 @keyframes exclam-arrive {
   0%   { opacity: 0; color: var(--orange);
